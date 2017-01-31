@@ -1,4 +1,6 @@
 package game;
+import units.Platform;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -24,6 +26,15 @@ public class InputHandler implements KeyListener {
 
         if(code==KeyEvent.VK_ENTER){
          this.exitMenu=true;
+        }
+
+        //Implementing platform's moving
+        if (code == KeyEvent.VK_RIGHT){
+            Platform.isMovingRight = true;
+            Platform.isMovingLeft = false;
+        } else if (code == KeyEvent.VK_LEFT){
+            Platform.isMovingRight = false;
+            Platform.isMovingLeft = true;
         }
     }
 
