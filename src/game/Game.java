@@ -2,7 +2,6 @@ package game;
 
 import display.Display;
 import graphics.ImageLoader;
-
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -14,12 +13,15 @@ public class Game implements Runnable {
     private int width, height;
 
     private Display display;
-    private BufferStrategy bs;
-    private Graphics graphics;
+    public BufferStrategy bs;
+    public Graphics graphics;
 
 
     private Thread thread;
     private boolean isRunning;
+    public boolean menuMode;
+
+    private InputHandler ih;
 
     public Game(String name, int width, int height) {
 
@@ -32,7 +34,7 @@ public class Game implements Runnable {
     public void initialization() {
 
         this.display = new Display(name, width, height);
-
+        this.ih=new InputHandler(this.display.getCanvas());
     }
 
     public void thick() {
@@ -56,6 +58,14 @@ public class Game implements Runnable {
         this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic.png"), 0, 0, 800, 600, null);
 
         //This is the place for rendering graphics.
+
+        //By default the menu mode is true. As we render, if the ENTER key is pressed, menu mode becomes false and then the game starts.
+        if(this.menuMode){
+
+            this.graphics.drawImage(ImageLoader.loadImage("/starter.png"), 200, 150, 400, 150, null);
+            this.menuMode=ih.isMenuModeOn();
+        }
+
         //TODO: Write classes for ball, bricks, platform, etc.
 
         //Take a carefull look at these two operations. This is the cornerstone of visualizing our graphics.
@@ -82,6 +92,7 @@ public class Game implements Runnable {
     public synchronized void start() {
 
         this.isRunning = true;
+        this.menuMode = true;
         thread = new Thread(this);
         thread.start();
     }
@@ -94,6 +105,5 @@ public class Game implements Runnable {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
-
     }
 }
