@@ -23,6 +23,7 @@ public class Game implements Runnable {
     private boolean isRunning;
     public boolean menuMode;
 
+
     private InputHandler ih;
 
     public Game(String name, int width, int height) {
@@ -37,10 +38,11 @@ public class Game implements Runnable {
 
         this.display = new Display(name, width, height);
         this.ih=new InputHandler(this.display.getCanvas());
+        this.platform=new Platform(350,550, 100, 10, 30);
     }
 
     public void thick() {
-
+        this.platform.thick();
     }
 
     public void render() {
@@ -69,7 +71,7 @@ public class Game implements Runnable {
         } else{
             //Creating the platform
             //TODO: fix platform moving functionality!!!
-            this.platform = new Platform(350,550, 100, 10, 30);
+            this.platform.render(graphics);
             this.graphics.setColor(Color.lightGray);
             this.graphics.fillRect(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight());
 
@@ -88,9 +90,24 @@ public class Game implements Runnable {
         // Here we initialize the game loop.
         this.initialization();
 
+        int fps=60;
+        double timePerTick=1_000_000_000/fps;
+
+        double delta=0;
+        long now;
+        long lasTimeTicked=System.nanoTime();
+
         while (isRunning) {
-            thick();
-            render();
+            now=System.nanoTime();
+
+            delta+=(now-lasTimeTicked)/timePerTick;
+
+            if(delta>=1){
+                thick();
+                render();
+                delta--;
+            }
+
         }
 
         this.stop();

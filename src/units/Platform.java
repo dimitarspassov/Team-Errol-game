@@ -1,5 +1,7 @@
 package units;
 
+import display.Display;
+
 import java.awt.*;
 
 //TODO: Create the platform class
@@ -8,9 +10,10 @@ public class Platform {
     private int platformY = 550;
     private int platformWidth = 100;
     private int platformHeight = 10;
-    private int velocity = 30;
+    private int velocity;
     public static boolean isMovingLeft;
     public static boolean isMovingRight;
+
 
     public int getPlatformX() {
         return platformX;
@@ -65,6 +68,27 @@ public class Platform {
             this.platformX -= this.velocity;
         } else if (isMovingRight){
             this.platformY += this.velocity;
+        }
+    }
+
+    public void thick(){
+        if(isMovingRight){
+            this.platformX+=this.velocity;
+            this.velocity=5;
+
+        }
+        else if (isMovingLeft){
+            this.platformX-=this.velocity;
+            this.velocity=5;
+        }
+    }
+
+    public void render(Graphics g){
+        if(isMovingRight){
+            g.drawRect(this.platformX,this.platformY,this.platformHeight,this.platformWidth);
+        }
+        else if(isMovingLeft){
+            g.drawRect(this.platformX,this.platformY,this.platformHeight,this.platformWidth);
         }
     }
 }

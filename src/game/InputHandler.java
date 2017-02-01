@@ -40,7 +40,15 @@ public class InputHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        int code=e.getKeyCode();
 
+        if (code == KeyEvent.VK_RIGHT){
+            Platform.isMovingRight = false;
+            Platform.isMovingLeft = false;
+        } else if (code == KeyEvent.VK_LEFT){
+            Platform.isMovingRight = false;
+            Platform.isMovingLeft = false;
+        }
     }
 
     public boolean isMenuModeOn(){
