@@ -4,10 +4,10 @@ import java.awt.*;
 
 //TODO: Create the ball class
 public class Ball {
-    private int centerX = 300;
-    private int centerY = 200;
-    private int w = 50;
-    private int h = 50;
+    private int centerX;
+    private int centerY;
+    private int w;
+    private int h;
 
     private int xMove;
     private int yMove;

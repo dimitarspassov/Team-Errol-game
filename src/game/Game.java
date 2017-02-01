@@ -42,7 +42,7 @@ public class Game implements Runnable {
         this.display = new Display(name, width, height);
         this.ih=new InputHandler(this.display.getCanvas());
         this.platform=new Platform(350,550, 100, 10, 30);
-        this.ball=new Ball(300,200,50,50,0,0);
+        this.ball=new Ball(300,200,20,20,0,0);
     }
 
     public void thick() {
@@ -81,7 +81,7 @@ public class Game implements Runnable {
 
             //TODO: Write classes for ball, bricks, etc.
             this.platform.render(graphics);
-            this.graphics.setColor(Color.blue);
+            this.graphics.setColor(Color.RED);
             this.graphics.fillOval(ball.getCenterX(), ball.getCenterY(), ball.getW(), ball.getH());
         }
 
