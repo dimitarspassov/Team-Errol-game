@@ -19,7 +19,6 @@ public class Game implements Runnable {
     public BufferStrategy bs;
     public Graphics graphics;
 
-
     private Thread thread;
     private boolean isRunning;
     public boolean menuMode;
@@ -67,15 +66,15 @@ public class Game implements Runnable {
 
             this.graphics.drawImage(ImageLoader.loadImage("/starter.png"), 200, 150, 400, 150, null);
             this.menuMode=ih.isMenuModeOn();
+        } else{
+            //Creating the platform
+            //TODO: fix platform moving functionality!!!
+            this.platform = new Platform(350,550, 100, 10, 30);
+            this.graphics.setColor(Color.lightGray);
+            this.graphics.fillRect(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight());
+
+            //TODO: Write classes for ball, bricks, etc.
         }
-
-        //Creating the platform
-        //TODO: fix platform moving functionality!!!
-        this.platform = new Platform(350,550, 100, 10, 30);
-        this.graphics.setColor(Color.lightGray);
-        this.graphics.fillRect(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight());
-
-        //TODO: Write classes for ball, bricks, etc.
 
         //Take a carefull look at these two operations. This is the cornerstone of visualizing our graphics.
         // Whatever we draw, it finally goes through dispose and the it is shown.
