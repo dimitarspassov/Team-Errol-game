@@ -1,22 +1,21 @@
 package units;
 
-import display.Display;
 
 import java.awt.*;
 
 //TODO: Create the platform class
 public class Platform {
-    private int platformX = 350;
-    private int platformY = 550;
-    private int platformWidth = 100;
-    private int platformHeight = 10;
+    private int platformX;
+    private int platformY;
+    private int platformWidth;
+    private int platformHeight;
     private int velocity;
     public static boolean isMovingLeft;
     public static boolean isMovingRight;
 
 
     public int getPlatformX() {
-        return platformX;
+        return this.platformX;
     }
 
     public void setPlatformX(int platformX) {
@@ -32,7 +31,7 @@ public class Platform {
     }
 
     public int getPlatformWidth() {
-        return platformWidth;
+        return this.platformWidth;
     }
 
     public void setPlatformWidth(int platformWidth) {
@@ -40,7 +39,7 @@ public class Platform {
     }
 
     public int getPlatformHeight() {
-        return platformHeight;
+        return this.platformHeight;
     }
 
     public void setPlatformHeight(int platformHeight) {
@@ -67,7 +66,7 @@ public class Platform {
         if (isMovingLeft){
             this.platformX -= this.velocity;
         } else if (isMovingRight){
-            this.platformY += this.velocity;
+            this.platformX += this.velocity;
         }
     }
 
@@ -91,10 +90,10 @@ public class Platform {
 
     public void render(Graphics g){
         if(isMovingRight){
-            g.drawRect(this.platformX,this.platformY,this.platformHeight,this.platformWidth);
+            g.drawRect(this.platformX,this.platformY,this.platformWidth,this.platformHeight);
         }
         else if(isMovingLeft){
-            g.drawRect(this.platformX,this.platformY,this.platformHeight,this.platformWidth);
+            g.drawRect(this.platformX,this.platformY,this.platformWidth,this.platformHeight);
         }
     }
 }

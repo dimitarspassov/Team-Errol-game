@@ -21,7 +21,6 @@ public class Game implements Runnable {
     public BufferStrategy bs;
     
     public Graphics graphics;
-
     private Thread thread;
     private boolean isRunning;
     public boolean menuMode;
@@ -78,7 +77,6 @@ public class Game implements Runnable {
             this.platform.render(graphics);
             this.graphics.setColor(Color.lightGray);
             this.graphics.fillRect(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight());
-
             //TODO: Write classes for ball, bricks, etc.
             this.platform.render(graphics);
             this.graphics.setColor(Color.RED);
@@ -114,7 +112,6 @@ public class Game implements Runnable {
                 render();
                 delta--;
             }
-
         }
 
         this.stop();
