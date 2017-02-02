@@ -3,6 +3,7 @@ package game;
 import display.Display;
 import graphics.ImageLoader;
 import units.Ball;
+import units.Brick;
 import units.Platform;
 
 import java.awt.*;
@@ -17,6 +18,7 @@ public class Game implements Runnable {
 
     private Display display;
     private Platform platform;
+    private Brick brick;
     private Ball ball;
     public BufferStrategy bs;
     
@@ -42,6 +44,8 @@ public class Game implements Runnable {
         this.ih=new InputHandler(this.display.getCanvas());
         this.platform=new Platform(350,550, 100, 10, 30);
         this.ball=new Ball(300,200,20,20,0,0);
+        this.brick = new Brick(150,250,100,100);
+
     }
 
     public void thick() {
@@ -81,6 +85,9 @@ public class Game implements Runnable {
             this.platform.render(graphics);
             this.graphics.setColor(Color.RED);
             this.graphics.fillOval(ball.getCenterX(), ball.getCenterY(), ball.getW(), ball.getH());
+            //Creating Brick
+            this.brick.render(graphics);
+            this.graphics.fillRect(brick.getBrickX(),brick.getBrickY(),brick.getBrickWidth(),brick.getBrickHeight());
         }
 
         //Take a carefull look at these two operations. This is the cornerstone of visualizing our graphics.
