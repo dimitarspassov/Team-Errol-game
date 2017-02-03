@@ -7,6 +7,7 @@ import units.Brick;
 import units.Platform;
 
 import java.awt.*;
+import java.awt.font.ImageGraphicAttribute;
 import java.awt.image.BufferStrategy;
 
 //By far the most complex component of our project. This is the game itself.
@@ -77,8 +78,12 @@ public class Game implements Runnable {
             //Creating the platform
             //TODO: fix platform moving functionality!!!
             this.platform.render(graphics);
-            this.graphics.setColor(Color.lightGray);
-            this.graphics.fillRect(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight());
+            this.graphics.drawImage(ImageLoader.loadImage("/platform.png"),
+                    platform.getPlatformX(),
+                    platform.getPlatformY(),
+                    platform.getPlatformWidth(),
+                    platform.getPlatformHeight(),null);
+
             //TODO: Write classes for ball, bricks, etc.
             this.platform.render(graphics);
             this.graphics.setColor(Color.RED);

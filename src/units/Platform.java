@@ -1,6 +1,9 @@
 package units;
 
 
+import graphics.ImageLoader;
+
+import javax.swing.*;
 import java.awt.*;
 
 //TODO: Create the platform class
@@ -90,10 +93,18 @@ public class Platform {
 
     public void render(Graphics g){
         if(isMovingRight){
-            g.fillRect(this.platformX,this.platformY,this.platformWidth,this.platformHeight);
+            g.drawImage(ImageLoader.loadImage("/platform.png"),
+                    this.platformX,
+                    this.platformY,
+                    this.platformWidth,
+                    this.platformHeight,null);
         }
         else if(isMovingLeft){
-            g.fillRect(this.platformX,this.platformY,this.platformWidth,this.platformHeight);
+            g.drawImage(ImageLoader.loadImage("/platform.png"),
+                    this.platformX,
+                    this.platformY,
+                    this.platformWidth,
+                    this.platformHeight,null);
         }
     }
 }
