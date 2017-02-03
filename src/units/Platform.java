@@ -90,10 +90,10 @@ public class Platform {
 
     public void render(Graphics g){
         if(isMovingRight){
-            g.drawRect(this.platformX,this.platformY,this.platformWidth,this.platformHeight);
+            g.fillRect(this.platformX,this.platformY,this.platformWidth,this.platformHeight);
         }
         else if(isMovingLeft){
-            g.drawRect(this.platformX,this.platformY,this.platformWidth,this.platformHeight);
+            g.fillRect(this.platformX,this.platformY,this.platformWidth,this.platformHeight);
         }
     }
 }
