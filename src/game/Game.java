@@ -18,10 +18,9 @@ public class Game implements Runnable {
 
     private Display display;
     private Platform platform;
-    private Brick brick;
     private Ball ball;
     public BufferStrategy bs;
-    
+
     public Graphics graphics;
     private Thread thread;
     private boolean isRunning;
@@ -44,8 +43,6 @@ public class Game implements Runnable {
         this.ih=new InputHandler(this.display.getCanvas());
         this.platform=new Platform(350,550, 100, 10, 30);
         this.ball=new Ball(300,200,20,20,0,0);
-        this.brick = new Brick(150,250,100,100);
-
     }
 
     public void thick() {
@@ -57,7 +54,8 @@ public class Game implements Runnable {
         //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
         //We can change it later.
         this.bs = this.display.getCanvas().getBufferStrategy();
-
+        Brick bricks[];
+        int bricksRemaining;
         if (this.bs == null) {
 
             this.display.getCanvas().createBufferStrategy(2);
@@ -85,9 +83,26 @@ public class Game implements Runnable {
             this.platform.render(graphics);
             this.graphics.setColor(Color.RED);
             this.graphics.fillOval(ball.getCenterX(), ball.getCenterY(), ball.getW(), ball.getH());
-            //Creating Brick
-            this.brick.render(graphics);
-            this.graphics.fillRect(brick.getBrickX(),brick.getBrickY(),brick.getBrickWidth(),brick.getBrickHeight());
+
+            //Initial of brick composition, to be done with load of file for every Level
+            bricks = new Brick[30];
+            bricksRemaining = 0;
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 6; j++) {
+                    bricks[bricksRemaining++] = new Brick(40 + j * 40*3, 48 + i * 12*3);
+                }
+            }
+
+            // This to be in main loop
+            // Draw the bricks
+            for (Brick brick : bricks) {
+                // If brick is destroyed, continue to next brick.
+                if (brick.destroyed) continue;
+
+                // Else, draw the brick.
+                this.graphics.drawImage(brick.getImage(), brick.getX(), brick.getY(),
+                        brick.getWidth(), brick.getHeight(), null);
+            }
         }
 
         //Take a carefull look at these two operations. This is the cornerstone of visualizing our graphics.

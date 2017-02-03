@@ -1,62 +1,28 @@
 package units;
 
-import java.awt.*;
+//TODO: Create the brick class
 
-//This is the Brick class here you can get/set bricks and other features
-public class Brick {
-    //initializing variables
-    private int BrickX;
-    private int BrickY;
-    private int BrickWidth;
-    private int BrickHeight;
+import javax.swing.*;
 
-    //Getter Setters parameteres
+// The Brick class extends Sprite, and represents the breakable tiles.
+public class Brick extends Sprite {
 
-    public int getBrickX() {
-        return this.BrickX;
+
+    /* The destroyed attribute indicates whether the current brick is destroyed.
+     * The game loop uses this attribute to decide whether or not to draw it
+     * to the screen and consider for collision checks.
+     *
+     * This method is set to public for now because it has only 2 possible
+     * values: true and false, which I can directly control. And there is
+     * no other functionality associated with changing this value
+     * (like keeping values in limits, for example).
+     */
+    public boolean destroyed;
+
+    public Brick(int x, int y) {
+        super(x, y);
+        setImage(new ImageIcon(
+                this.getClass().getResource("/brick.png")).getImage());
+        destroyed = false;
     }
-
-    public void setBrickX(int BrickX) {
-        this.BrickX = BrickX;
-    }
-
-    public int getBrickY() {
-        return this.BrickY;
-    }
-
-    public void setBrickY(int BrickY) {
-        this.BrickY = BrickY;
-    }
-
-    public int getBrickWidth() {
-        return this.BrickWidth;
-    }
-
-    public void setBrickWidth(int BrickWidth) {
-        this.BrickWidth = BrickWidth;
-    }
-
-    public int getBrickHeight() {
-        return this.BrickHeight;
-    }
-
-    public void setBrickHeight(int BrickHeight) {
-        this.BrickHeight = BrickHeight;
-    }
-
-    public Brick(int BrickX, int BrickY, int BrickWidth, int BrickHeight) {
-        this.BrickX = BrickX;
-        this.BrickY = BrickY;
-        this.BrickWidth = BrickWidth;
-        this.BrickHeight = BrickHeight;
-    }
-
-    public void render(Graphics g){
-
-            g.drawRect(this.BrickX,this.BrickY,this.BrickWidth,this.BrickHeight);
-
-
-    }
-
-
 }
