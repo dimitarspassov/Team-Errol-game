@@ -7,7 +7,7 @@ import java.awt.*;
 // parameters of the game display. We also create a canvas. The canvas is what we draw our graphics on.
 // And then the canvas is visualized on the current display.
 
-public class Display {
+public class Display extends JFrame {
 
     private JFrame frame;
     private Canvas canvas;
@@ -24,8 +24,7 @@ public class Display {
         this.frame.setResizable(false);
         this.frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.frame.setLocationRelativeTo(null);
-
-        this.canvas=new Canvas();
+        this.canvas = new Canvas();
         this.canvas.setPreferredSize(new Dimension(width, height));
         this.canvas.setMinimumSize(new Dimension(width, height));
         this.canvas.setMaximumSize(new Dimension(width, height));
@@ -33,9 +32,14 @@ public class Display {
 
         this.frame.add(this.canvas);
         this.frame.pack();
+
     }
 
     public Canvas getCanvas() {
         return canvas;
+    }
+
+    public JFrame getFrame() {
+        return frame;
     }
 }
