@@ -15,7 +15,8 @@ public class Platform {
     private int velocity;
     public static boolean isMovingLeft;
     public static boolean isMovingRight;
-
+    public static boolean isBonus;
+    public static boolean isSanction;
 
     public int getPlatformX() {
         return this.platformX;
