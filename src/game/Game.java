@@ -66,7 +66,9 @@ public class Game extends JFrame implements Runnable    {
         //We can change it later.
 
         //Display Game Menu
-        displayMenu();
+//        displayMenu();
+
+
         this.bs = this.display.getCanvas().getBufferStrategy();
         Brick bricks[];
         int bricksRemaining;
@@ -95,10 +97,10 @@ public class Game extends JFrame implements Runnable    {
                     platform.getPlatformX(),
                     platform.getPlatformY(),
                     platform.getPlatformWidth(),
-                    platform.getPlatformHeight(), null);
+                    platform.getPlatformHeight(),null);
 
             //TODO: Write classes for ball, bricks, etc.
-            this.platform.render(graphics);
+            this.ball.render(graphics);
             this.graphics.setColor(Color.RED);
             this.graphics.fillOval(ball.getCenterX(), ball.getCenterY(), ball.getW(), ball.getH());
 
@@ -123,7 +125,7 @@ public class Game extends JFrame implements Runnable    {
             }
         }
 
-        //Take a carefull look at these two operations. This is the cornerstone of visualizing our graphics.
+        //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.
         // Whatever we draw, it finally goes through dispose and the it is shown.
         this.graphics.dispose();
         this.bs.show();
