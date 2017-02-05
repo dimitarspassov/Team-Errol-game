@@ -43,7 +43,7 @@ public class Game extends JFrame implements Runnable    {
         this.display = new Display(name, width, height);
         this.ih = new InputHandler(this.display.getCanvas());
         this.platform = new Platform(350, 550, 100, 10, 30);
-        this.ball = new Ball(300, 200, 20, 20, 0, 0);
+        this.ball = new Ball(300, 200, 25, 50, 50, 5, 5);
     }
 
     public void thick() {
@@ -102,7 +102,7 @@ public class Game extends JFrame implements Runnable    {
             //TODO: Write classes for ball, bricks, etc.
             this.ball.render(graphics);
             this.graphics.setColor(Color.RED);
-            this.graphics.fillOval(ball.getCenterX(), ball.getCenterY(), ball.getW(), ball.getH());
+            this.graphics.fillOval((int) ball.getCenterX(),(int) ball.getCenterY(), ball.getH(), ball.getW());
 
             //Initial of brick composition, to be done with load of file for every Level
             bricks = new Brick[30];
@@ -153,6 +153,7 @@ public class Game extends JFrame implements Runnable    {
                 thick();
                 render();
                 delta--;
+                ball.move();
             }
         }
 

@@ -3,56 +3,43 @@ package units;
 import java.awt.*;
 
 //TODO: Create the ball class
+
 public class Ball {
-    private int centerX;
-    private int centerY;
-    private int w;
-    private int h;
+    private float centerX = 300;
+    private float centerY = 200;
+    private int w = 50;
+    private int h = 50;
+    private int radius = 25;
 
-    private int xMove;
-    private int yMove;
+    private int speedX = 5;
+    private int speedY = 5;
 
-    private int xSpeed;
-    private int ySpeed;
-
-    public Ball(int centerX, int centerY, int w, int h, int xMove, int yMove) {
+    public Ball(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.w = w;
         this.h = h;
-        this.xMove = xMove;
-        this.yMove = yMove;
+        this.speedX = speedX;
+        this.speedY = speedY;
     }
 
-    public int getyMove() {
-
-        return yMove;
+    public float getCenterX() {
+        return centerX;
     }
 
-    public void setyMove(int yMove) {
-        this.yMove = yMove;
+    public void setCenterX(float centerX) {
+        this.centerX = centerX;
     }
 
-    public int getxMove() {
-
-        return xMove;
+    public float getCenterY() {
+        return centerY;
     }
 
-    public void setxMove(int xMove) {
-        this.xMove = xMove;
-    }
-
-    public int getH() {
-
-        return h;
-    }
-
-    public void setH(int h) {
-        this.h = h;
+    public void setCenterY(float centerY) {
+        this.centerY = centerY;
     }
 
     public int getW() {
-
         return w;
     }
 
@@ -60,27 +47,64 @@ public class Ball {
         this.w = w;
     }
 
-    public int getCenterY() {
-
-        return centerY;
+    public int getH() {
+        return h;
     }
 
-    public void setCenterY(int centerY) {
-        this.centerY = centerY;
+    public void setH(int h) {
+        this.h = h;
     }
 
-    public int getCenterX() {
-
-        return centerX;
+    public int getRadius() {
+        return radius;
     }
 
-    public void setCenterX(int centerX) {
-        this.centerX = centerX;
+    public void setRadius(int radius) {
+        this.radius = radius;
     }
 
-    public void render(Graphics g){
+    public int getSpeedX() {
+        return speedX;
+    }
 
-        g.drawOval(this.centerX,this.centerY,this.h,this.w);
+    public void setSpeedX(int speedX) {
+        this.speedX = speedX;
+    }
 
+    public int getSpeedY() {
+        return speedY;
+    }
+
+    public void setSpeedY(int speedY) {
+        this.speedY = speedY;
+    }
+
+    public void move() {
+        float ballMinX = 0 + radius;
+        float ballMinY = 0 + radius;
+        float ballMaxX = 800 - radius;
+        float ballMaxY = 600 - radius;
+
+        centerX += speedX;
+        centerY += speedY;
+
+        if (centerX < ballMinX) {
+            speedX = -speedX;
+            centerX = ballMinX;
+        } else if (centerX > ballMaxX) {
+            speedX = -speedX;
+            centerX = ballMaxX;
+        }
+        if (centerY < ballMinY) {
+            speedY = -speedY;
+            centerY = ballMinY;
+        } else if (centerY > ballMaxY) {
+            speedY = -speedY;
+            centerY = ballMaxY;
+        }
+    }
+
+    public void render(Graphics g) {
+        g.drawOval((int) this.centerX, (int) this.centerY, this.w, this.h);
     }
 }
