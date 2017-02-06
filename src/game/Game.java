@@ -12,7 +12,7 @@ import java.awt.image.BufferStrategy;
 
 //By far the most complex component of our project. This is the game itself.
 
-public class Game extends JFrame implements Runnable    {
+public class Game extends JFrame implements Runnable {
 
     private String name;
     private int width, height;
@@ -53,9 +53,9 @@ public class Game extends JFrame implements Runnable    {
         this.display = new Display(name, width, height);
         this.ih = new InputHandler(this.display.getCanvas());
         this.platform = new Platform(350, 550, 100, 10, 30);
-        this.ball = new Ball(300, 200, 15, 30, 30, 5, 5, platform,bricks);
-        this.bricks=bricks;
-        this.bricksRemaining=bricksRemaining;
+        this.ball = new Ball(300, 200, 15, 30, 30, 5, 5, platform, bricks);
+        this.bricks = bricks;
+        this.bricksRemaining = bricksRemaining;  //if brickRemaining=0 then level ends
     }
 
     public void thick() {
@@ -109,24 +109,26 @@ public class Game extends JFrame implements Runnable    {
                     platform.getPlatformX(),
                     platform.getPlatformY(),
                     platform.getPlatformWidth(),
-                    platform.getPlatformHeight(),null);
+                    platform.getPlatformHeight(), null);
 
             //TODO: Write classes for ball, bricks, etc.
             this.ball.render(graphics);
             this.graphics.setColor(Color.RED);
-            this.graphics.fillOval((int) ball.getCenterX(),(int) ball.getCenterY(), ball.getH(), ball.getW());
+            this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
             // Draw the bricks
+            this.bricksRemaining = 30;
             for (Brick brick : bricks) {
                 // If brick is destroyed, continue to next brick.
-                if (brick.destroyed) continue;
-
-                // Else, draw the brick.
-                this.graphics.drawImage(brick.getImage(), brick.getX(), brick.getY(),
-                        brick.getWidth(), brick.getHeight(), this);
+                if (brick.destroyed) {
+                    this.bricksRemaining--;
+                    continue;
+                } else {
+                    // Else, draw the brick.
+                    if (this.bricksRemaining != 0)
+                        this.graphics.drawImage(brick.getImage(), brick.getX(), brick.getY(),
+                                brick.getWidth(), brick.getHeight(), this);
+                }
             }
-
-
-
         }
 
         //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.
@@ -159,6 +161,11 @@ public class Game extends JFrame implements Runnable    {
                 delta--;
                 ball.move();
             }
+            //To be managed level complete
+            if(this.bricksRemaining==0){
+                this.stop();
+            }
+
         }
 
         this.stop();
