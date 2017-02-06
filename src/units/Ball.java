@@ -7,19 +7,20 @@ import java.awt.*;
 //TODO: Create the ball class
 
 public class Ball {
-    private float centerX = 300;
-    private float centerY = 200;
-    private int w = 50;
-    private int h = 50;
-    private int radius = 25;
+    private float centerX;
+    private float centerY;
+    private int w;
+    private int h;
+    private int radius;
 
-    private int speedX = 5;
-    private int speedY = 5;
-    Platform platform;
+    private int speedX;
+    private int speedY;
+    private Platform platform;
 
     public Ball(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY, Platform platform) {
         this.centerX = centerX;
         this.centerY = centerY;
+        this.radius = radius;
         this.w = w;
         this.h = h;
         this.speedX = speedX;
@@ -84,30 +85,32 @@ public class Ball {
     }
 
     public void move() {
-        float ballMinX = 0 + radius;
-        float ballMinY = 0 + radius;
+        float ballMinX = radius;
+        float ballMinY = radius;
         float ballMaxX = 800 - radius;
         float ballMaxY = 600 - radius;
 
         centerX += speedX;
         centerY += speedY;
 
-        if (new Rectangle((int)getCenterX(), (int)getCenterY(), getW(), getH())
+        if (new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH())
                 .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
 
             speedY = -speedY;
         }
 
-        if (centerX < ballMinX) {
+        if (centerX <= 0) {
+
             speedX = -speedX;
-            centerX = ballMinX;
-        } else if (centerX > ballMaxX) {
+            centerX = ballMinX - 1;
+
+        } else if (centerX + speedX > ballMaxX - speedX - radius) {
+
             speedX = -speedX;
-            centerX = ballMaxX;
         }
-        if (centerY < ballMinY) {
+        if (centerY <= 0) {
+
             speedY = -speedY;
-            centerY = ballMinY;
         } else if (centerY > ballMaxY) {
             speedY = -speedY;
             centerY = ballMaxY;
