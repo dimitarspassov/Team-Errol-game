@@ -53,7 +53,7 @@ public class Game extends JFrame implements Runnable {
         this.display = new Display(name, width, height);
         this.ih = new InputHandler(this.display.getCanvas());
         this.platform = new Platform(350, 550, 100, 10, 30);
-        this.ball = new Ball(300, 200, 15, 30, 30, 5, 5, platform, bricks);
+        this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
         this.bricks = bricks;
         this.bricksRemaining = bricksRemaining;  //if brickRemaining=0 then level ends
     }
