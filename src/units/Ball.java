@@ -1,5 +1,7 @@
 package units;
 
+import javafx.application.*;
+
 import java.awt.*;
 
 //TODO: Create the ball class
@@ -13,14 +15,16 @@ public class Ball {
 
     private int speedX = 5;
     private int speedY = 5;
+    Platform platform;
 
-    public Ball(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY) {
+    public Ball(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY, Platform platform) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.w = w;
         this.h = h;
         this.speedX = speedX;
         this.speedY = speedY;
+        this.platform = platform;
     }
 
     public float getCenterX() {
@@ -87,6 +91,12 @@ public class Ball {
 
         centerX += speedX;
         centerY += speedY;
+
+        if (new Rectangle((int)getCenterX(), (int)getCenterY(), getW(), getH())
+                .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
+
+            speedY = -speedY;
+        }
 
         if (centerX < ballMinX) {
             speedX = -speedX;

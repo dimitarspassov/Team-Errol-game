@@ -43,7 +43,7 @@ public class Game extends JFrame implements Runnable    {
         this.display = new Display(name, width, height);
         this.ih = new InputHandler(this.display.getCanvas());
         this.platform = new Platform(350, 550, 100, 10, 30);
-        this.ball = new Ball(300, 200, 25, 50, 50, 5, 5);
+        this.ball = new Ball(300, 200, 15, 30, 30, 5, 5, platform);
     }
 
     public void thick() {
