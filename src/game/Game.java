@@ -20,6 +20,8 @@ public class Game extends JFrame implements Runnable    {
     private Display display;
     private Platform platform;
     private Ball ball;
+    private Brick[] bricks;
+    private int bricksRemaining;
     public BufferStrategy bs;
 
     public Graphics graphics;
@@ -39,11 +41,21 @@ public class Game extends JFrame implements Runnable    {
     }
 
     public void initialization() {
-
+        //Initial of brick composition, to be done with load of file for every Level
+        Brick bricks[];
+        bricks = new Brick[30];
+        int bricksRemaining = 0;
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 6; j++) {
+                bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+            }
+        }
         this.display = new Display(name, width, height);
         this.ih = new InputHandler(this.display.getCanvas());
         this.platform = new Platform(350, 550, 100, 10, 30);
-        this.ball = new Ball(300, 200, 15, 30, 30, 5, 5, platform);
+        this.ball = new Ball(300, 200, 15, 30, 30, 5, 5, platform,bricks);
+        this.bricks=bricks;
+        this.bricksRemaining=bricksRemaining;
     }
 
     public void thick() {
@@ -53,8 +65,8 @@ public class Game extends JFrame implements Runnable    {
     public void displayMenu() {
         JMenuBar menuBar = new JMenuBar();
         menuBar.add(new GameMenu());
-      //  menuBar.add(new ColorMenu());
-      //  menuBar.add(new SpeedMenu());
+        //  menuBar.add(new ColorMenu());
+        //  menuBar.add(new SpeedMenu());
         JFrame frame = this.display.getFrame();
         frame.setJMenuBar(menuBar);
         frame.setVisible(true);
@@ -70,7 +82,7 @@ public class Game extends JFrame implements Runnable    {
 
 
         this.bs = this.display.getCanvas().getBufferStrategy();
-        Brick bricks[];
+
         int bricksRemaining;
         if (this.bs == null) {
 
@@ -103,17 +115,6 @@ public class Game extends JFrame implements Runnable    {
             this.ball.render(graphics);
             this.graphics.setColor(Color.RED);
             this.graphics.fillOval((int) ball.getCenterX(),(int) ball.getCenterY(), ball.getH(), ball.getW());
-
-            //Initial of brick composition, to be done with load of file for every Level
-            bricks = new Brick[30];
-            bricksRemaining = 0;
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 6; j++) {
-                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
-                }
-            }
-
-            // This to be in main loop
             // Draw the bricks
             for (Brick brick : bricks) {
                 // If brick is destroyed, continue to next brick.
@@ -121,8 +122,11 @@ public class Game extends JFrame implements Runnable    {
 
                 // Else, draw the brick.
                 this.graphics.drawImage(brick.getImage(), brick.getX(), brick.getY(),
-                        brick.getWidth(), brick.getHeight(), null);
+                        brick.getWidth(), brick.getHeight(), this);
             }
+
+
+
         }
 
         //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.

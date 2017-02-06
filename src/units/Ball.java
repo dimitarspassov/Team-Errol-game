@@ -1,7 +1,5 @@
 package units;
 
-import javafx.application.*;
-
 import java.awt.*;
 
 //TODO: Create the ball class
@@ -16,8 +14,9 @@ public class Ball {
     private int speedX;
     private int speedY;
     private Platform platform;
+    Brick[] bricks;
 
-    public Ball(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY, Platform platform) {
+    public Ball(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY, Platform platform, Brick[] bricks) {
         this.centerX = centerX;
         this.centerY = centerY;
         this.radius = radius;
@@ -26,6 +25,7 @@ public class Ball {
         this.speedX = speedX;
         this.speedY = speedY;
         this.platform = platform;
+        this.bricks = bricks;
     }
 
     public float getCenterX() {
@@ -97,6 +97,18 @@ public class Ball {
                 .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
 
             speedY = -speedY;
+        }
+        // This to be in main loop
+        // Draw the bricks
+        if (bricks != null) {
+            for (Brick brick : bricks) {
+                // If brick is destroyed, continue to next brick.
+                if (brick.destroyed) continue;
+                if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
+                    speedY = -speedY;
+                    brick.destroyed=true;
+                }
+            }
         }
 
         if (centerX <= 0) {
