@@ -8,10 +8,11 @@ import java.awt.event.KeyListener;
 //This is the input handler class. We will extend it later with movement commands for the platform.
 public class InputHandler implements KeyListener {
 
-    private boolean exitMenu;
+    private boolean menuMode;
 
-    public InputHandler(Canvas canvas) {
+    public InputHandler(Canvas canvas, boolean menuMode) {
         canvas.addKeyListener(this);
+        this.menuMode=menuMode;
     }
 
     @Override
@@ -25,7 +26,8 @@ public class InputHandler implements KeyListener {
         int code=e.getKeyCode();
 
         if(code==KeyEvent.VK_ENTER){
-         this.exitMenu=true;
+
+         this.menuMode=false;
         }
 
         //Implementing platform's moving
@@ -53,7 +55,12 @@ public class InputHandler implements KeyListener {
 
     public boolean isMenuModeOn(){
 
-        if(this.exitMenu) return false;
-        else return true;
+
+       return this.menuMode;
+    }
+
+    public void goBackToMenu(){
+
+        this.menuMode=true;
     }
 }

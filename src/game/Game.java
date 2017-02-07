@@ -51,7 +51,7 @@ public class Game extends JFrame implements Runnable {
             }
         }
         this.display = new Display(name, width, height);
-        this.ih = new InputHandler(this.display.getCanvas());
+        this.ih = new InputHandler(this.display.getCanvas(), true);
         this.platform = new Platform(350, 550, 100, 10, 30);
         this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
         this.bricks = bricks;
@@ -74,16 +74,17 @@ public class Game extends JFrame implements Runnable {
     }
 
     public void render() {
-        //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
-        //We can change it later.
+
 
         //Display Game Menu
 //        displayMenu();
 
 
+        //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
+        //We can change it later.
         this.bs = this.display.getCanvas().getBufferStrategy();
 
-        int bricksRemaining;
+
         if (this.bs == null) {
 
             this.display.getCanvas().createBufferStrategy(2);
@@ -97,13 +98,15 @@ public class Game extends JFrame implements Runnable {
         //This is the place for rendering graphics.
 
         //By default the menu mode is true. As we render, if the ENTER key is pressed, menu mode becomes false and then the game starts.
+
         if (this.menuMode) {
 
             this.graphics.drawImage(ImageLoader.loadImage("/starter.png"), 200, 150, 400, 150, null);
             this.menuMode = ih.isMenuModeOn();
+
         } else {
             //Creating the platform
-            //TODO: fix platform moving functionality!!!
+
             this.platform.render(graphics);
             this.graphics.drawImage(ImageLoader.loadImage("/platform.png"),
                     platform.getPlatformX(),
@@ -111,7 +114,7 @@ public class Game extends JFrame implements Runnable {
                     platform.getPlatformWidth(),
                     platform.getPlatformHeight(), null);
 
-            //TODO: Write classes for ball, bricks, etc.
+
             this.ball.render(graphics);
             this.graphics.setColor(Color.RED);
             this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
@@ -162,8 +165,41 @@ public class Game extends JFrame implements Runnable {
                 ball.move();
             }
             //To be managed level complete
-            if(this.bricksRemaining==0){
-                this.stop();
+
+            //Here we have a crucial game element - level switching!
+            //If we have run out of bricks, we set the menuMode On. We also assign the remaining bricks with -1. Thus we are sure that
+            // the level will be switched ONLY after the menuMode is Off and the bricks are -1.
+            //Then we have to invoke the next level.
+            if (this.bricksRemaining == 0 && this.menuMode) {
+
+                this.menuMode = ih.isMenuModeOn();
+
+
+            } else if (this.bricksRemaining == -1 && !this.menuMode) {
+
+                //Here is almost an exact copy of what we do in initialize(). However, we will switch it with leveling functionality.
+                //We can later remove this from initialize() and this way all the levels will be loaded here.
+                Brick bricks[];
+                bricks = new Brick[30];
+                int bricksRemaining = 0;
+                for (int i = 0; i < 5; i++) {
+                    for (int j = 0; j < 6; j++) {
+                        bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+                    }
+                }
+
+                this.platform = new Platform(350, 550, 100, 10, 30);
+                this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
+                this.bricks = bricks;
+                this.bricksRemaining = bricksRemaining;
+
+            } else if (this.bricksRemaining == 0) {
+
+
+                this.ih.goBackToMenu();
+                this.menuMode = ih.isMenuModeOn();
+                this.bricksRemaining = -1;
+                //this.stop();
             }
 
         }
