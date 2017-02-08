@@ -75,6 +75,7 @@ public class Game extends JFrame implements Runnable {
 
     public void render() {
 
+        int scores = 0;
 
         //Display Game Menu
 //        displayMenu();
@@ -114,7 +115,6 @@ public class Game extends JFrame implements Runnable {
                     platform.getPlatformWidth(),
                     platform.getPlatformHeight(), null);
 
-
             this.ball.render(graphics);
             this.graphics.setColor(Color.RED);
             this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
@@ -123,6 +123,8 @@ public class Game extends JFrame implements Runnable {
             for (Brick brick : bricks) {
                 // If brick is destroyed, continue to next brick.
                 if (brick.destroyed) {
+                    // Increment player scores
+                    scores += 5;
                     this.bricksRemaining--;
                     continue;
                 } else {
@@ -133,6 +135,10 @@ public class Game extends JFrame implements Runnable {
                 }
             }
         }
+
+        // Show player scores
+        this.graphics.setFont(new Font("serif", Font.BOLD, 27));
+        this.graphics.drawString("" + scores, 740, 30);
 
         //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.
         // Whatever we draw, it finally goes through dispose and the it is shown.
