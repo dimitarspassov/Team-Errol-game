@@ -16,6 +16,8 @@ public class Ball {
     private Platform platform;
     Brick[] bricks;
 
+    public static boolean isSpacePressed;
+
     public Ball(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY, Platform platform, Brick[] bricks) {
         this.centerX = centerX;
         this.centerY = centerY;
@@ -90,42 +92,50 @@ public class Ball {
         float ballMaxX = 800 - radius;
         float ballMaxY = 600 - radius;
 
-        centerX += speedX;
-        centerY += speedY;
 
-        if (new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH())
-                .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
+// If Space is pressed-ball moves,
+// otherwise stands still on platform
+        if(isSpacePressed) {
+            centerX += speedX;
+            centerY += speedY;
 
-            speedY = -speedY;
-        }
-        // This to be in main loop
-        // Draw the bricks
-        if (bricks != null) {
-            for (Brick brick : bricks) {
-                // If brick is destroyed, continue to next brick.
-                if (brick.destroyed) continue;
-                if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
-                    speedY = -speedY;
-                    brick.destroyed=true;
+            if (new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH())
+                    .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
+
+                speedY = -speedY;
+            }
+            // This to be in main loop
+            // Draw the bricks
+            if (bricks != null) {
+                for (Brick brick : bricks) {
+                    // If brick is destroyed, continue to next brick.
+                    if (brick.destroyed) continue;
+                    if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
+                        speedY = -speedY;
+                        brick.destroyed = true;
+                    }
                 }
             }
+
+            if (centerX <= 0) {
+
+                speedX = -speedX;
+                centerX = ballMinX - 1;
+
+            } else if (centerX + speedX > ballMaxX - speedX - radius) {
+
+                speedX = -speedX;
+            }
+            if (centerY <= 0) {
+                speedY = -speedY;
+            } else if (centerY > ballMaxY) {
+                speedY = -speedY;
+                centerY = ballMaxY;
+            }
         }
-
-        if (centerX <= 0) {
-
-            speedX = -speedX;
-            centerX = ballMinX - 1;
-
-        } else if (centerX + speedX > ballMaxX - speedX - radius) {
-
-            speedX = -speedX;
-        }
-        if (centerY <= 0) {
-
-            speedY = -speedY;
-        } else if (centerY > ballMaxY) {
-            speedY = -speedY;
-            centerY = ballMaxY;
+        else {
+            centerX=platform.getPlatformX()+35;
+            centerY=platform.getPlatformY()-30;
         }
     }
 

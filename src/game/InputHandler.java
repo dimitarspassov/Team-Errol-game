@@ -1,4 +1,5 @@
 package game;
+import units.Ball;
 import units.Platform;
 
 import java.awt.*;
@@ -28,6 +29,11 @@ public class InputHandler implements KeyListener {
         if(code==KeyEvent.VK_ENTER){
 
          this.menuMode=false;
+        }
+
+        // Press Space to start ball's moving
+        if(code==KeyEvent.VK_SPACE){
+            Ball.isSpacePressed =true;
         }
 
         //Implementing platform's moving
