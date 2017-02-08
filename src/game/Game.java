@@ -208,6 +208,12 @@ public class Game extends JFrame implements Runnable {
                 //this.stop();
             }
 
+            // Stop the game when the ball exits game field
+            if (this.ball.getCenterY() >= 570) {
+                this.ih.goBackToMenu();
+                this.menuMode = ih.isMenuModeOn();
+                this.bricksRemaining = -1;
+            }
         }
 
         this.stop();
