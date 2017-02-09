@@ -18,9 +18,25 @@ public class Brick extends Sprite {
      * (like keeping values in limits, for example).
      */
     public boolean destroyed;
+    public int hitCount;
+    public void hitBrick(){
+        this.hitCount--;
+        if(hitCount==2){
+            setImage(new ImageIcon(
+                    this.getClass().getResource("/brick_yellow.png")).getImage());
+        }
+        if(hitCount==1){
+            setImage(new ImageIcon(
+                    this.getClass().getResource("/brick_green.png")).getImage());
+        }
 
+        if(this.hitCount==0){
+            this.destroyed = true;
+        }
+    }
     public Brick(int x, int y) {
         super(x, y);
+        hitCount =3;
         setImage(new ImageIcon(
                 this.getClass().getResource("/brick.png")).getImage());
         destroyed = false;

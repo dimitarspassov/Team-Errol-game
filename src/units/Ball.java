@@ -112,7 +112,7 @@ public class Ball {
                     if (brick.destroyed) continue;
                     if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
                         speedY = -speedY;
-                        brick.destroyed = true;
+                        brick.hitBrick();
                     }
                 }
             }
