@@ -13,7 +13,7 @@ public class ImageLoader {
         try {
             return ImageIO.read(ImageLoader.class.getResource(path));
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println();
         }
         return null;
     }

@@ -1,4 +1,5 @@
 package game;
+
 import units.Ball;
 import units.Platform;
 
@@ -9,11 +10,10 @@ import java.awt.event.KeyListener;
 //This is the input handler class. We will extend it later with movement commands for the platform.
 public class InputHandler implements KeyListener {
 
-    private boolean menuMode;
 
-    public InputHandler(Canvas canvas, boolean menuMode) {
+    public InputHandler(Canvas canvas) {
         canvas.addKeyListener(this);
-        this.menuMode=menuMode;
+
     }
 
     @Override
@@ -23,24 +23,19 @@ public class InputHandler implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        int code = e.getKeyCode();
 
-        int code=e.getKeyCode();
-
-        if(code==KeyEvent.VK_ENTER){
-
-         this.menuMode=false;
-        }
 
         // Press Space to start ball's moving
-        if(code==KeyEvent.VK_SPACE){
-            Ball.isSpacePressed =true;
+        if (code == KeyEvent.VK_SPACE) {
+            Ball.isSpacePressed = true;
         }
 
         //Implementing platform's moving
-        if (code == KeyEvent.VK_RIGHT){
+        if (code == KeyEvent.VK_RIGHT) {
             Platform.isMovingRight = true;
             Platform.isMovingLeft = false;
-        } else if (code == KeyEvent.VK_LEFT){
+        } else if (code == KeyEvent.VK_LEFT) {
             Platform.isMovingRight = false;
             Platform.isMovingLeft = true;
         }
@@ -48,25 +43,16 @@ public class InputHandler implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        int code=e.getKeyCode();
+        int code = e.getKeyCode();
 
-        if (code == KeyEvent.VK_RIGHT){
+        if (code == KeyEvent.VK_RIGHT) {
             Platform.isMovingRight = false;
             Platform.isMovingLeft = false;
-        } else if (code == KeyEvent.VK_LEFT){
+        } else if (code == KeyEvent.VK_LEFT) {
             Platform.isMovingRight = false;
             Platform.isMovingLeft = false;
         }
     }
 
-    public boolean isMenuModeOn(){
 
-
-       return this.menuMode;
-    }
-
-    public void goBackToMenu(){
-
-        this.menuMode=true;
-    }
 }

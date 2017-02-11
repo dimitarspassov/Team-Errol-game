@@ -27,10 +27,20 @@ public class Game extends JFrame implements Runnable {
     public Graphics graphics;
     private Thread thread;
     private boolean isRunning;
-    public boolean menuMode;
 
 
-    private InputHandler ih;
+    private Menu menu;
+
+    public static enum STATE {
+        MENU,
+        GAME,
+        HIGHSCORES
+    }
+
+    public static STATE State = STATE.MENU;
+
+    //private InputHandler ih;
+
 
     public Game(String name, int width, int height) {
 
@@ -51,27 +61,24 @@ public class Game extends JFrame implements Runnable {
             }
         }
         this.display = new Display(name, width, height);
-        this.ih = new InputHandler(this.display.getCanvas(), true);
+        this.addKeyListener(new InputHandler(this.display.getCanvas()));
         this.platform = new Platform(350, 550, 100, 10, 30);
         this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
         this.bricks = bricks;
         this.bricksRemaining = bricksRemaining;  //if brickRemaining=0 then level ends
+        this.menu = new Menu();
+        this.addMouseListener(new MouseInput(this.display.getCanvas()));
+
     }
 
     public void thick() {
-        this.platform.thick();
+
+        if (State == STATE.GAME) {
+            this.platform.thick();
+        }
+
     }
 
-    public void displayMenu() {
-        JMenuBar menuBar = new JMenuBar();
-        menuBar.add(new GameMenu());
-        //  menuBar.add(new ColorMenu());
-        //  menuBar.add(new SpeedMenu());
-        JFrame frame = this.display.getFrame();
-        frame.setJMenuBar(menuBar);
-        frame.setVisible(true);
-        frame.setSize(350, 250);
-    }
 
     public void render() {
 
@@ -100,12 +107,7 @@ public class Game extends JFrame implements Runnable {
 
         //By default the menu mode is true. As we render, if the ENTER key is pressed, menu mode becomes false and then the game starts.
 
-        if (this.menuMode) {
-
-            this.graphics.drawImage(ImageLoader.loadImage("/starter.png"), 200, 150, 400, 150, null);
-            this.menuMode = ih.isMenuModeOn();
-
-        } else {
+        if (State == STATE.GAME) {
             //Creating the platform
 
             this.platform.render(graphics);
@@ -116,7 +118,7 @@ public class Game extends JFrame implements Runnable {
                     platform.getPlatformHeight(), null);
 
             this.ball.render(graphics);
-            this.graphics.setColor(Color.RED);
+            this.graphics.setColor(Color.WHITE);
             this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
             // Draw the bricks
             this.bricksRemaining = 30;
@@ -126,7 +128,6 @@ public class Game extends JFrame implements Runnable {
                     // Increment player scores
                     scores += 5;
                     this.bricksRemaining--;
-                    continue;
                 } else {
                     // Else, draw the brick.
                     if (this.bricksRemaining != 0)
@@ -134,11 +135,14 @@ public class Game extends JFrame implements Runnable {
                                 brick.getWidth(), brick.getHeight(), this);
                 }
             }
+            // Show player scores
+            this.graphics.setFont(new Font("serif", Font.BOLD, 27));
+            this.graphics.drawString("" + scores, 740, 30);
+
+        } else if (State == STATE.MENU) {
+            this.menu.render(graphics);
         }
 
-        // Show player scores
-        this.graphics.setFont(new Font("serif", Font.BOLD, 27));
-        this.graphics.drawString("" + scores, 740, 30);
 
         //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.
         // Whatever we draw, it finally goes through dispose and the it is shown.
@@ -170,48 +174,16 @@ public class Game extends JFrame implements Runnable {
                 delta--;
                 ball.move();
             }
-            //To be managed level complete
 
-            //Here we have a crucial game element - level switching!
-            //If we have run out of bricks, we set the menuMode On. We also assign the remaining bricks with -1. Thus we are sure that
-            // the level will be switched ONLY after the menuMode is Off and the bricks are -1.
-            //Then we have to invoke the next level.
-            if (this.bricksRemaining == 0 && this.menuMode) {
+            if (this.bricksRemaining == 0 && State == STATE.GAME) {
 
-                this.menuMode = ih.isMenuModeOn();
-
-
-            } else if (this.bricksRemaining == -1 && !this.menuMode) {
-
-                //Here is almost an exact copy of what we do in initialize(). However, we will switch it with leveling functionality.
-                //We can later remove this from initialize() and this way all the levels will be loaded here.
-                Brick bricks[];
-                bricks = new Brick[30];
-                int bricksRemaining = 0;
-                for (int i = 0; i < 5; i++) {
-                    for (int j = 0; j < 6; j++) {
-                        bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
-                    }
-                }
-
-                this.platform = new Platform(350, 550, 100, 10, 30);
-                this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
-                this.bricks = bricks;
-                this.bricksRemaining = bricksRemaining;
-
-            } else if (this.bricksRemaining == 0) {
-
-
-                this.ih.goBackToMenu();
-                this.menuMode = ih.isMenuModeOn();
-                this.bricksRemaining = -1;
-                //this.stop();
+                State = STATE.MENU;
             }
+
 
             // Stop the game when the ball exits game field
             if (this.ball.getCenterY() >= 570) {
-                this.ih.goBackToMenu();
-                this.menuMode = ih.isMenuModeOn();
+                State = STATE.MENU;
                 this.bricksRemaining = -1;
             }
         }
@@ -222,7 +194,7 @@ public class Game extends JFrame implements Runnable {
     public synchronized void start() {
 
         this.isRunning = true;
-        this.menuMode = true;
+        //this.menuMode = true;
         thread = new Thread(this);
         thread.start();
     }
