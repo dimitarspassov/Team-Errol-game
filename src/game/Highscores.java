@@ -147,7 +147,7 @@ public class Highscores {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //The final scores numeration and are saved
+            //The final scores get numeration and are saved in a fileFinal 
             String inputPathTemp = "/temp.txt";
             String outputPathFinal = "/HighscoresFinal.txt";
 
@@ -168,7 +168,7 @@ public class Highscores {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            //The final sorted file replaces the original Highscores file
             File f = new File("/HighScores.txt");
             File g = new File("/HighscoresFinal.txt");
             f.delete();
