@@ -64,6 +64,7 @@ public class Game extends JFrame implements Runnable {
         this.addKeyListener(new InputHandler(this.display.getCanvas()));
         this.platform = new Platform(350, 550, 100, 10, 30);
         this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
+        this.ball.isSpacePressed=false;
         this.bricks = bricks;
         this.bricksRemaining = bricksRemaining;  //if brickRemaining=0 then level ends
         this.menu = new Menu();
@@ -178,13 +179,15 @@ public class Game extends JFrame implements Runnable {
             if (this.bricksRemaining == 0 && State == STATE.GAME) {
 
                 State = STATE.MENU;
+
             }
 
 
             // Stop the game when the ball exits game field
             if (this.ball.getCenterY() >= 570) {
+                this.initialization();
                 State = STATE.MENU;
-                this.bricksRemaining = -1;
+
             }
         }
 
