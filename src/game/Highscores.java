@@ -138,7 +138,7 @@ public class Highscores {
                     });
 
 
-            String outputPath = "/temp.txt"; //The sorted map is saved in temp.txt and then updated
+            String outputPath = "/temp.txt"; //The sorted map is saved in temp.txt to get numeration
 
             try (PrintWriter writer = new PrintWriter(outputPath)) {
 
@@ -174,7 +174,7 @@ public class Highscores {
             f.delete();
             g.renameTo(f);
 
-
+            //Method for printing scores is created
             printScores();
 
 
