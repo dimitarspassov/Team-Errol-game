@@ -20,10 +20,16 @@ public class Game extends JFrame implements Runnable {
     private Display display;
     private Platform platform;
     private Ball ball;
+
+
     private Brick[] bricks;
     private int bricksRemaining;
-    public BufferStrategy bs;
 
+    public byte level;
+    public boolean levelSwitched;
+
+
+    public BufferStrategy bs;
     public Graphics graphics;
     private Thread thread;
     private boolean isRunning;
@@ -51,25 +57,16 @@ public class Game extends JFrame implements Runnable {
     }
 
     public void initialization() {
-        //Initial of brick composition, to be done with load of file for every Level
-        Brick bricks[];
-        bricks = new Brick[30];
-        int bricksRemaining = 0;
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 6; j++) {
-                bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
-            }
-        }
-        this.display = new Display(name, width, height);
-        this.addKeyListener(new InputHandler(this.display.getCanvas()));
+
         this.platform = new Platform(350, 550, 100, 10, 30);
         this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
-        this.ball.isSpacePressed=false;
-        this.bricks = bricks;
-        this.bricksRemaining = bricksRemaining;  //if brickRemaining=0 then level ends
+        this.ball.isSpacePressed = false;
+        this.display = new Display(name, width, height);
+        this.addKeyListener(new InputHandler(this.display.getCanvas()));
         this.menu = new Menu();
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
-
+        this.level = 1;
+        this.levelSwitched = true;
     }
 
     public void thick() {
@@ -84,9 +81,6 @@ public class Game extends JFrame implements Runnable {
     public void render() {
 
         int scores = 0;
-
-        //Display Game Menu
-//        displayMenu();
 
 
         //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
@@ -108,8 +102,27 @@ public class Game extends JFrame implements Runnable {
 
         //By default the menu mode is true. As we render, if the ENTER key is pressed, menu mode becomes false and then the game starts.
 
+        if (this.levelSwitched) {
+            this.levelSwitched = false;
+
+
+            this.bricks = new Brick[30];
+            int bricksRemaining = 0;
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 6; j++) {
+                    this.bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+                }
+            }
+
+            this.bricksRemaining = bricksRemaining;
+            this.platform = new Platform(350, 550, 100, 10, 30);
+            this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
+            this.ball.isSpacePressed = false;
+        }
+
         if (State == STATE.GAME) {
             //Creating the platform
+
 
             this.platform.render(graphics);
             this.graphics.drawImage(ImageLoader.loadImage("/platform.png"),
@@ -123,7 +136,9 @@ public class Game extends JFrame implements Runnable {
             this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
             // Draw the bricks
             this.bricksRemaining = 30;
+
             for (Brick brick : bricks) {
+
                 // If brick is destroyed, continue to next brick.
                 if (brick.destroyed) {
                     // Increment player scores
@@ -185,7 +200,7 @@ public class Game extends JFrame implements Runnable {
 
             // Stop the game when the ball exits game field
             if (this.ball.getCenterY() >= 570) {
-                this.initialization();
+                this.levelSwitched = true;
                 State = STATE.MENU;
 
             }

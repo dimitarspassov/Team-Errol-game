@@ -32,6 +32,13 @@ public class MouseInput implements MouseListener {
             }
         }
 
+        //Exit Button
+        if (mX >= 300 && mX <= 500) {
+            if (mY >= 300 && mY <= 350) {
+                System.exit(1);
+            }
+        }
+
     }
 
     @Override
