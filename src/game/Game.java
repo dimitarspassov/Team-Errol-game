@@ -69,7 +69,7 @@ public class Game extends JFrame implements Runnable {
         this.menu = new Menu();
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
         this.currentLevel = 1;
-        this.maxLevel = 2;
+        this.maxLevel = 3;
         this.levelSwitched = true;
         this.bricks = new Brick[1];
         result = 0;
