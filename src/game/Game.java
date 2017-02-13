@@ -25,9 +25,9 @@ public class Game extends JFrame implements Runnable {
     private Brick[] bricks;
     private int bricksRemaining;
 
-    public byte currentLevel;
+    public static byte currentLevel;
     private byte maxLevel;
-    public boolean levelSwitched;
+    public static boolean levelSwitched;
 
 
     public BufferStrategy bs;
@@ -182,7 +182,7 @@ public class Game extends JFrame implements Runnable {
             }
 
 
-            if (this.bricksRemaining == 0 && State == STATE.GAME) {
+            if (this.bricksRemaining <= this.bricks.length-1 && State == STATE.GAME) {
                 this.currentLevel++;
                 this.levelSwitched = true;
                 if (this.currentLevel > this.maxLevel) {

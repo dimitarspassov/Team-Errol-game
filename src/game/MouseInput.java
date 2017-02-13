@@ -47,6 +47,16 @@ public class MouseInput implements MouseListener {
                     Game.State = Game.STATE.GAME;
                 }
             }
+
+            //Exit Button
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 400 && mY <= 450) {
+                    Game.currentLevel = 1;
+                    Game.levelSwitched = true;
+                    Game.State = Game.STATE.MENU;
+
+                }
+            }
         }
 
 
