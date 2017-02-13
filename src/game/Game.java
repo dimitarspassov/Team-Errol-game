@@ -36,13 +36,18 @@ public class Game extends JFrame implements Runnable {
     private boolean isRunning;
 
 
-    private Menu menu;
+    public static StringBuilder playerName;
 
+    private Menu menu;
+    public static int result;
+    private int score;
 
     public static enum STATE {
         MENU,
         GAME,
         PAUSE,
+        WIN,
+        PLAYER_INIT,
         HIGHSCORES
     }
 
@@ -67,6 +72,8 @@ public class Game extends JFrame implements Runnable {
         this.maxLevel = 2;
         this.levelSwitched = true;
         this.bricks = new Brick[1];
+        result = 0;
+        playerName = new StringBuilder("");
     }
 
     public void thick() {
@@ -80,7 +87,7 @@ public class Game extends JFrame implements Runnable {
 
     public void render() {
 
-        int scores = 0;
+        score = 0;
 
 
         //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
@@ -100,6 +107,9 @@ public class Game extends JFrame implements Runnable {
 
 
         if (this.levelSwitched) {
+            if (currentLevel == 1) {
+                result = 0;
+            }
             this.levelSwitched = false;
             this.bricks = Level.getLevel(this.currentLevel);
             this.bricksRemaining = this.bricks.length;
@@ -129,7 +139,7 @@ public class Game extends JFrame implements Runnable {
                 // If brick is destroyed, continue to next brick.
                 if (brick.destroyed) {
                     // Increment player scores
-                    scores += 5;
+                    score += 5;
                     this.bricksRemaining--;
                 } else {
                     // Else, draw the brick.
@@ -139,13 +149,20 @@ public class Game extends JFrame implements Runnable {
                     }
                 }
             }
+
             // Show player scores
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
-            this.graphics.drawString("" + scores, 740, 30);
+            this.graphics.drawString("" + result, 740, 30);
 
         } else if (State == STATE.MENU) {
             this.menu.render(graphics, currentLevel);
         } else if (State == STATE.PAUSE) {
+            this.menu.render(graphics, currentLevel);
+        } else if (State == STATE.WIN) {
+            this.menu.render(graphics, currentLevel);
+        } else if (State == STATE.PLAYER_INIT) {
+            this.menu.render(graphics, currentLevel);
+        } else if (State == STATE.HIGHSCORES) {
             this.menu.render(graphics, currentLevel);
         }
 
@@ -184,8 +201,9 @@ public class Game extends JFrame implements Runnable {
             if (this.bricksRemaining == 0 && State == STATE.GAME) {
                 currentLevel++;
                 levelSwitched = true;
+                result += score;
                 if (this.currentLevel > this.maxLevel) {
-                    State = STATE.MENU;
+                    State = STATE.WIN;
                 } else {
                     State = STATE.PAUSE;
                 }

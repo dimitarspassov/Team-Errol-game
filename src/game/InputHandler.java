@@ -25,6 +25,20 @@ public class InputHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
+        if (Game.State == Game.STATE.PLAYER_INIT) {
+
+            if (code == 8) {
+                if (Game.playerName.length() > 0) {
+                    Game.playerName.deleteCharAt(Game.playerName.length() - 1);
+                }
+            } else if ((code >= 48 && code <= 57) || (code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
+
+                if (Game.playerName.length() < 11) {
+                    Game.playerName.append(e.getKeyChar());
+                }
+
+            }
+        }
 
         // Press Space to start ball's moving
         if (code == KeyEvent.VK_SPACE) {

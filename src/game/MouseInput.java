@@ -69,6 +69,57 @@ public class MouseInput implements MouseListener {
             }
         }
 
+        if (Game.State == Game.STATE.WIN) {
+
+
+            //Add player name
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 200 && mY <= 250) {
+
+                    Game.State = Game.STATE.PLAYER_INIT;
+                }
+            }
+
+            //Back to Menu Button
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 300 && mY <= 350) {
+                    Game.currentLevel = 1;
+                    Game.levelSwitched = true;
+                    Game.State = Game.STATE.MENU;
+                }
+            }
+        }
+
+        if (Game.State == Game.STATE.PLAYER_INIT) {
+
+            //Back to Menu Button
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 500 && mY <= 550) {
+                    Game.State = Game.STATE.MENU;
+                    Game.currentLevel = 1;
+                    Game.levelSwitched = true;
+                }
+            }
+
+            //Set player username & go to highscores
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 400 && mY <= 450) {
+                    Game.State = Game.STATE.HIGHSCORES;
+                }
+            }
+        }
+
+        if (Game.State == Game.STATE.HIGHSCORES) {
+
+            //Back to Menu Button
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 500 && mY <= 550) {
+                    Game.State = Game.STATE.MENU;
+                    Game.currentLevel = 1;
+                    Game.levelSwitched = true;
+                }
+            }
+        }
 
     }
 
