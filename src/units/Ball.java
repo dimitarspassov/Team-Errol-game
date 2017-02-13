@@ -108,11 +108,43 @@ public class Ball {
             // Draw the bricks
             if (bricks != null) {
                 for (Brick brick : bricks) {
-                    // If brick is destroyed, continue to next brick.
+                    // If brick is destroyed, continue to next brick,
                     if (brick.destroyed) continue;
                     if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
-                        speedY = -speedY;
+                        //<<++kgyorev fix of x collision,case when ball hit outside brick.
+                        int top = (int) this.getCenterY();
+                        int bottom = (int) (this.getCenterY() + this.getH());
+                        int left = (int) this.getCenterX();
+                        int right = (int) (this.getCenterX() + this.getW());
+
+
+                        // Set Y direction depending on where collision occurs.
+                       int oldDy = this.getSpeedY();
+                        if (brick.getRect().contains(left, top - 1)) {
+                            int dy = this.getSpeedY();
+                            this.setSpeedY(dy < 0 ? -dy : dy); // Ensure positive dy.
+                        } else if (brick.getRect().contains(left, bottom + 1)) {
+                            int dy = this.getSpeedY();
+                            this.setSpeedY(dy < 0 ? dy : -dy); // Ensure negative dy.
+                        }
+                        // Set X direction depending on where collision occurs.
+                        int currentDy=this.getSpeedY();
+                        if (brick.getRect().contains(right + 1, top)&&oldDy==this.getSpeedY()) {
+                            int dx = this.getSpeedX();
+                            this.setSpeedX(dx < 0 ? dx : -dx); // Ensure negative dx.
+                        } else if (brick.getRect().contains(left - 1, top)&& oldDy==this.getSpeedY()) {
+                            int dx = this.getSpeedX();
+                            this.setSpeedX(dx < 0 ? -dx : dx); // Ensure positive dx.
+                        }
+                      //>>++kgyorev
+                      //  speedY = -speedY; --kgyorev
                         brick.hitBrick();
+
+
+
+
+
+
                     }
                 }
             }
