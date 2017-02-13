@@ -31,8 +31,8 @@ public class Highscores {
         this.playerName = playerName;
     }
 
-
-    public void createTextFile() { //Text file with the top 10 scores (name, score, time) is created
+//Text file with the top scores (name, score) created
+    public void createTextFile() { 
         String outputPath = "/Highscores.txt";
 
         try (PrintWriter writer = new PrintWriter(outputPath)) {
