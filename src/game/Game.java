@@ -38,15 +38,15 @@ public class Game extends JFrame implements Runnable {
 
     private Menu menu;
 
+
     public static enum STATE {
         MENU,
         GAME,
+        PAUSE,
         HIGHSCORES
     }
 
     public static STATE State = STATE.MENU;
-
-    //private InputHandler ih;
 
 
     public Game(String name, int width, int height) {
@@ -66,6 +66,7 @@ public class Game extends JFrame implements Runnable {
         this.currentLevel = 1;
         this.maxLevel = 2;
         this.levelSwitched = true;
+        this.bricks = new Brick[1];
     }
 
     public void thick() {
@@ -143,7 +144,9 @@ public class Game extends JFrame implements Runnable {
             this.graphics.drawString("" + scores, 740, 30);
 
         } else if (State == STATE.MENU) {
-            this.menu.render(graphics);
+            this.menu.render(graphics, this.currentLevel);
+        } else if (State == STATE.PAUSE) {
+            this.menu.render(graphics, this.currentLevel);
         }
 
 
@@ -178,17 +181,16 @@ public class Game extends JFrame implements Runnable {
                 ball.move();
             }
 
-            if (this.bricksRemaining == 0 && State == STATE.GAME) {
 
+            if (this.bricksRemaining == 0 && State == STATE.GAME) {
                 this.currentLevel++;
                 this.levelSwitched = true;
                 if (this.currentLevel > this.maxLevel) {
                     State = STATE.MENU;
+                } else {
+                    State = STATE.PAUSE;
                 }
-
-
             }
-
 
             // Stop the game when the ball exits game field
             if (!this.levelSwitched && this.ball.getCenterY() >= 570) {

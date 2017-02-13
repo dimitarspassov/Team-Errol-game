@@ -24,20 +24,31 @@ public class MouseInput implements MouseListener {
         int mX = e.getX();
         int mY = e.getY();
 
+        if (Game.State == Game.STATE.MENU) {
+            //StartGame Button
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 100 && mY <= 150) {
+                    Game.State = Game.STATE.GAME;
+                }
+            }
 
-        //StartGame Button
-        if (mX >= 300 && mX <= 500) {
-            if (mY >= 100 && mY <= 150) {
-                Game.State = Game.STATE.GAME;
+            //Exit Button
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 300 && mY <= 350) {
+                    System.exit(1);
+                }
             }
         }
 
-        //Exit Button
-        if (mX >= 300 && mX <= 500) {
-            if (mY >= 300 && mY <= 350) {
-                System.exit(1);
+        if (Game.State == Game.STATE.PAUSE) {
+            //Next Level Button
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 300 && mY <= 350) {
+                    Game.State = Game.STATE.GAME;
+                }
             }
         }
+
 
     }
 
