@@ -25,16 +25,27 @@ public class MouseInput implements MouseListener {
         int mY = e.getY();
 
         if (Game.State == Game.STATE.MENU) {
-            //StartGame Button
-            if (mX >= 300 && mX <= 500) {
+
+            //Resume game Button
+            if (Game.currentLevel > 1 && mX >= 300 && mX <= 500) {
                 if (mY >= 100 && mY <= 150) {
                     Game.State = Game.STATE.GAME;
+
+                }
+            }
+
+            //StartGame Button
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 200 && mY <= 250) {
+                    Game.State = Game.STATE.GAME;
+                    Game.currentLevel = 1;
+                    Game.levelSwitched = true;
                 }
             }
 
             //Exit Button
             if (mX >= 300 && mX <= 500) {
-                if (mY >= 300 && mY <= 350) {
+                if (mY >= 400 && mY <= 450) {
                     System.exit(1);
                 }
             }
@@ -48,10 +59,9 @@ public class MouseInput implements MouseListener {
                 }
             }
 
-            //Exit Button
+            //Back to Menu Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 400 && mY <= 450) {
-                    Game.currentLevel = 1;
                     Game.levelSwitched = true;
                     Game.State = Game.STATE.MENU;
 

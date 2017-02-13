@@ -123,7 +123,7 @@ public class Game extends JFrame implements Runnable {
             this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
             // Draw the bricks
 
-            this.bricksRemaining = Level.getLevel(this.currentLevel).length;
+            this.bricksRemaining = Level.getLevel(currentLevel).length;
             for (Brick brick : this.bricks) {
 
                 // If brick is destroyed, continue to next brick.
@@ -144,11 +144,10 @@ public class Game extends JFrame implements Runnable {
             this.graphics.drawString("" + scores, 740, 30);
 
         } else if (State == STATE.MENU) {
-            this.menu.render(graphics, this.currentLevel);
+            this.menu.render(graphics, currentLevel);
         } else if (State == STATE.PAUSE) {
-            this.menu.render(graphics, this.currentLevel);
+            this.menu.render(graphics, currentLevel);
         }
-
 
         //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.
         // Whatever we draw, it finally goes through dispose and the it is shown.
@@ -182,9 +181,9 @@ public class Game extends JFrame implements Runnable {
             }
 
 
-            if (this.bricksRemaining <= this.bricks.length-1 && State == STATE.GAME) {
-                this.currentLevel++;
-                this.levelSwitched = true;
+            if (this.bricksRemaining == 0 && State == STATE.GAME) {
+                currentLevel++;
+                levelSwitched = true;
                 if (this.currentLevel > this.maxLevel) {
                     State = STATE.MENU;
                 } else {

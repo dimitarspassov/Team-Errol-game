@@ -12,9 +12,12 @@ public class Menu {
 
         if (Game.State == Game.STATE.MENU) {
 
-            g.drawImage(ImageLoader.loadImage("/button_start-game.png"), 300, 100, 200, 50, null);
-            g.drawImage(ImageLoader.loadImage("/button_highscores.png"), 300, 200, 200, 50, null);
-            g.drawImage(ImageLoader.loadImage("/button_exit.png"), 300, 300, 200, 50, null);
+            if(Game.currentLevel>1){
+                g.drawImage(ImageLoader.loadImage("/button_resume-game.png"), 300, 100, 200, 50, null);
+            }
+            g.drawImage(ImageLoader.loadImage("/button_start-game.png"), 300, 200, 200, 50, null);
+            g.drawImage(ImageLoader.loadImage("/button_highscores.png"), 300, 300, 200, 50, null);
+            g.drawImage(ImageLoader.loadImage("/button_exit.png"), 300, 400, 200, 50, null);
 
         } else if (Game.State == Game.STATE.PAUSE) {
             g.setColor(Color.WHITE);
@@ -23,8 +26,6 @@ public class Menu {
             g.drawString(String.format("Level %d completed!", --level), 250, 200);
             g.drawImage(ImageLoader.loadImage("/button_next-level.png"), 300, 300, 200, 50, null);
             g.drawImage(ImageLoader.loadImage("/button_back-to-menu.png"), 300, 400, 200, 50, null);
-
         }
-
     }
 }
