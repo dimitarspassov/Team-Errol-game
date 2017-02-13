@@ -31,8 +31,8 @@ public class Highscores {
         this.playerName = playerName;
     }
 
-//Text file with the top scores (name, score) created
-    public void createTextFile() { 
+
+    public void createTextFile() { //Text file with the top 10 scores (name, score, time) is created
         String outputPath = "/Highscores.txt";
 
         try (PrintWriter writer = new PrintWriter(outputPath)) {
@@ -141,8 +141,8 @@ public class Highscores {
     }
 
     public void makeNewScoreTable() throws IOException {
-        File f = new File("HighScores.txt");
-        File g = new File("temp.txt");
+        File f = new File("/Highscores.txt");
+        File g = new File("/HighscoresFinal.txt");
         f.delete();
         g.renameTo(f);
     }
@@ -165,6 +165,10 @@ public class Highscores {
             e.printStackTrace();
         }
     }*/
+
+
+
+
 
 
 
