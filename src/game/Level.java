@@ -2,6 +2,7 @@ package game;
 
 
 import units.Brick;
+import units.Stone;
 
 public class Level {
 
@@ -52,7 +53,7 @@ public class Level {
                     bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
                 }
             }
-        }else if (level == 5) {
+        } else if (level == 5) {
 
 
             bricks = new Brick[30];
@@ -62,8 +63,22 @@ public class Level {
                     bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
                 }
             }
-        }
 
+        }
         return bricks;
+    }
+
+    public static Stone[] getStones(byte level) {
+
+        Stone[] stones=null;
+        if (level == 5) {
+            stones=new Stone[3];
+            for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < 3; j++) {
+                    stones[j] = new Stone(90 + j * 40 * 6, 280 + i * 12 * 3);
+                }
+            }
+        }
+        return stones;
     }
 }

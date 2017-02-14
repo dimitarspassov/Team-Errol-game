@@ -112,7 +112,6 @@ public class HighScores {
             }
 
         }
-
         return result;
     }
 }

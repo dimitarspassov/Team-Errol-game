@@ -74,10 +74,10 @@ public class Game extends JFrame implements Runnable {
         this.menu = new Menu();
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
         this.currentLevel = 1;
-        this.maxLevel = 4;
+        this.maxLevel = 5;
         this.levelSwitched = true;
         this.bricks = new Brick[1];
-        this.stones = new Stone[3];
+        this.stones = null;
 
         result = 0;
         playerName = new StringBuilder("");
@@ -122,7 +122,8 @@ public class Game extends JFrame implements Runnable {
             this.bricks = Level.getLevel(this.currentLevel);
             this.bricksRemaining = this.bricks.length;
             this.platform = new Platform(350, 550, 100, 10, 30);
-            this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks,stones);
+            this.stones = Level.getStones(currentLevel);
+            this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
             this.ball.isSpacePressed = false;
         }
 
@@ -157,13 +158,9 @@ public class Game extends JFrame implements Runnable {
                     }
                 }
             }
-            //Stones
-            if(this.currentLevel==5){
-                for (int i = 0; i < 1; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        stones[j] = new Stone(90 + j * 40 *6, 280 + i * 12 * 3);
-                    }
-                }
+
+
+            if (stones != null) {
                 for (Stone stone : this.stones) {
                     this.graphics.drawImage(stone.getImage(), stone.getX(), stone.getY(),
                             stone.getWidth(), stone.getHeight(), this);

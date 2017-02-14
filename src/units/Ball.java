@@ -97,7 +97,7 @@ public class Ball {
 
 // If Space is pressed-ball moves,
 // otherwise stands still on platform
-        if(isSpacePressed) {
+        if (isSpacePressed) {
             centerX += speedX;
             centerY += speedY;
 
@@ -114,18 +114,24 @@ public class Ball {
              * moves away from the center, the speed and angle of the ball
              * increase.
              */
-                int segment = platform.getPlatformWidth()  / 5;
-                int first  = platform.getPlatformX() + segment;
+                int segment = platform.getPlatformWidth() / 5;
+                int first = platform.getPlatformX() + segment;
                 int second = platform.getPlatformX() + segment * 2;
-                int third  = platform.getPlatformX() + segment * 3;
+                int third = platform.getPlatformX() + segment * 3;
                 int fourth = platform.getPlatformX() + segment * 4;
                 int center = (int) (this.getCenterX() + this.getW() / 2);
 
-                if (center < first) { this.setSpeedX(-5); }
-                else if (center >= first && center < second) { this.setSpeedX(-5); }
-                else if (center >= second && center < third) { this.setSpeedX(1); }
-                else if (center >= third && center < fourth) { this.setSpeedX(5); }
-                else if (center > fourth) { this.setSpeedX(5); }
+                if (center < first) {
+                    this.setSpeedX(-5);
+                } else if (center >= first && center < second) {
+                    this.setSpeedX(-5);
+                } else if (center >= second && center < third) {
+                    this.setSpeedX(1);
+                } else if (center >= third && center < fourth) {
+                    this.setSpeedX(5);
+                } else if (center > fourth) {
+                    this.setSpeedX(5);
+                }
                 // Reset ball's position out of collision.
                 this.setCenterY(platform.getPlatformY() - this.getH());
             }
@@ -138,11 +144,15 @@ public class Ball {
                     hitBrick(brick);
                 }
             }
+
             if (stones != null) {
-                for (Brick stone : stones) {
+                for (Stone stone : stones) {
+
                     // If brick is destroyed, continue to next brick,
-                    if(stone!=null)
+                    if (stone != null) {
+                        stone.hitCount++;
                         hitBrick(stone);
+                    }
                 }
             }
 
@@ -162,10 +172,9 @@ public class Ball {
                 speedY = -speedY;
                 centerY = ballMaxY;
             }
-        }
-        else {
-            centerX=platform.getPlatformX()+45;
-            centerY=platform.getPlatformY()-20;
+        } else {
+            centerX = platform.getPlatformX() + 45;
+            centerY = platform.getPlatformY() - 20;
         }
     }
 
