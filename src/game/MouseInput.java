@@ -76,10 +76,10 @@ public class MouseInput implements MouseListener {
             }
         }
 
-        if (Game.State == Game.STATE.GAME_OVER) {
+        if (Game.State == Game.STATE.GAME_OVER || Game.State == Game.STATE.WIN) {
 
 
-            if (Game.highScores.sortScores().size() < 10 || Game.lastResult > Game.highScores.getMinResult()) {
+            if ((Game.highScores.sortScores().size() < 10 || Game.lastResult > Game.highScores.getMinResult()) && Game.result > 0) {
                 //Add player name
                 if (mX >= 300 && mX <= 500) {
                     if (mY >= 200 && mY <= 250) {

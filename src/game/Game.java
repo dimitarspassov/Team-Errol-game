@@ -50,7 +50,8 @@ public class Game extends JFrame implements Runnable {
         PAUSE,
         PLAYER_INIT,
         HIGHSCORES,
-        GAME_OVER
+        GAME_OVER,
+        WIN
     }
 
     public static STATE State = STATE.MENU;
@@ -157,18 +158,9 @@ public class Game extends JFrame implements Runnable {
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
             this.graphics.drawString("" + score, 740, 30);
 
-        } else if (State == STATE.MENU) {
-            this.menu.render(graphics, currentLevel);
-        } else if (State == STATE.PAUSE) {
-            this.menu.render(graphics, currentLevel);
-        } else if (State == STATE.GAME_OVER) {
-            this.menu.render(graphics, currentLevel);
-        } else if (State == STATE.PLAYER_INIT) {
-            this.menu.render(graphics, currentLevel);
-        } else if (State == STATE.HIGHSCORES) {
+        } else {
             this.menu.render(graphics, currentLevel);
         }
-
         //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.
         // Whatever we draw, it finally goes through dispose and the it is shown.
         this.graphics.dispose();
@@ -206,7 +198,7 @@ public class Game extends JFrame implements Runnable {
                 levelSwitched = true;
                 result += score;
                 if (this.currentLevel > this.maxLevel) {
-                    State = STATE.GAME_OVER;
+                    State = STATE.WIN;
                 } else {
                     State = STATE.PAUSE;
                 }
