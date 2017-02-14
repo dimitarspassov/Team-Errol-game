@@ -5,6 +5,7 @@ import graphics.ImageLoader;
 import units.Ball;
 import units.Brick;
 import units.Platform;
+import units.Stone;
 
 import javax.swing.*;
 import java.awt.*;
@@ -23,6 +24,7 @@ public class Game extends JFrame implements Runnable {
 
 
     private Brick[] bricks;
+    private Stone[] stones;
     private int bricksRemaining;
 
     public static byte currentLevel;
@@ -75,6 +77,8 @@ public class Game extends JFrame implements Runnable {
         this.maxLevel = 4;
         this.levelSwitched = true;
         this.bricks = new Brick[1];
+        this.stones = new Stone[3];
+
         result = 0;
         playerName = new StringBuilder("");
         this.highScores = new HighScores();
@@ -118,7 +122,7 @@ public class Game extends JFrame implements Runnable {
             this.bricks = Level.getLevel(this.currentLevel);
             this.bricksRemaining = this.bricks.length;
             this.platform = new Platform(350, 550, 100, 10, 30);
-            this.ball = new Ball(350, 550, 15, 30, 30, 5, 5, platform, bricks);
+            this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks,stones);
             this.ball.isSpacePressed = false;
         }
 
@@ -153,6 +157,19 @@ public class Game extends JFrame implements Runnable {
                     }
                 }
             }
+            //Stones
+            if(this.currentLevel==5){
+                for (int i = 0; i < 1; i++) {
+                    for (int j = 0; j < 3; j++) {
+                        stones[j] = new Stone(90 + j * 40 *6, 280 + i * 12 * 3);
+                    }
+                }
+                for (Stone stone : this.stones) {
+                    this.graphics.drawImage(stone.getImage(), stone.getX(), stone.getY(),
+                            stone.getWidth(), stone.getHeight(), this);
+                }
+            }
+
             lastResult = score;
             // Show player scores
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
