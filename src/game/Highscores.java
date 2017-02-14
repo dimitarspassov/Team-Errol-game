@@ -76,7 +76,7 @@ public class HighScores {
                 .sorted((k1, k2) -> k1.getValue().compareTo(k2.getValue()))
                 .limit(10)
                 .forEach(pair -> {
-                    sortedResults.add("Name: " + pair.getKey() + ", Score: " + pair.getValue() + "\n");
+                    sortedResults.add(pair.getKey() + ":" + pair.getValue());
                 });
         return sortedResults;
 

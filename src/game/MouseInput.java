@@ -79,7 +79,7 @@ public class MouseInput implements MouseListener {
         if (Game.State == Game.STATE.GAME_OVER || Game.State == Game.STATE.WIN) {
 
 
-            if ((Game.highScores.sortScores().size() < 10 || Game.lastResult > Game.highScores.getMinResult()) && Game.result > 0) {
+            if ((Game.highScores.sortScores().size() < 10 || Game.lastResult > Game.highScores.getMinResult()) && Game.lastResult > 0) {
                 //Add player name
                 if (mX >= 300 && mX <= 500) {
                     if (mY >= 200 && mY <= 250) {
@@ -128,8 +128,7 @@ public class MouseInput implements MouseListener {
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 500 && mY <= 550) {
                     Game.State = Game.STATE.MENU;
-                    Game.currentLevel = 1;
-                    Game.levelSwitched = true;
+
                 }
             }
         }

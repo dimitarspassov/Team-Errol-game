@@ -4,6 +4,7 @@ import graphics.ImageLoader;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Menu {
 
@@ -71,20 +72,29 @@ public class Menu {
             ArrayList<String> table = Game.highScores.sortScores();
 
             if (table.isEmpty()) {
-                g.setColor(Color.WHITE);
-                Font f1 = new Font("arial", Font.BOLD, 30);
-                g.setFont(f1);
-                g.drawString("There are not any highscores yet.", 200, 200);
+
+                g.drawImage(ImageLoader.loadImage("/button_no-highscores-yet.png"), 175, 200, 450, 50, null);
+
             } else {
+
+                g.drawImage(ImageLoader.loadImage("/results_backgr.png"), 175, 100, 450, 350, null);
+                g.drawImage(ImageLoader.loadImage("/button_name-score.png"), 175, 100, 450, 50, null);
+
                 int i = 0;
+                Collections.reverse(table);
                 for (String result : table) {
-                    g.setColor(Color.WHITE);
-                    g.drawString(result, 200, 100 + i);
+
+                    String[] data = result.split(":");
+                    String name = data[0];
+                    String score = data[1];
+                    Font f1 = new Font("arial", Font.BOLD, 20);
+                    g.setFont(f1);
+                    g.setColor(Color.BLACK);
+                    g.drawString(name, 230, 170 + i);
+                    g.drawString(score, 540, 170 + i);
                     i += 30;
                 }
             }
-
-            //TODO: Display highscores!
             g.drawImage(ImageLoader.loadImage("/button_back-to-menu.png"), 300, 500, 200, 50, null);
         }
     }
