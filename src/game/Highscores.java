@@ -5,14 +5,14 @@ import java.io.*;
 import java.util.*;
 
 
-public class HighScores {
+public class Highscores {
 
 
     private TreeMap<String, Integer> results;
     private ArrayList<String> sortedResults;
 
 
-    public HighScores() {
+    public Highscores() {
 
         this.results = makeNewScoreTable();
         this.sortedResults = sortScores();
