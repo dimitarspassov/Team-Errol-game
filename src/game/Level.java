@@ -52,6 +52,16 @@ public class Level {
                     bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
                 }
             }
+        }else if (level == 5) {
+
+
+            bricks = new Brick[30];
+
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 6; j++) {
+                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+                }
+            }
         }
 
         return bricks;
