@@ -29,6 +29,7 @@ public class Game extends JFrame implements Runnable {
     private byte maxLevel;
     public static boolean levelSwitched;
 
+    public static HighScores highScores;
 
     public BufferStrategy bs;
     public Graphics graphics;
@@ -40,15 +41,16 @@ public class Game extends JFrame implements Runnable {
 
     private Menu menu;
     public static int result;
+    public static int lastResult;
     private int score;
 
     public static enum STATE {
         MENU,
         GAME,
         PAUSE,
-        WIN,
         PLAYER_INIT,
-        HIGHSCORES
+        HIGHSCORES,
+        GAME_OVER
     }
 
     public static STATE State = STATE.MENU;
@@ -69,11 +71,12 @@ public class Game extends JFrame implements Runnable {
         this.menu = new Menu();
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
         this.currentLevel = 1;
-        this.maxLevel = 3;
+        this.maxLevel = 4;
         this.levelSwitched = true;
         this.bricks = new Brick[1];
         result = 0;
         playerName = new StringBuilder("");
+        this.highScores = new HighScores();
     }
 
     public void thick() {
@@ -87,7 +90,7 @@ public class Game extends JFrame implements Runnable {
 
     public void render() {
 
-        score = 0;
+        score = result;
 
 
         //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
@@ -149,16 +152,16 @@ public class Game extends JFrame implements Runnable {
                     }
                 }
             }
-
+            lastResult = score;
             // Show player scores
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
-            this.graphics.drawString("" + result, 740, 30);
+            this.graphics.drawString("" + score, 740, 30);
 
         } else if (State == STATE.MENU) {
             this.menu.render(graphics, currentLevel);
         } else if (State == STATE.PAUSE) {
             this.menu.render(graphics, currentLevel);
-        } else if (State == STATE.WIN) {
+        } else if (State == STATE.GAME_OVER) {
             this.menu.render(graphics, currentLevel);
         } else if (State == STATE.PLAYER_INIT) {
             this.menu.render(graphics, currentLevel);
@@ -203,7 +206,7 @@ public class Game extends JFrame implements Runnable {
                 levelSwitched = true;
                 result += score;
                 if (this.currentLevel > this.maxLevel) {
-                    State = STATE.WIN;
+                    State = STATE.GAME_OVER;
                 } else {
                     State = STATE.PAUSE;
                 }
@@ -211,10 +214,9 @@ public class Game extends JFrame implements Runnable {
 
             // Stop the game when the ball exits game field
             if (!this.levelSwitched && this.ball.getCenterY() >= 570) {
+                State = STATE.GAME_OVER;
                 this.levelSwitched = true;
                 this.currentLevel = 1;
-                State = STATE.MENU;
-
             }
         }
 
