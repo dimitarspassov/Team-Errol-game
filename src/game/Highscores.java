@@ -33,14 +33,24 @@ public class HighScores {
     //applicable if player's score is higher than the minimal result
     public void insertPlayer(String playerName, int score) {
 
-        if (!results.containsKey(playerName)) {
+        if (results.size() == 10) {
+            int minScore = this.getMinResult();
+            String playerToRemove = "";
+            for (String s : results.keySet()) {
+
+                if (results.get(s) == minScore) {
+                    playerToRemove = s;
+                }
+            }
+
+            results.remove(playerToRemove);
             results.put(playerName, score);
         } else {
-            if (results.get(playerName) < score) {
-                results.put(playerName, score);
-            }
+            results.put(playerName, score);
         }
+
         updateSaveData();
+
     }
 
     private void updateSaveData() {
@@ -102,6 +112,7 @@ public class HighScores {
             }
 
         }
+
         return result;
     }
 }

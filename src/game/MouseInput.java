@@ -79,14 +79,16 @@ public class MouseInput implements MouseListener {
         if (Game.State == Game.STATE.GAME_OVER) {
 
 
-            //Add player name
-            if (mX >= 300 && mX <= 500) {
-                if (mY >= 200 && mY <= 250) {
+            if (Game.highScores.sortScores().size() < 10 || Game.lastResult > Game.highScores.getMinResult()) {
+                //Add player name
+                if (mX >= 300 && mX <= 500) {
+                    if (mY >= 200 && mY <= 250) {
 
-                    Game.State = Game.STATE.PLAYER_INIT;
+                        Game.State = Game.STATE.PLAYER_INIT;
+                    }
                 }
-            }
 
+            }
             //Back to Menu Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 300 && mY <= 350) {
@@ -111,10 +113,11 @@ public class MouseInput implements MouseListener {
             //Set player username & go to highscores
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 400 && mY <= 450) {
-                    //todo:check current score & min score & name length
+                    if (Game.playerName.length() > 0) {
 
-                    Game.highScores.insertPlayer(Game.playerName.toString(), Game.lastResult);
-                    Game.State = Game.STATE.HIGHSCORES;
+                        Game.highScores.insertPlayer(Game.playerName.toString(), Game.lastResult);
+                        Game.State = Game.STATE.HIGHSCORES;
+                    }
                 }
             }
         }

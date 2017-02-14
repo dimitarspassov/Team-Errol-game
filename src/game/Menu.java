@@ -31,7 +31,13 @@ public class Menu {
         } else if (Game.State == Game.STATE.GAME_OVER) {
 
             g.drawImage(ImageLoader.loadImage("/button_good-job.png"), 300, 100, 200, 50, null);
-            g.drawImage(ImageLoader.loadImage("/button_add-your-score.png"), 300, 200, 200, 50, null);
+
+            if (Game.highScores.sortScores().size() < 10 || (Game.highScores.sortScores().size() == 10 && Game.lastResult > Game.highScores.getMinResult())) {
+                if (Game.lastResult > 0) {
+                    g.drawImage(ImageLoader.loadImage("/button_add-your-score.png"), 300, 200, 200, 50, null);
+                }
+
+            }
             g.drawImage(ImageLoader.loadImage("/button_back-to-menu.png"), 300, 300, 200, 50, null);
 
 
@@ -58,7 +64,7 @@ public class Menu {
                 int i = 0;
                 for (String result : table) {
                     g.setColor(Color.WHITE);
-                    g.drawString(result, 200, 300 + i);
+                    g.drawString(result, 200, 100 + i);
                     i += 30;
                 }
             }
