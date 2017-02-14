@@ -31,7 +31,7 @@ public class Game extends JFrame implements Runnable {
     private byte maxLevel;
     public static boolean levelSwitched;
 
-    public static HighScores highScores;
+    public static Highscores highScores;
 
     public BufferStrategy bs;
     public Graphics graphics;
@@ -81,7 +81,7 @@ public class Game extends JFrame implements Runnable {
 
         result = 0;
         playerName = new StringBuilder("");
-        this.highScores = new HighScores();
+        this.highScores = new Highscores();
     }
 
     public void thick() {
