@@ -23,22 +23,27 @@ public class Level {
 
         } else if (level == 2) {
 
+
             bricks = new Brick[8];
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     if ((i + j) % 2 == 0) {
+
                         bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
                     }
                 }
             }
         } else if (level == 3) {
 
+
             bricks = new Brick[30];
+
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 6; j++) {
                     bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
                 }
             }
+
         } else if (level == 4) {
 
             bricks = new Brick[35];
