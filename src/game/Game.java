@@ -121,7 +121,7 @@ public class Game extends JFrame implements Runnable {
             this.levelSwitched = false;
             this.bricks = Level.getLevel(this.currentLevel);
             this.bricksRemaining = this.bricks.length;
-            this.platform = new Platform(350, 550, 100, 10, 30);
+            this.platform = new Platform(350, 550, 100, 20, 30);
             this.stones = Level.getStones(currentLevel);
             this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
             this.ball.isSpacePressed = false;

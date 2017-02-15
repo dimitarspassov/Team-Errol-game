@@ -126,7 +126,11 @@ public class Ball {
                 } else if (center >= first && center < second) {
                     this.setSpeedX(-5);
                 } else if (center >= second && center < third) {
-                    this.setSpeedX(1);
+                    if (this.getSpeedX() > 0) {
+                        this.setSpeedX(1);
+                    } else {
+                        this.setSpeedX(-1);
+                    }
                 } else if (center >= third && center < fourth) {
                     this.setSpeedX(5);
                 } else if (center > fourth) {
