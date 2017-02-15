@@ -53,12 +53,11 @@ public class Brick {
         this.y = y;
         width = height = 0;
         image = null;
-        hitCount =hitCountIn;
+        this.hitCount =hitCountIn;
         if(hitCount==2){
             setImage(new ImageIcon(
                     this.getClass().getResource("/brick_yellow.png")).getImage());
-        }
-        if(hitCount==1){
+        }else if(hitCount==1){
             setImage(new ImageIcon(
                     this.getClass().getResource("/brick_green.png")).getImage());
         }else
