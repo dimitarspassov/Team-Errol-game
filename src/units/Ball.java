@@ -1,10 +1,12 @@
 package units;
 
+import game.Game;
+
 import java.awt.*;
 
 //TODO: Create the ball class
 
-public class Ball {
+public class Ball{
     private float centerX;
     private float centerY;
     private int w;
@@ -103,7 +105,7 @@ public class Ball {
 
             if (new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH())
                     .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
-
+                Game.playSound(this,"/ping_brick.wav");
                 //  speedY = -speedY;
                 this.setSpeedY(-this.getSpeedY());
             /* Change ball's dx based on which part of the paddle it hits.
@@ -184,7 +186,9 @@ public class Ball {
 
     private void hitBrick(Brick brick) {
 
+
         if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
+            Game.playSound(this,"/platform_ping.wav");
             //<<++kgyorev fix of x collision,case when ball hit outside brick.
             int top = (int) this.getCenterY();
             int bottom = (int) (this.getCenterY() + this.getH());

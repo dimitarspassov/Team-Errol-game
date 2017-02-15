@@ -44,8 +44,6 @@ public class Menu {
 
 
         } else if (Game.State == Game.STATE.WIN) {
-
-
             g.drawImage(ImageLoader.loadImage("/button_winner.png"), 250, 100, 300, 50, null);
 
             if (Game.highScores.sortScores().size() < 10 || (Game.highScores.sortScores().size() == 10 && Game.lastResult > Game.highScores.getMinResult())) {
@@ -97,5 +95,6 @@ public class Menu {
             }
             g.drawImage(ImageLoader.loadImage("/button_back-to-menu.png"), 300, 500, 200, 50, null);
         }
+
     }
 }

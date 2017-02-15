@@ -7,6 +7,9 @@ import units.Brick;
 import units.Platform;
 import units.Stone;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -212,8 +215,10 @@ public class Game extends JFrame implements Runnable {
                 levelSwitched = true;
                 result += score;
                 if (this.currentLevel > this.maxLevel) {
-                    State = STATE.WIN;
+                   State = STATE.WIN;
+
                 } else {
+                    playSound(this,"/level_complete.wav");
                     State = STATE.PAUSE;
                 }
             }
@@ -243,6 +248,16 @@ public class Game extends JFrame implements Runnable {
             thread.join();
         } catch (InterruptedException ex) {
             ex.printStackTrace();
+        }
+    }
+    public static void playSound(Object object, String filename) {
+        try {
+            AudioInputStream audioIn = AudioSystem.getAudioInputStream(object.getClass().getResource(filename));
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioIn);
+            clip.start();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
