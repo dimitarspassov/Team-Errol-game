@@ -18,7 +18,7 @@ public class Level {
 
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 4; j++) {
-                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3,1);
                 }
             }
 
