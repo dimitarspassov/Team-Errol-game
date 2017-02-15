@@ -83,6 +83,30 @@ public class Level {
                     bricks[bricksRemaining++] = new Brick(100 + j * 40 * 3, 48 + i * 12 * 3);
                 }
             }
+        }else if (level == 8) {
+            bricks = new Brick[18];
+
+            for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < 6; j++) {
+                    bricks[bricksRemaining++] = new Brick(22 + j * 42 * 3, 48 + i * 15 * 3);
+                }
+            }
+
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    bricks[bricksRemaining++] = new Brick(22 + j * 42 * 3, 93 + i * 15 * 3);
+                }
+
+                for (int j = 0; j < 2; j++) {
+                    bricks[bricksRemaining++] = new Brick(526 + j * 42 * 3, 93 + i * 15 * 3);
+                }
+            }
+
+            for (int i = 0; i < 2; i++) {
+                for (int j = 0; j < 2; j++) {
+                    bricks[bricksRemaining++] = new Brick(22 + j * 210 * 3, 183 + i * 15 * 3);
+                }
+            }
         }
         return bricks;
     }
@@ -118,7 +142,30 @@ public class Level {
             stones[3] = new Stone(100 + 40 * 3, 48 + 2 * 12 * 3);
             stones[4] = new Stone(100 + 3 * 40 * 3, 48 + 2 * 12 * 3);
             stones[5] = new Stone(100 + (40 * 3) * 2, 48 + 8 * 12 * 3);
+
+        } else if(level == 8){
+
+        int stoneCounter=0;
+        stones=new Stone[6];
+
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 1; j++) {
+                stones[stoneCounter++] = new Stone(335 + j * 50 * 3, 115 + i * 12 * 3);
+            }
         }
+
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 2; j++) {
+                stones[stoneCounter++] = new Stone(263 + j * 50 * 3, 205 + i * 12 * 3);
+            }
+        }
+
+        for (int i = 0; i < 1; i++) {
+            for (int j = 0; j < 3; j++) {
+                stones[stoneCounter++] = new Stone(185 + j * 50 * 3, 295 + i * 12 * 3);
+            }
+        }
+    }
         return stones;
     }
 }
