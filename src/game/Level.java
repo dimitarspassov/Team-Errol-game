@@ -65,6 +65,15 @@ public class Level {
             }
 
         }
+        else if(level == 6){
+            bricks = new Brick[20];
+
+            for (int i = 0; i < 4; i++) {
+                for (int j = 0; j < 5; j++) {
+                    bricks[bricksRemaining++] = new Brick(50 + j * 50 * 3, 48 + i * 25 * 3);
+                }
+            }
+        }
         return bricks;
     }
 
@@ -77,6 +86,16 @@ public class Level {
                 for (int j = 0; j < 3; j++) {
                     stones[j] = new Stone(90 + j * 40 * 6, 280 + i * 12 * 3);
                 }
+            }
+        }
+        else if(level == 6){
+            stones=new Stone[5];
+
+            for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < 5; j++) {
+                    stones[j] = new Stone(50 + j * 50 * 3, 160 + i * 12 * 3);
+                }
+
             }
         }
         return stones;
