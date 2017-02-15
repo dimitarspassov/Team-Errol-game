@@ -48,24 +48,6 @@ public class Brick {
                 this.getClass().getResource("/brick.png")).getImage());
         destroyed = false;
     }
-    public Brick(int x, int y,int hitCountIn) {
-        this.x = x;
-        this.y = y;
-        width = height = 0;
-        image = null;
-        hitCount =hitCountIn;
-        if(hitCount==2){
-            setImage(new ImageIcon(
-                    this.getClass().getResource("/brick_yellow.png")).getImage());
-        }
-        if(hitCount==1){
-            setImage(new ImageIcon(
-                    this.getClass().getResource("/brick_green.png")).getImage());
-        }else
-        setImage(new ImageIcon(
-                this.getClass().getResource("/brick.png")).getImage());
-        destroyed = false;
-    }
     public void setImage(Image img) {
         image = img;
         width = image.getWidth(null);
