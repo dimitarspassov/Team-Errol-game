@@ -18,7 +18,7 @@ public class Level {
 
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 4; j++) {
-                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3,1);
+                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3, 1);
                 }
             }
 
@@ -64,8 +64,7 @@ public class Level {
                 }
             }
 
-        }
-        else if(level == 6){
+        } else if (level == 6) {
             bricks = new Brick[20];
 
             for (int i = 0; i < 4; i++) {
@@ -73,17 +72,17 @@ public class Level {
                     bricks[bricksRemaining++] = new Brick(50 + j * 50 * 3, 48 + i * 25 * 3);
                 }
             }
-        } else if (level == 7){
+        } else if (level == 7) {
             bricks = new Brick[23];
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 5; j++) {
-                    if (i == 2 && j == 1 || i == 2 && j == 3){
+                    if (i == 2 && j == 1 || i == 2 && j == 3) {
                         continue;
                     }
                     bricks[bricksRemaining++] = new Brick(100 + j * 40 * 3, 48 + i * 12 * 3);
                 }
             }
-        }else if (level == 8) {
+        } else if (level == 8) {
             bricks = new Brick[18];
 
             for (int i = 0; i < 1; i++) {
@@ -107,23 +106,31 @@ public class Level {
                     bricks[bricksRemaining++] = new Brick(22 + j * 210 * 3, 183 + i * 15 * 3);
                 }
             }
+        } else if (level == 9) {
+            bricks = new Brick[10];
+
+            for (int i = 1; i < 10; i += 2) {
+                for (int j = 0; j < (4 - i / 2); j++) {
+                    bricks[bricksRemaining++] = new Brick(20 + j * 50 * 3, 48 + i * 12 * 3);
+                }
+
+            }
         }
         return bricks;
     }
 
     public static Stone[] getStones(byte level) {
 
-        Stone[] stones=null;
+        Stone[] stones = null;
         if (level == 5) {
-            stones=new Stone[3];
+            stones = new Stone[3];
             for (int i = 0; i < 1; i++) {
                 for (int j = 0; j < 3; j++) {
                     stones[j] = new Stone(90 + j * 40 * 6, 280 + i * 12 * 3);
                 }
             }
-        }
-        else if(level == 6){
-            stones=new Stone[5];
+        } else if (level == 6) {
+            stones = new Stone[5];
 
             for (int i = 0; i < 1; i++) {
                 for (int j = 0; j < 5; j++) {
@@ -131,9 +138,9 @@ public class Level {
                 }
 
             }
-        } else if (level == 7){
+        } else if (level == 7) {
 
-            stones =  new Stone[6];
+            stones = new Stone[6];
             for (int i = 6; i < 7; i++) {
                 for (int j = 0; j < 3; j++) {
                     stones[j] = new Stone(100 + (j * 40 * 3) * 2, 48 + i * 12 * 3);
@@ -143,29 +150,40 @@ public class Level {
             stones[4] = new Stone(100 + 3 * 40 * 3, 48 + 2 * 12 * 3);
             stones[5] = new Stone(100 + (40 * 3) * 2, 48 + 8 * 12 * 3);
 
-        } else if(level == 8){
+        } else if (level == 8) {
 
-        int stoneCounter=0;
-        stones=new Stone[6];
+            int stoneCounter = 0;
+            stones = new Stone[6];
 
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 1; j++) {
-                stones[stoneCounter++] = new Stone(335 + j * 50 * 3, 115 + i * 12 * 3);
+            for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < 1; j++) {
+                    stones[stoneCounter++] = new Stone(335 + j * 50 * 3, 115 + i * 12 * 3);
+                }
+            }
+
+            for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < 2; j++) {
+                    stones[stoneCounter++] = new Stone(263 + j * 50 * 3, 205 + i * 12 * 3);
+                }
+            }
+
+            for (int i = 0; i < 1; i++) {
+                for (int j = 0; j < 3; j++) {
+                    stones[stoneCounter++] = new Stone(185 + j * 50 * 3, 295 + i * 12 * 3);
+                }
+            }
+        } else if (level == 9) {
+
+            int stoneCounter = 0;
+            stones = new Stone[10];
+
+            for (int i = 10; i >= 1; i -= 2) {
+                for (int j = (4 - i / 2); j >= 0; j--) {
+                    stones[stoneCounter++] = new Stone(20 + j * 50 * 3, 48 + i * 12 * 3);
+
+                }
             }
         }
-
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 2; j++) {
-                stones[stoneCounter++] = new Stone(263 + j * 50 * 3, 205 + i * 12 * 3);
-            }
-        }
-
-        for (int i = 0; i < 1; i++) {
-            for (int j = 0; j < 3; j++) {
-                stones[stoneCounter++] = new Stone(185 + j * 50 * 3, 295 + i * 12 * 3);
-            }
-        }
-    }
         return stones;
     }
 }
