@@ -77,7 +77,7 @@ public class Game extends JFrame implements Runnable {
         this.menu = new Menu();
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
         this.currentLevel = 1;
-        this.maxLevel = 8;
+        this.maxLevel = 10;
         this.levelSwitched = true;
         this.bricks = new Brick[1];
         this.stones = null;
@@ -194,20 +194,19 @@ public class Game extends JFrame implements Runnable {
         double timePerTick = 1_000_000_000 / fps;
 
         double delta = 0;
-        long now;
         long lasTimeTicked = System.nanoTime();
 
         while (isRunning) {
-            now = System.nanoTime();
+           long now = System.nanoTime();
 
             delta += (now - lasTimeTicked) / timePerTick;
 
             if (delta >= 1) {
                 thick();
-                render();
                 delta--;
                 ball.move();
             }
+            render();
 
 
             if (this.bricksRemaining == 0 && State == STATE.GAME) {

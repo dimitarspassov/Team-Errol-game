@@ -103,7 +103,9 @@ public class Ball {
 
             if (new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH())
                     .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
-                Game.playSound(this, "/sounds/ping_platform.wav");
+                if (Game.State == Game.STATE.GAME) {
+                    Game.playSound(this, "/sounds/ping_platform.wav");
+                }
                 this.setSpeedY(-this.getSpeedY());
 
                 int segment = platform.getPlatformWidth() / 5;
@@ -154,20 +156,28 @@ public class Ball {
 
                 speedX = -speedX;
                 centerX = ballMinX - 1;
-                Game.playSound(this, "/sounds/ping_wall.wav");
+                if (Game.State == Game.STATE.GAME) {
+                    Game.playSound(this, "/sounds/ping_wall.wav");
+                }
 
             } else if (centerX + speedX > ballMaxX - speedX - radius) {
 
                 speedX = -speedX;
-                Game.playSound(this, "/sounds/ping_wall.wav");
+                if (Game.State == Game.STATE.GAME) {
+                    Game.playSound(this, "/sounds/ping_wall.wav");
+                }
             }
             if (centerY <= 0) {
                 speedY = -speedY;
-                Game.playSound(this, "/sounds/ping_wall.wav");
+                {
+                    Game.playSound(this, "/sounds/ping_wall.wav");
+                }
             } else if (centerY > ballMaxY) {
                 speedY = -speedY;
                 centerY = ballMaxY;
-                Game.playSound(this, "/sounds/ping_wall.wav");
+                if (Game.State == Game.STATE.GAME) {
+                    Game.playSound(this, "/sounds/ping_wall.wav");
+                }
             }
         } else {
             centerX = platform.getPlatformX() + 45;
@@ -179,7 +189,10 @@ public class Ball {
 
 
         if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
-            Game.playSound(this, "/sounds/ping_brick.wav");
+
+            if (Game.State == Game.STATE.GAME) {
+                Game.playSound(this, "/sounds/ping_brick.wav");
+            }
             int top = (int) this.getCenterY();
             int bottom = (int) (this.getCenterY() + this.getH());
             int left = (int) this.getCenterX();
