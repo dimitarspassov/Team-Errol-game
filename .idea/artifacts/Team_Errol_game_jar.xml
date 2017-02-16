@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Team-Errol-game:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Team_Errol_game_jar</output-path>
+    <root id="archive" name="Team-Errol-game.jar">
+      <element id="module-output" name="Team-Errol-game" />
+      <element id="library" level="project" name="resources" />
+    </root>
+  </artifact>
+</component>
