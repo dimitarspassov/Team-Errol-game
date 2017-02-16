@@ -218,7 +218,7 @@ public class Game extends JFrame implements Runnable {
                    State = STATE.WIN;
 
                 } else {
-                    playSound(this,"/level_complete.wav");
+                    playSound(this,"/sounds/level_complete.wav");
                     State = STATE.PAUSE;
                 }
             }

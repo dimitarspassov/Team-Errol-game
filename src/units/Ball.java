@@ -4,9 +4,7 @@ import game.Game;
 
 import java.awt.*;
 
-//TODO: Create the ball class
-
-public class Ball{
+public class Ball {
     private float centerX;
     private float centerY;
     private int w;
@@ -105,17 +103,9 @@ public class Ball{
 
             if (new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH())
                     .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
-                Game.playSound(this,"/ping_platform.wav");
-                //  speedY = -speedY;
+                Game.playSound(this, "/sounds/ping_platform.wav");
                 this.setSpeedY(-this.getSpeedY());
-            /* Change ball's dx based on which part of the paddle it hits.
-             * The paddle has five zones. Hitting the ball with each zone will
-             * move it in a different angle, giving the player more control over
-             * where the ball goes.
-             * The center of the paddle makes the ball go vertically up. As it
-             * moves away from the center, the speed and angle of the ball
-             * increase.
-             */
+
                 int segment = platform.getPlatformWidth() / 5;
                 int first = platform.getPlatformX() + segment;
                 int second = platform.getPlatformX() + segment * 2;
@@ -141,20 +131,17 @@ public class Ball{
                 // Reset ball's position out of collision.
                 this.setCenterY(platform.getPlatformY() - this.getH());
             }
-            // This to be in main loop
+
             // Draw the bricks
             if (bricks != null) {
                 for (Brick brick : bricks) {
-                    // If brick is destroyed, continue to next brick,
                     if (brick.destroyed) continue;
                     hitBrick(brick);
                 }
             }
-
+            // Draw the stones
             if (stones != null) {
                 for (Stone stone : stones) {
-
-                    // If brick is destroyed, continue to next brick,
                     if (stone != null) {
                         stone.hitCount++;
                         hitBrick(stone);
@@ -167,20 +154,20 @@ public class Ball{
 
                 speedX = -speedX;
                 centerX = ballMinX - 1;
-                Game.playSound(this,"/ping_wall.wav");
+                Game.playSound(this, "/sounds/ping_wall.wav");
 
             } else if (centerX + speedX > ballMaxX - speedX - radius) {
 
                 speedX = -speedX;
-                Game.playSound(this,"/ping_wall.wav");
+                Game.playSound(this, "/sounds/ping_wall.wav");
             }
             if (centerY <= 0) {
                 speedY = -speedY;
-                Game.playSound(this,"/ping_wall.wav");
+                Game.playSound(this, "/sounds/ping_wall.wav");
             } else if (centerY > ballMaxY) {
                 speedY = -speedY;
                 centerY = ballMaxY;
-                Game.playSound(this,"/ping_wall.wav");
+                Game.playSound(this, "/sounds/ping_wall.wav");
             }
         } else {
             centerX = platform.getPlatformX() + 45;
@@ -192,34 +179,29 @@ public class Ball{
 
 
         if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
-            Game.playSound(this,"/ping_brick.wav");
-            //<<++kgyorev fix of x collision,case when ball hit outside brick.
+            Game.playSound(this, "/sounds/ping_brick.wav");
             int top = (int) this.getCenterY();
             int bottom = (int) (this.getCenterY() + this.getH());
             int left = (int) this.getCenterX();
             int right = (int) (this.getCenterX() + this.getW());
 
 
-            // Set Y direction depending on where collision occurs.
             int oldDy = this.getSpeedY();
             if (brick.getRect().contains(left, top - 1)) {
                 int dy = this.getSpeedY();
-                this.setSpeedY(dy < 0 ? -dy : dy); // Ensure positive dy.
+                this.setSpeedY(dy < 0 ? -dy : dy);
             } else if (brick.getRect().contains(left, bottom + 1)) {
                 int dy = this.getSpeedY();
-                this.setSpeedY(dy < 0 ? dy : -dy); // Ensure negative dy.
+                this.setSpeedY(dy < 0 ? dy : -dy);
             }
-            // Set X direction depending on where collision occurs.
-            int currentDy = this.getSpeedY();
+
             if (brick.getRect().contains(right + 1, top) && oldDy == this.getSpeedY()) {
                 int dx = this.getSpeedX();
-                this.setSpeedX(dx < 0 ? dx : -dx); // Ensure negative dx.
+                this.setSpeedX(dx < 0 ? dx : -dx);
             } else if (brick.getRect().contains(left - 1, top) && oldDy == this.getSpeedY()) {
                 int dx = this.getSpeedX();
-                this.setSpeedX(dx < 0 ? -dx : dx); // Ensure positive dx.
+                this.setSpeedX(dx < 0 ? -dx : dx);
             }
-            //>>++kgyorev
-            //  speedY = -speedY; --kgyorev
             brick.hitBrick();
         }
     }
