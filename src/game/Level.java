@@ -12,13 +12,11 @@ public class Level {
 
         int bricksRemaining = 0;
         Brick[] bricks = new Brick[0];
-        if (level == 1) {
-
-            bricks = new Brick[8];
+        if (level == 1) {bricks = new Brick[8];
 
             for (int i = 0; i < 2; i++) {
                 for (int j = 0; j < 4; j++) {
-                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3, 1);
+                    bricks[bricksRemaining++] = new Brick(157 + j * 40 * 3, 48 + i * 12 * 3,1);
                 }
             }
 
@@ -29,28 +27,36 @@ public class Level {
             for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4; j++) {
                     if ((i + j) % 2 == 0) {
-
-                        bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+                        if (i < 3){
+                            bricks[bricksRemaining++] = new Brick(157 + j * 40 * 3, 48 + i * 12 * 3, 2);
+                        } else {
+                            bricks[bricksRemaining++] = new Brick(157 + j * 40 * 3, 48 + i * 12 * 3, 1);
+                        }
                     }
                 }
             }
         } else if (level == 3) {
-
-
             bricks = new Brick[30];
 
             for (int i = 0; i < 5; i++) {
                 for (int j = 0; j < 6; j++) {
-                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+                    if (i <= 1){
+                        bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+                    } else {
+                        bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3, 2);
+                    }
                 }
             }
 
         } else if (level == 4) {
 
-            bricks = new Brick[35];
+            bricks = new Brick[30];
             for (int i = 0; i < 7; i++) {
                 for (int j = 0; j < 5; j++) {
-                    bricks[bricksRemaining++] = new Brick(40 + j * 40 * 3, 48 + i * 12 * 3);
+                    if (j == 1 && i == 1 || j == 1 && i == 5 || j == 3 && i == 1 || j == 3 && i == 5 || i == 3 && j == 2) {
+                        continue;
+                    }
+                    bricks[bricksRemaining++] = new Brick(100 + j * 40 * 3, 48 + i * 12 * 3);
                 }
             }
         } else if (level == 5) {
@@ -114,6 +120,16 @@ public class Level {
                     bricks[bricksRemaining++] = new Brick(20 + j * 50 * 3, 48 + i * 12 * 3);
                 }
 
+            }
+        } else if (level == 10){
+            bricks = new Brick[32];
+            for (int i = 0; i < 7; i++) {
+                for (int j = 0; j < 6; j++) {
+                    if ((i == 0 && j == 0) || (j == 1 && i == 2) || (j == 2 && i == 3) || (j == 3 && i == 3) || (j == 4 && i == 2) || (i == 0 && j == 5) || (j == 0 && i == 6) || (j == 1 && i == 4) || (j == 4 && i == 4) || (j == 5 && i == 6)){
+                        continue;
+                    }
+                    bricks[bricksRemaining++] = new Brick(22 + j * 42 * 3, 48 + i * 15 * 3);
+                }
             }
         }
         return bricks;
@@ -181,6 +197,18 @@ public class Level {
                 for (int j = (4 - i / 2); j >= 0; j--) {
                     stones[stoneCounter++] = new Stone(20 + j * 50 * 3, 48 + i * 12 * 3);
 
+                }
+            }
+        } else if (level == 10){
+            stones = new Stone[9];
+            int stoneCounter = 0;
+            for (int i = 0; i < 7; i++) {
+                for (int j = 0; j < 6; j++) {
+                    if ((i == 0 && j == 0) || (j == 1 && i == 2) || (j == 4 && i == 2) || (i == 0 && j == 5) || (j == 0 && i == 6) || (j == 1 && i == 4) || (j == 4 && i == 4) || (j == 5 && i == 6)){
+                        stones[stoneCounter++] = new Stone(22 + j * 42 * 3, 48 + i * 15 * 3);
+                    } else if (j == 2 && i == 3){
+                        stones[stoneCounter++] = new Stone(85 + j * 42 * 3, 48 + i * 15 * 3);
+                    }
                 }
             }
         }
