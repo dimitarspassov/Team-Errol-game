@@ -105,7 +105,7 @@ public class Ball{
 
             if (new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH())
                     .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
-                Game.playSound(this,"/ping_wall.wav");
+                Game.playSound(this,"/ping_platform.wav");
                 //  speedY = -speedY;
                 this.setSpeedY(-this.getSpeedY());
             /* Change ball's dx based on which part of the paddle it hits.
@@ -167,20 +167,20 @@ public class Ball{
 
                 speedX = -speedX;
                 centerX = ballMinX - 1;
-                Game.playSound(this,"/ping_brick.wav");
+                Game.playSound(this,"/ping_wall.wav");
 
             } else if (centerX + speedX > ballMaxX - speedX - radius) {
 
                 speedX = -speedX;
-                Game.playSound(this,"/ping_brick.wav");
+                Game.playSound(this,"/ping_wall.wav");
             }
             if (centerY <= 0) {
                 speedY = -speedY;
-                Game.playSound(this,"/ping_brick.wav");
+                Game.playSound(this,"/ping_wall.wav");
             } else if (centerY > ballMaxY) {
                 speedY = -speedY;
                 centerY = ballMaxY;
-                Game.playSound(this,"/ping_brick.wav");
+                Game.playSound(this,"/ping_wall.wav");
             }
         } else {
             centerX = platform.getPlatformX() + 45;
@@ -192,7 +192,7 @@ public class Ball{
 
 
         if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
-            Game.playSound(this,"/platform_ping.wav");
+            Game.playSound(this,"/ping_brick.wav");
             //<<++kgyorev fix of x collision,case when ball hit outside brick.
             int top = (int) this.getCenterY();
             int bottom = (int) (this.getCenterY() + this.getH());
