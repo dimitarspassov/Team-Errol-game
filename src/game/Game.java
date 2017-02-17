@@ -209,7 +209,7 @@ public class Game extends JFrame implements Runnable {
             render();
 
 
-            if (this.bricksRemaining == 0 && State == STATE.GAME) {
+            if (this.bricksRemaining <=this.bricks.length-3 && State == STATE.GAME) {
                 currentLevel++;
                 levelSwitched = true;
                 result += score;
