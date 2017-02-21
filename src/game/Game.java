@@ -197,7 +197,7 @@ public class Game extends JFrame implements Runnable {
         long lasTimeTicked = System.nanoTime();
 
         while (isRunning) {
-           long now = System.nanoTime();
+            long now = System.nanoTime();
 
             delta += (now - lasTimeTicked) / timePerTick;
 
@@ -209,15 +209,15 @@ public class Game extends JFrame implements Runnable {
             render();
 
 
-            if (this.bricksRemaining <=this.bricks.length-3 && State == STATE.GAME) {
+            if (this.bricksRemaining == 0 && State == STATE.GAME) {
                 currentLevel++;
                 levelSwitched = true;
                 result += score;
                 if (this.currentLevel > this.maxLevel) {
-                   State = STATE.WIN;
+                    State = STATE.WIN;
 
                 } else {
-                    playSound(this,"/sounds/level_complete.wav");
+                    playSound(this, "/sounds/level_complete.wav");
                     State = STATE.PAUSE;
                 }
             }
@@ -249,6 +249,7 @@ public class Game extends JFrame implements Runnable {
             ex.printStackTrace();
         }
     }
+
     public static void playSound(Object object, String filename) {
         try {
             AudioInputStream audioIn = AudioSystem.getAudioInputStream(object.getClass().getResource(filename));
