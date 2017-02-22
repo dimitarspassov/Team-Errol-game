@@ -45,6 +45,11 @@ public class InputHandler implements KeyListener {
             Ball.isSpacePressed = true;
         }
 
+        // Press Escape to pause the game
+        if (code == KeyEvent.VK_ESCAPE) {
+           Game.isGamePaused = !Game.isGamePaused;
+        }
+
         //Implementing platform's moving
         if (code == KeyEvent.VK_RIGHT) {
             Platform.isMovingRight = true;

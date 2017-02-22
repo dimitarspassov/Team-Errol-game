@@ -25,7 +25,7 @@ public class Game extends JFrame implements Runnable {
     private Platform platform;
     private Ball ball;
 
-
+    public static boolean isGamePaused;
     private Brick[] bricks;
     private Stone[] stones;
     private int bricksRemaining;
@@ -39,7 +39,7 @@ public class Game extends JFrame implements Runnable {
     public BufferStrategy bs;
     public Graphics graphics;
     private Thread thread;
-    private boolean isRunning;
+    public static boolean isRunning;
 
 
     public static StringBuilder playerName;
@@ -175,6 +175,12 @@ public class Game extends JFrame implements Runnable {
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
             this.graphics.drawString("" + score, 740, 30);
 
+            // Show message to the user when game is paused
+            if (isGamePaused) {
+                this.graphics.setFont(new Font("serif", Font.BOLD, 40));
+                this.graphics.drawString("Press ESC to resume", 234, 300);
+            }
+
         } else {
             this.menu.render(graphics, currentLevel);
         }
@@ -197,6 +203,11 @@ public class Game extends JFrame implements Runnable {
         long lasTimeTicked = System.nanoTime();
 
         while (isRunning) {
+
+            if (isGamePaused) {
+                pause();
+            }
+
             long now = System.nanoTime();
 
             delta += (now - lasTimeTicked) / timePerTick;
@@ -231,6 +242,14 @@ public class Game extends JFrame implements Runnable {
         }
 
         this.stop();
+    }
+
+    public synchronized void pause() {
+
+        while (isGamePaused) {
+            render();
+            Thread.yield();
+        }
     }
 
     public synchronized void start() {
