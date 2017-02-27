@@ -76,7 +76,7 @@ public class Game extends JFrame implements Runnable {
         this.addKeyListener(new InputHandler(this.display.getCanvas()));
         this.menu = new Menu();
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
-        this.currentLevel = 1;
+        this.currentLevel = 0;
         this.maxLevel = 10;
         this.levelSwitched = true;
         this.bricks = new Brick[1];
@@ -95,11 +95,9 @@ public class Game extends JFrame implements Runnable {
 
     }
 
-
     public void render() {
 
         score = result;
-
 
         //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
         //We can change it later.
@@ -112,39 +110,6 @@ public class Game extends JFrame implements Runnable {
             this.bs = this.display.getCanvas().getBufferStrategy();
         }
         this.graphics = this.bs.getDrawGraphics();
-
-        switch (currentLevel) {
-            case 1:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic1.png"), 0, 0, 800, 600, null);
-                break;
-            case 2 :
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic2.png"), 0, 0, 800, 600, null);
-                break;
-            case 3:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic3.png"), 0, 0, 800, 600, null);
-                break;
-            case 4:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic4.png"), 0, 0, 800, 600, null);
-                break;
-            case 5:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic5.png"), 0, 0, 800, 600, null);
-                break;
-            case 6:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic6.png"), 0, 0, 800, 600, null);
-                break;
-            case 7:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic7.png"), 0, 0, 800, 600, null);
-                break;
-            case 8:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic8.png"), 0, 0, 800, 600, null);
-                break;
-            case 9:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic9.png"), 0, 0, 800, 600, null);
-                break;
-            default:
-                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic10.png"), 0, 0, 800, 600, null);
-                break;
-        }
 
 
         if (this.levelSwitched) {
@@ -161,6 +126,41 @@ public class Game extends JFrame implements Runnable {
         }
 
         if (State == STATE.GAME) {
+
+
+            switch (currentLevel) {
+                case 1:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic1.png"), 0, 0, 800, 600, null);
+                    break;
+                case 2:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic2.png"), 0, 0, 800, 600, null);
+                    break;
+                case 3:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic3.png"), 0, 0, 800, 600, null);
+                    break;
+                case 4:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic4.png"), 0, 0, 800, 600, null);
+                    break;
+                case 5:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic5.png"), 0, 0, 800, 600, null);
+                    break;
+                case 6:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic6.png"), 0, 0, 800, 600, null);
+                    break;
+                case 7:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic7.png"), 0, 0, 800, 600, null);
+                    break;
+                case 8:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic8.png"), 0, 0, 800, 600, null);
+                    break;
+                case 9:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic9.png"), 0, 0, 800, 600, null);
+                    break;
+                default:
+                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic10.png"), 0, 0, 800, 600, null);
+                    break;
+            }
+
 
             //Creating the platform
             this.platform.render(graphics);
@@ -212,6 +212,7 @@ public class Game extends JFrame implements Runnable {
             }
 
         } else {
+            this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic.png"), 0, 0, 800, 600, null);
             this.menu.render(graphics, currentLevel);
         }
         //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.
@@ -250,7 +251,7 @@ public class Game extends JFrame implements Runnable {
             render();
 
 
-            if (this.bricksRemaining == 0 && State == STATE.GAME) {
+            if (this.bricksRemaining <= this.bricks.length - 2 && State == STATE.GAME) {
                 currentLevel++;
                 levelSwitched = true;
                 result += score;
