@@ -113,8 +113,38 @@ public class Game extends JFrame implements Runnable {
         }
         this.graphics = this.bs.getDrawGraphics();
 
-        //Here we draw the background on the canvas.
-        this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic.png"), 0, 0, 800, 600, null);
+        switch (currentLevel) {
+            case 1:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic1.png"), 0, 0, 800, 600, null);
+                break;
+            case 2 :
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic2.png"), 0, 0, 800, 600, null);
+                break;
+            case 3:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic3.png"), 0, 0, 800, 600, null);
+                break;
+            case 4:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic4.png"), 0, 0, 800, 600, null);
+                break;
+            case 5:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic5.png"), 0, 0, 800, 600, null);
+                break;
+            case 6:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic6.png"), 0, 0, 800, 600, null);
+                break;
+            case 7:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic7.png"), 0, 0, 800, 600, null);
+                break;
+            case 8:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic8.png"), 0, 0, 800, 600, null);
+                break;
+            case 9:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic9.png"), 0, 0, 800, 600, null);
+                break;
+            default:
+                this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic10.png"), 0, 0, 800, 600, null);
+                break;
+        }
 
 
         if (this.levelSwitched) {
