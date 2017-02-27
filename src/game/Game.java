@@ -111,7 +111,6 @@ public class Game extends JFrame implements Runnable {
         }
         this.graphics = this.bs.getDrawGraphics();
 
-
         if (this.levelSwitched) {
             if (currentLevel == 1) {
                 result = 0;
@@ -205,10 +204,10 @@ public class Game extends JFrame implements Runnable {
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
             this.graphics.drawString("" + score, 740, 30);
 
-            // Show message to the user when game is paused
+            // Draw buttons when user is paused the game
             if (isGamePaused) {
-                this.graphics.setFont(new Font("serif", Font.BOLD, 40));
-                this.graphics.drawString("Press ESC to resume", 234, 300);
+                this.graphics.drawImage(ImageLoader.loadImage("/button_resume-game.png"), 300, 250, 200, 50, null);
+                this.graphics.drawImage(ImageLoader.loadImage("/button_exit.png"), 300, 350, 200, 50, null);
             }
 
         } else {

@@ -7,32 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5905fc3a-ab9d-4a57-bd49-22ec65ffb4ec" name="Default" comment="fix">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic1.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic10.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic2.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic3.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic4.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic5.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic6.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic7.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic8.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/backgroundPic9.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_add-your-score.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_back-to-menu.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_exit.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_game-over.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_highscores.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_name-score.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_new-highscore.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_next-level.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_no-highscores-yet.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_resume-game.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_start-game.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/resources/button_winner.png" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Team-Errol-game.iml" afterPath="$PROJECT_DIR$/Team-Errol-game.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/Game.java" afterPath="$PROJECT_DIR$/src/game/Game.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/graphics/ImageLoader.java" afterPath="$PROJECT_DIR$/src/graphics/ImageLoader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game/MouseInput.java" afterPath="$PROJECT_DIR$/src/game/MouseInput.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -80,8 +57,18 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="99" column="23" lean-forward="false" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="23" />
+            <state relative-caret-position="287">
+              <caret line="110" column="9" lean-forward="true" selection-start-line="110" selection-start-column="9" selection-end-line="110" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MouseInput.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/MouseInput.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="704">
+              <caret line="57" column="30" lean-forward="false" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -778,7 +765,7 @@
       <workItem from="1487265907338" duration="615000" />
       <workItem from="1487318305880" duration="410000" />
       <workItem from="1487318966557" duration="6418000" />
-      <workItem from="1488202977399" duration="4025000" />
+      <workItem from="1488202977399" duration="4240000" />
     </task>
     <task id="LOCAL-00001" summary="Brick class creation">
       <created>1486077974663</created>
@@ -805,7 +792,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="94368000" />
+    <option name="totallyTimeSpent" value="94583000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -817,7 +804,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="7" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1089,14 +1076,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/MouseInput.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="57" column="30" lean-forward="false" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_112/src.zip!/javax/imageio/ImageIO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="246">
@@ -1131,10 +1110,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/MouseInput.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="704">
+          <caret line="57" column="30" lean-forward="false" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="99" column="23" lean-forward="false" selection-start-line="99" selection-start-column="23" selection-end-line="99" selection-end-column="23" />
+        <state relative-caret-position="287">
+          <caret line="110" column="9" lean-forward="true" selection-start-line="110" selection-start-column="9" selection-end-line="110" selection-end-column="9" />
           <folding />
         </state>
       </provider>
