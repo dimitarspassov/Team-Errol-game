@@ -23,7 +23,6 @@ public class MouseInput implements MouseListener {
         int mX = e.getX();
         int mY = e.getY();
 
-
         if (Game.getPauseState()) {
             // Resume game Button when user is pressed ESC
             if (mX >= 300 && mX <= 500) {
@@ -39,6 +38,14 @@ public class MouseInput implements MouseListener {
                     Game.playSound(this, "/sounds/button.wav");
                     System.exit(1);
                 }
+            }
+        }
+
+        // Play/mute sound
+        if (mX >= 740 && mX <= 780) {
+            if (mY >= 50 && mY <= 90) {
+                Game.turnSoundOnOff();
+                Game.playSound(this, "/sounds/button.wav");
             }
         }
 

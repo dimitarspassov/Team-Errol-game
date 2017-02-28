@@ -26,6 +26,7 @@ public class Game extends JFrame implements Runnable {
     private Ball ball;
 
     private static boolean isGamePaused;
+    private static boolean isSoundMuted;
     private Brick[] bricks;
     private Stone[] stones;
     private int bricksRemaining;
@@ -214,6 +215,13 @@ public class Game extends JFrame implements Runnable {
                 this.graphics.drawImage(ImageLoader.loadImage("/button_exit.png"), 300, 350, 200, 50, null);
             }
 
+            // Draw image for state of sound
+            if (isSoundMuted) {
+                this.graphics.drawImage(ImageLoader.loadImage("/mute.png"), 740, 50, 40, 40, null);
+            }else {
+                this.graphics.drawImage(ImageLoader.loadImage("/sound.png"), 740, 50, 40, 40, null);
+            }
+
         } else {
             this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic.png"), 0, 0, 800, 600, null);
             this.menu.render(graphics, currentLevel);
@@ -294,6 +302,10 @@ public class Game extends JFrame implements Runnable {
         isGamePaused = state;
     }
 
+    public static void turnSoundOnOff() {
+        isSoundMuted = !isSoundMuted;
+    }
+
     public synchronized void start() {
 
         this.isRunning = true;
@@ -321,13 +333,16 @@ public class Game extends JFrame implements Runnable {
     }
 
     public static void playSound(Object object, String filename) {
-        try {
-            AudioInputStream audioIn = AudioSystem.getAudioInputStream(object.getClass().getResource(filename));
-            Clip clip = AudioSystem.getClip();
-            clip.open(audioIn);
-            clip.start();
-        } catch (Exception e) {
-            e.printStackTrace();
+
+        if (!isSoundMuted) {
+            try {
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(object.getClass().getResource(filename));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioIn);
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }
