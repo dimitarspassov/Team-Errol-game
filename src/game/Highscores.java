@@ -2,7 +2,10 @@ package game;
 
 
 import java.io.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
 
 
 public class Highscores {
@@ -16,6 +19,38 @@ public class Highscores {
 
         this.results = makeNewScoreTable();
         this.sortedResults = sortScores();
+    }
+
+    public static TreeMap<String, Integer> makeNewScoreTable() {
+
+
+        File file = new File("./save/highscores.ser");
+
+
+        TreeMap<String, Integer> result = new TreeMap<>();
+        if (!file.exists()) {
+
+            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file.getCanonicalPath()))) {
+
+                ScoreTable st = new ScoreTable();
+                oos.writeObject(st);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+
+            try (ObjectInputStream oip = new ObjectInputStream(new FileInputStream(file.getCanonicalPath()))) {
+
+                ScoreTable loadedResults = (ScoreTable) oip.readObject();
+                result = loadedResults.results;
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+
+        }
+        return result;
     }
 
     public Integer getMinResult() {
@@ -80,39 +115,6 @@ public class Highscores {
                 });
         return sortedResults;
 
-    }
-
-
-    public static TreeMap<String, Integer> makeNewScoreTable() {
-
-
-        File file = new File("./save/highscores.ser");
-
-
-        TreeMap<String, Integer> result = new TreeMap<>();
-        if (!file.exists()) {
-
-            try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(file.getCanonicalPath()))) {
-
-                ScoreTable st = new ScoreTable();
-                oos.writeObject(st);
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-        } else {
-
-            try (ObjectInputStream oip = new ObjectInputStream(new FileInputStream(file.getCanonicalPath()))) {
-
-                ScoreTable loadedResults = (ScoreTable) oip.readObject();
-                result = loadedResults.results;
-
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
-
-        }
-        return result;
     }
 }
 

@@ -23,29 +23,32 @@ public class MouseInput implements MouseListener {
         int mX = e.getX();
         int mY = e.getY();
 
-        // Resume game Button when user is pressed ESC
-        if (mX >= 300 && mX <= 500) {
-            if (mY >= 250 && mY <= 300) {
-                Game.isGamePaused = false;
-                Game.playSound(this,"/sounds/button.wav");
-            }
-        }
 
-        //Exit Button when user is pressed ESC
-        if (mX >= 300 && mX <= 500) {
-            if (mY >= 350 && mY <= 400) {
-                Game.playSound(this,"/sounds/button.wav");
-                System.exit(1);
+        if (Game.getPauseState()) {
+            // Resume game Button when user is pressed ESC
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 250 && mY <= 300) {
+                    Game.turnPauseOnOff(false);
+                    Game.playSound(this, "/sounds/button.wav");
+                }
+            }
+
+            //Exit Button when user is pressed ESC
+            if (mX >= 300 && mX <= 500) {
+                if (mY >= 350 && mY <= 400) {
+                    Game.playSound(this, "/sounds/button.wav");
+                    System.exit(1);
+                }
             }
         }
 
         if (Game.State == Game.STATE.MENU) {
 
             //Resume game Button
-            if (Game.currentLevel > 1 && mX >= 300 && mX <= 500) {
+            if (Game.getCurrentLevel() > 1 && mX >= 300 && mX <= 500) {
                 if (mY >= 100 && mY <= 150) {
                     Game.State = Game.STATE.GAME;
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
 
                 }
             }
@@ -54,9 +57,9 @@ public class MouseInput implements MouseListener {
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 200 && mY <= 250) {
                     Game.State = Game.STATE.GAME;
-                    Game.currentLevel = 1;
+                    Game.setCurrentLevel((byte) 1);
                     Game.levelSwitched = true;
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
                 }
             }
 
@@ -64,26 +67,26 @@ public class MouseInput implements MouseListener {
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 300 && mY <= 350) {
                     Game.State = Game.STATE.HIGHSCORES;
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
                 }
             }
 
             //Exit Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 400 && mY <= 450) {
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
                     System.exit(1);
 
                 }
             }
         }
 
-        if (Game.State == Game.STATE.PAUSE) {
+        if (Game.State == Game.STATE.MID_LEVEL_PAUSE) {
             //Next Level Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 300 && mY <= 350) {
                     Game.State = Game.STATE.GAME;
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
                 }
             }
 
@@ -92,7 +95,7 @@ public class MouseInput implements MouseListener {
                 if (mY >= 400 && mY <= 450) {
                     Game.levelSwitched = true;
                     Game.State = Game.STATE.MENU;
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
 
                 }
             }
@@ -107,7 +110,7 @@ public class MouseInput implements MouseListener {
                     if (mY >= 200 && mY <= 250) {
 
                         Game.State = Game.STATE.PLAYER_INIT;
-                        Game.playSound(this,"/sounds/button.wav");
+                        Game.playSound(this, "/sounds/button.wav");
                     }
                 }
 
@@ -115,10 +118,10 @@ public class MouseInput implements MouseListener {
             //Back to Menu Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 300 && mY <= 350) {
-                    Game.currentLevel = 1;
+                    Game.setCurrentLevel((byte) 1);
                     Game.levelSwitched = true;
                     Game.State = Game.STATE.MENU;
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
                 }
             }
         }
@@ -129,9 +132,9 @@ public class MouseInput implements MouseListener {
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 500 && mY <= 550) {
                     Game.State = Game.STATE.MENU;
-                    Game.currentLevel = 1;
+                    Game.setCurrentLevel((byte) 1);
                     Game.levelSwitched = true;
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
                 }
             }
 
@@ -142,7 +145,7 @@ public class MouseInput implements MouseListener {
 
                         Game.highScores.insertPlayer(Game.playerName.toString(), Game.lastResult);
                         Game.State = Game.STATE.HIGHSCORES;
-                        Game.playSound(this,"/sounds/button.wav");
+                        Game.playSound(this, "/sounds/button.wav");
                     }
                 }
             }
@@ -154,7 +157,7 @@ public class MouseInput implements MouseListener {
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 500 && mY <= 550) {
                     Game.State = Game.STATE.MENU;
-                    Game.playSound(this,"/sounds/button.wav");
+                    Game.playSound(this, "/sounds/button.wav");
 
                 }
             }

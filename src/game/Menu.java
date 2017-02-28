@@ -13,14 +13,14 @@ public class Menu {
 
         if (Game.State == Game.STATE.MENU) {
 
-            if (Game.currentLevel > 1) {
+            if (Game.getCurrentLevel() > 1) {
                 g.drawImage(ImageLoader.loadImage("/button_resume-game.png"), 300, 100, 200, 50, null);
             }
             g.drawImage(ImageLoader.loadImage("/button_start-game.png"), 300, 200, 200, 50, null);
             g.drawImage(ImageLoader.loadImage("/button_highscores.png"), 300, 300, 200, 50, null);
             g.drawImage(ImageLoader.loadImage("/button_exit.png"), 300, 400, 200, 50, null);
 
-        } else if (Game.State == Game.STATE.PAUSE) {
+        } else if (Game.State == Game.STATE.MID_LEVEL_PAUSE) {
 
             g.setColor(Color.WHITE);
             Font f1 = new Font("arial", Font.BOLD, 30);

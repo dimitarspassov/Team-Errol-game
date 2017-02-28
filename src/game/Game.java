@@ -25,12 +25,12 @@ public class Game extends JFrame implements Runnable {
     private Platform platform;
     private Ball ball;
 
-    public static boolean isGamePaused;
+    private static boolean isGamePaused;
     private Brick[] bricks;
     private Stone[] stones;
     private int bricksRemaining;
 
-    public static byte currentLevel;
+    private static byte currentLevel;
     private byte maxLevel;
     public static boolean levelSwitched;
 
@@ -45,14 +45,13 @@ public class Game extends JFrame implements Runnable {
     public static StringBuilder playerName;
 
     private Menu menu;
-    public static int result;
     public static int lastResult;
     private int score;
 
     public static enum STATE {
         MENU,
         GAME,
-        PAUSE,
+        MID_LEVEL_PAUSE,
         PLAYER_INIT,
         HIGHSCORES,
         GAME_OVER,
@@ -76,13 +75,13 @@ public class Game extends JFrame implements Runnable {
         this.addKeyListener(new InputHandler(this.display.getCanvas()));
         this.menu = new Menu();
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
-        this.currentLevel = 1;
+        currentLevel = 1;
         this.maxLevel = 10;
         this.levelSwitched = true;
         this.bricks = new Brick[1];
         this.stones = null;
 
-        result = 0;
+        score = 0;
         playerName = new StringBuilder("");
         this.highScores = new Highscores();
     }
@@ -97,7 +96,6 @@ public class Game extends JFrame implements Runnable {
 
     public void render() {
 
-        score = result;
 
         //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
         //We can change it later.
@@ -113,19 +111,18 @@ public class Game extends JFrame implements Runnable {
 
         if (this.levelSwitched) {
             if (currentLevel == 1) {
-                result = 0;
+                score = 0;
             }
             this.levelSwitched = false;
-            this.bricks = Level.getLevel(this.currentLevel);
+            this.bricks = Level.getLevel(currentLevel);
             this.bricksRemaining = this.bricks.length;
             this.platform = new Platform(350, 550, 100, 20, 30);
-            this.stones = Level.getStones(this.currentLevel);
+            this.stones = Level.getStones(currentLevel);
             this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
             this.ball.isSpacePressed = false;
         }
 
         if (State == STATE.GAME) {
-
 
             switch (currentLevel) {
                 case 1:
@@ -242,7 +239,7 @@ public class Game extends JFrame implements Runnable {
 
             delta += (now - lasTimeTicked) / timePerTick;
 
-            if (delta >= 1) {
+            if (delta >= 2) {
                 thick();
                 delta--;
                 ball.move();
@@ -250,16 +247,15 @@ public class Game extends JFrame implements Runnable {
             render();
 
 
-            if (this.bricksRemaining == 0 && State == STATE.GAME) {
+            if (this.bricksRemaining <= this.bricks.length - 1 && State == STATE.GAME) {
                 currentLevel++;
                 levelSwitched = true;
-                result += score;
-                if (this.currentLevel > this.maxLevel) {
+                if (currentLevel > this.maxLevel) {
                     State = STATE.WIN;
 
                 } else {
                     playSound(this, "/sounds/level_complete.wav");
-                    State = STATE.PAUSE;
+                    State = STATE.MID_LEVEL_PAUSE;
                 }
             }
 
@@ -267,19 +263,27 @@ public class Game extends JFrame implements Runnable {
             if (!this.levelSwitched && this.ball.getCenterY() >= 570) {
                 State = STATE.GAME_OVER;
                 this.levelSwitched = true;
-                this.currentLevel = 1;
+                currentLevel = 1;
             }
         }
 
         this.stop();
     }
 
-    public synchronized void pause() {
+    private synchronized void pause() {
 
         while (isGamePaused) {
             render();
             Thread.yield();
         }
+    }
+
+    public static boolean getPauseState() {
+        return isGamePaused;
+    }
+
+    public static void turnPauseOnOff(boolean state) {
+        isGamePaused = state;
     }
 
     public synchronized void start() {
@@ -289,7 +293,7 @@ public class Game extends JFrame implements Runnable {
         thread.start();
     }
 
-    public synchronized void stop() {
+    private synchronized void stop() {
 
         try {
             this.isRunning = false;
@@ -297,6 +301,15 @@ public class Game extends JFrame implements Runnable {
         } catch (InterruptedException ex) {
             ex.printStackTrace();
         }
+    }
+
+    static byte getCurrentLevel() {
+        return currentLevel;
+    }
+
+    static void setCurrentLevel(byte level) {
+
+        currentLevel = level;
     }
 
     public static void playSound(Object object, String filename) {
