@@ -40,13 +40,14 @@ public class Game extends JFrame implements Runnable {
     public Graphics graphics;
     private Thread thread;
     public static boolean isRunning;
-
-
+    private GameTimer gameTimer;
+    private int secondsRemaining;
     public static StringBuilder playerName;
 
     private Menu menu;
     public static int lastResult;
     private int score;
+    private int levelScore;
 
     public static enum STATE {
         MENU,
@@ -80,10 +81,9 @@ public class Game extends JFrame implements Runnable {
         this.levelSwitched = true;
         this.bricks = new Brick[1];
         this.stones = null;
-
-        score = 0;
         playerName = new StringBuilder("");
         this.highScores = new Highscores();
+        this.gameTimer = new GameTimer();
     }
 
     public void thick() {
@@ -101,7 +101,6 @@ public class Game extends JFrame implements Runnable {
         //We can change it later.
         this.bs = this.display.getCanvas().getBufferStrategy();
 
-
         if (this.bs == null) {
 
             this.display.getCanvas().createBufferStrategy(2);
@@ -112,6 +111,7 @@ public class Game extends JFrame implements Runnable {
         if (this.levelSwitched) {
             if (currentLevel == 1) {
                 score = 0;
+                levelScore = 0;
             }
             this.levelSwitched = false;
             this.bricks = Level.getLevel(currentLevel);
@@ -120,6 +120,9 @@ public class Game extends JFrame implements Runnable {
             this.stones = Level.getStones(currentLevel);
             this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
             this.ball.isSpacePressed = false;
+            levelScore = 0;
+            this.gameTimer.initializeTimer();
+            this.secondsRemaining = this.gameTimer.getSeconds();
         }
 
         if (State == STATE.GAME) {
@@ -171,13 +174,15 @@ public class Game extends JFrame implements Runnable {
             this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
             // Draw the bricks
 
+            score -= levelScore;
+            levelScore = 0;
             this.bricksRemaining = Level.getLevel(currentLevel).length;
             for (Brick brick : this.bricks) {
 
                 // If brick is destroyed, continue to next brick.
                 if (brick.destroyed) {
                     // Increment player scores
-                    score += 5;
+                    levelScore += 5;
                     this.bricksRemaining--;
                 } else {
                     // Else, draw the brick.
@@ -187,7 +192,7 @@ public class Game extends JFrame implements Runnable {
                     }
                 }
             }
-
+            score += levelScore;
 
             if (stones != null) {
                 for (Stone stone : this.stones) {
@@ -199,6 +204,8 @@ public class Game extends JFrame implements Runnable {
             lastResult = score;
             // Show player scores
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
+            this.secondsRemaining = gameTimer.getSeconds();
+            this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
             this.graphics.drawString("" + score, 740, 30);
 
             // Draw buttons when user is paused the game
@@ -243,6 +250,7 @@ public class Game extends JFrame implements Runnable {
                 thick();
                 delta--;
                 ball.move();
+
             }
             render();
 

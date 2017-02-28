@@ -133,8 +133,6 @@ public class Level {
             }
             break;
         }
-
-
         return stones;
     }
 }
