@@ -1,6 +1,7 @@
 package game;
 
 import units.Brick;
+import units.Stone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,6 +146,75 @@ public class LevelGenerator {
                 }
             }
         }
+    }
 
+    public Stone[] generateStonesForCurrentLevel(int firstLoopMaxVal, int secondLoopMaxVal, int firstLoopStart, int secondLoopStart) {
+
+        this.firstLoopMaxVal = firstLoopMaxVal;
+        this.secondLoopMaxVal = secondLoopMaxVal;
+
+        List<Stone> stones = new ArrayList<>();
+
+        fillStones(stones, firstLoopStart, secondLoopStart);
+
+        if (level == 8) {
+
+            this.firstLoopMaxVal = 1;
+            this.secondLoopMaxVal = 2;
+            this.xA = 263;
+            this.yA = 205;
+            fillStones(stones, firstLoopStart, secondLoopStart);
+
+            this.firstLoopMaxVal = 1;
+            this.secondLoopMaxVal = 3;
+            this.xA = 185;
+            this.yA = 295;
+            fillStones(stones, firstLoopStart, secondLoopStart);
+        }
+
+        Stone[] generatedStones = new Stone[stones.size()];
+        generatedStones = stones.toArray(generatedStones);
+        return generatedStones;
+    }
+
+    private void fillStones(List<Stone> stones, int firstLoopStart, int secondLoopStart) {
+
+        if (level == 9) {
+
+            for (int i = firstLoopStart; i >= this.firstLoopMaxVal; i -= 2) {
+                for (int j = (4 - i / 2); j >= 0; j--) {
+                    stones.add(new Stone(xA + j * xB * xC, yA + i * yB * yC));
+                }
+            }
+
+        } else {
+
+            for (int i = firstLoopStart; i < this.firstLoopMaxVal; i++) {
+                for (int j = secondLoopStart; j < this.secondLoopMaxVal; j++) {
+
+                    if (level == 10) {
+
+                        if ((i == 0 && j == 0) || (j == 1 && i == 2) || (j == 4 && i == 2) || (i == 0 && j == 5) || (j == 0 && i == 6) || (j == 1 && i == 4) || (j == 4 && i == 4) || (j == 5 && i == 6)) {
+                            stones.add(new Stone(xA + j * xB * xC, yA + i * yB * yC));
+                        } else if (j == 2 && i == 3) {
+                            stones.add(new Stone(85 + j * xB * xC, yA + i * yB * yC));
+                        }
+                    }else if(level==7){
+
+                        stones.add(new Stone(xA + j * xB * xC*2, yA + i * yB * yC));
+
+                    } else{
+                        stones.add(new Stone(xA + j * xB * xC, yA + i * yB * yC));
+                    }
+                }
+            }
+
+            if (level == 7) {
+
+                stones.add(new Stone(100 + 40 * 3, 48 + 2 * 12 * 3));
+                stones.add(new Stone(100 + 3 * 40 * 3, 48 + 2 * 12 * 3));
+                stones.add(new Stone(100 + (40 * 3) * 2, 48 + 8 * 12 * 3));
+            }
+        }
     }
 }
