@@ -88,7 +88,7 @@ public class Ball {
         this.speedY = speedY;
     }
 
-    public void move() {
+    public void move(Game game) {
         float ballMinX = radius;
         float ballMinY = radius;
         float ballMaxX = 800 - radius;
@@ -138,7 +138,7 @@ public class Ball {
             if (bricks != null) {
                 for (Brick brick : bricks) {
                     if (brick.destroyed) continue;
-                    hitBrick(brick);
+                    hitBrick(brick,game);
                 }
             }
             // Draw the stones
@@ -146,7 +146,7 @@ public class Ball {
                 for (Stone stone : stones) {
                     if (stone != null) {
                         stone.hitCount++;
-                        hitBrick(stone);
+                        hitBrick(stone,game);
                     }
                 }
             }
@@ -185,7 +185,7 @@ public class Ball {
         }
     }
 
-    private void hitBrick(Brick brick) {
+    private void hitBrick(Brick brick, Game game) {
 
 
         if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
@@ -216,6 +216,11 @@ public class Ball {
                 this.setSpeedX(dx < 0 ? -dx : dx);
             }
             brick.hitBrick();
+            if(brick.bonus=="ball"){
+                Bonus bonus = new Bonus(brick.getX(),brick.getY());
+                game.addBonus(bonus);
+
+            }
         }
     }
 

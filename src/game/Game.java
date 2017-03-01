@@ -2,10 +2,7 @@ package game;
 
 import display.Display;
 import graphics.ImageLoader;
-import units.Ball;
-import units.Brick;
-import units.Platform;
-import units.Stone;
+import units.*;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -13,6 +10,7 @@ import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 //By far the most complex component of our project. This is the game itself.
 
@@ -29,6 +27,7 @@ public class Game extends JFrame implements Runnable {
     private static boolean isSoundMuted;
     private Brick[] bricks;
     private Stone[] stones;
+    private ArrayList<Bonus> bonuses;
     private int bricksRemaining;
 
     private static byte currentLevel;
@@ -39,6 +38,11 @@ public class Game extends JFrame implements Runnable {
 
     public BufferStrategy bs;
     public Graphics graphics;
+
+    public void addBonus(Bonus bonus) {
+        this.bonuses.add(bonus);
+    }
+
     private Thread thread;
     public static boolean isRunning;
     private GameTimer gameTimer;
@@ -82,6 +86,7 @@ public class Game extends JFrame implements Runnable {
         this.levelSwitched = true;
         this.bricks = new Brick[1];
         this.stones = null;
+        this.bonuses = new ArrayList<>();
         playerName = new StringBuilder("");
         this.highScores = new Highscores();
         this.gameTimer = new GameTimer();
@@ -201,7 +206,18 @@ public class Game extends JFrame implements Runnable {
                             stone.getWidth(), stone.getHeight(), this);
                 }
             }
+            //Bonuses
+            if (bonuses != null) {
+                for (Bonus bonus : this.bonuses) {
+                    bonus.setY(bonus.getY() + 3);
+                    this.graphics.drawImage(bonus.getImage(), bonus.getX(), bonus.getY(),
+                            bonus.getWidth(), bonus.getHeight(), this);
 
+                    if (bonus.getRect().intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
+                         this.ball=new Ball((int)(this.ball.getCenterX()), (int)(this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
+                    }
+                }
+            }
             lastResult = score;
             // Show player scores
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
@@ -257,7 +273,7 @@ public class Game extends JFrame implements Runnable {
             if (delta >= 2) {
                 thick();
                 delta--;
-                ball.move();
+                ball.move(this);
 
             }
             render();
