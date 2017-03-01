@@ -214,7 +214,10 @@ public class Game extends JFrame implements Runnable {
                             bonus.getWidth(), bonus.getHeight(), this);
 
                     if (bonus.getRect().intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
-                         this.ball=new Ball((int)(this.ball.getCenterX()), (int)(this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
+                        //Ball Bonus
+                        this.ball=new Ball((int)(this.ball.getCenterX()), (int)(this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
+                        //Platform Bonus
+                        //this.platform.setPlatformWidth(200);
                     }
                 }
             }
@@ -234,7 +237,7 @@ public class Game extends JFrame implements Runnable {
             // Draw image for state of sound
             if (isSoundMuted) {
                 this.graphics.drawImage(ImageLoader.loadImage("/mute.png"), 740, 50, 40, 40, null);
-            }else {
+            } else {
                 this.graphics.drawImage(ImageLoader.loadImage("/sound.png"), 740, 50, 40, 40, null);
             }
 
