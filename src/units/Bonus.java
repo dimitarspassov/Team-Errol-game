@@ -7,12 +7,20 @@ import javax.swing.*;
  */
 public class Bonus extends Brick{
     private String bonusType;
+    private boolean status;
 
     public String getBonusType() {
         return this.bonusType;
     }
 
-   // public Bonus(int x, int y) {
+    public boolean isStatus() {
+        return this.status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    // public Bonus(int x, int y) {
 //
    //     super(x, y);
    //     setImage(new ImageIcon(
@@ -21,6 +29,7 @@ public class Bonus extends Brick{
 
     public Bonus(int x ,int y,String bonusType) {
         super(x,y);
+        this.status=true;
         this.bonusType = bonusType;
         switch(bonusType){
 

@@ -224,16 +224,25 @@ public class Game extends JFrame implements Runnable {
             //Bonuses
             if (bonuses != null) {
                 for (Bonus bonus : this.bonuses) {
-                    bonus.setY(bonus.getY() + 3);
-                    this.graphics.drawImage(bonus.getImage(), bonus.getX(), bonus.getY(),
-                            bonus.getWidth(), bonus.getHeight(), this);
-
+                    if(bonus.isStatus()){
+                        bonus.setY(bonus.getY() + 3);
+                        this.graphics.drawImage(bonus.getImage(), bonus.getX(), bonus.getY(),
+                                bonus.getWidth(), bonus.getHeight(), this);
+                    }
                     if (bonus.getRect().intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
                         String bonusType = bonus.getBonusType();
+                        bonus.setStatus(false);
                         switch (bonusType) {
                             case "ballSizeUp":
                                 //Ball Size Up Bonus
-                                this.ball = new Ball((int) (this.ball.getCenterX()), (int) (this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
+                                //this.ball = new Ball((int) (this.ball.getCenterX()), (int) (this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
+                                this.ball.sizeUp();
+                                if(this.ballSecond!=null){
+                                    this.ballSecond.sizeUp();
+                                }
+                                if(this.ballThird!=null){
+                                    this.ballThird.sizeUp();
+                                }
                                 break;
                             case "platformSizeUp":
                                 //Platform Size Up Bonus
@@ -247,9 +256,18 @@ public class Game extends JFrame implements Runnable {
 
 
                         }
+
                     }
                 }
+               // ArrayList<Bonus> newBonuses = new ArrayList<>();
+               // for (Bonus bonus : this.bonuses) {
+               //    if(bonus.isStatus()){
+               //        newBonuses.add(bonus);
+               //    }
+               // }
+               // this.bonuses=newBonuses;
             }
+
             lastResult = score;
             // Show player scores
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
@@ -326,8 +344,18 @@ public class Game extends JFrame implements Runnable {
                 } else {
                     playSound(this, "/sounds/level_complete.wav");
                     State = STATE.MID_LEVEL_PAUSE;
+                    this.initLevel();
                 }
             }
+            //Bonus clear
+            ArrayList<Bonus> newBonuses = new ArrayList<>();
+            for (Bonus bonus : this.bonuses) {
+                if(bonus.isStatus()&&bonus.getY()<570){
+                    newBonuses.add(bonus);
+                }
+            }
+            this.bonuses=newBonuses;
+
             if (this.ballSecond != null && this.ballSecond.getCenterY() >= 570) {
                 this.ballSecond = null;
             }
@@ -349,6 +377,13 @@ public class Game extends JFrame implements Runnable {
         }
 
         this.stop();
+    }
+
+    private void initLevel() {
+        this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
+        this.ballSecond=null;
+        this.ballThird=null;
+        this.bonuses=new ArrayList<>();
     }
 
     private synchronized void pause() {

@@ -217,7 +217,6 @@ public class Ball {
             }
             brick.hitBrick();
             if(brick.bonus!=null){
-           //     Bonus bonus = new Bonus(brick.getX(),brick.getY());
                 game.addBonus(brick.getBonus());
 
            }
@@ -226,5 +225,12 @@ public class Ball {
 
     public void render(Graphics g) {
         g.drawOval((int) this.centerX, (int) this.centerY, this.w, this.h);
+    }
+
+    public void sizeUp() {
+        this.setH(40);
+        this.setW(40);
+        this.setRadius(20);
+
     }
 }
