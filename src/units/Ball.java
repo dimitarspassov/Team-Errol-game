@@ -216,11 +216,11 @@ public class Ball {
                 this.setSpeedX(dx < 0 ? -dx : dx);
             }
             brick.hitBrick();
-            if(brick.bonus=="ball"){
-                Bonus bonus = new Bonus(brick.getX(),brick.getY());
-                game.addBonus(bonus);
+            if(brick.bonus!=null){
+           //     Bonus bonus = new Bonus(brick.getX(),brick.getY());
+                game.addBonus(brick.getBonus());
 
-            }
+           }
         }
     }
 

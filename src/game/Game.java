@@ -128,7 +128,7 @@ public class Game extends JFrame implements Runnable {
             this.stones = Level.getStones(currentLevel);
             this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
             this.ball.isSpacePressed = false;
-           // this.ballSecond = new Ball(350, 550, 10, 20, 20, -5, 5, platform, bricks, stones);
+            // this.ballSecond = new Ball(350, 550, 10, 20, 20, -5, 5, platform, bricks, stones);
             levelScore = 0;
             this.gameTimer.initializeTimer();
             this.secondsRemaining = this.gameTimer.getSeconds();
@@ -182,15 +182,15 @@ public class Game extends JFrame implements Runnable {
             this.graphics.setColor(Color.WHITE);
             this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
             //Second Ball
-            if(this.ballSecond!=null){
+            if (this.ballSecond != null) {
                 this.ballSecond.render(graphics);
-               // this.graphics.setColor(Color.WHITE);
+                // this.graphics.setColor(Color.WHITE);
                 this.graphics.fillOval((int) ballSecond.getCenterX(), (int) ballSecond.getCenterY(), ballSecond.getH(), ballSecond.getW());
             }
             //Third Ball
-            if(this.ballThird!=null){
+            if (this.ballThird != null) {
                 this.ballThird.render(graphics);
-            //    this.graphics.setColor(Color.WHITE);
+                //    this.graphics.setColor(Color.WHITE);
                 this.graphics.fillOval((int) ballThird.getCenterX(), (int) ballThird.getCenterY(), ballThird.getH(), ballThird.getW());
             }
 
@@ -229,14 +229,24 @@ public class Game extends JFrame implements Runnable {
                             bonus.getWidth(), bonus.getHeight(), this);
 
                     if (bonus.getRect().intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
-                        //Ball Bonus
-                        //this.ball=new Ball((int)(this.ball.getCenterX()), (int)(this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
-                        //Platform Bonus
-                        //this.platform.setPlatformWidth(200);
+                        String bonusType = bonus.getBonusType();
+                        switch (bonusType) {
+                            case "ballSizeUp":
+                                //Ball Size Up Bonus
+                                this.ball = new Ball((int) (this.ball.getCenterX()), (int) (this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
+                                break;
+                            case "platformSizeUp":
+                                //Platform Size Up Bonus
+                                this.platform.setPlatformWidth(200);
+                                break;
+                            case "threeBalls":
+                                //Three Ball Bonus
+                                this.ballSecond = new Ball((int) this.ball.getCenterX(), (int) this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX(), this.ball.getSpeedY() * -1, platform, bricks, stones);
+                                this.ballThird = new Ball((int) this.ball.getCenterX(), (int) this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX() * -1, this.ball.getSpeedY(), platform, bricks, stones);
+                                break;
 
-                        //Three Ball Bonus
-                         this.ballSecond = new Ball((int)this.ball.getCenterX(), (int)this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX(), this.ball.getSpeedY()*-1, platform, bricks, stones);;
-                         this.ballThird = new Ball((int)this.ball.getCenterX(), (int)this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX()*-1, this.ball.getSpeedY(), platform, bricks, stones);;
+
+                        }
                     }
                 }
             }
@@ -296,10 +306,10 @@ public class Game extends JFrame implements Runnable {
                 thick();
                 delta--;
                 ball.move(this);
-                if(ballSecond!=null){
+                if (ballSecond != null) {
                     ballSecond.move(this);
                 }
-                if(ballThird!=null){
+                if (ballThird != null) {
                     ballThird.move(this);
                 }
 
@@ -318,19 +328,19 @@ public class Game extends JFrame implements Runnable {
                     State = STATE.MID_LEVEL_PAUSE;
                 }
             }
-            if (this.ballSecond!=null&&this.ballSecond.getCenterY() >= 570) {
-                this.ballSecond=null;
+            if (this.ballSecond != null && this.ballSecond.getCenterY() >= 570) {
+                this.ballSecond = null;
             }
-            if (this.ballThird!=null&&this.ballThird.getCenterY() >= 570) {
-                this.ballThird=null;
+            if (this.ballThird != null && this.ballThird.getCenterY() >= 570) {
+                this.ballThird = null;
             }
             // Stop the game when the ball exits game field
             if (!this.levelSwitched && this.ball.getCenterY() >= 570) {
-                if(this.ballSecond!=null){
-                    this.ball=this.ballSecond;
-                }else if(this.ballThird!=null) {
+                if (this.ballSecond != null) {
+                    this.ball = this.ballSecond;
+                } else if (this.ballThird != null) {
                     this.ball = this.ballThird;
-                }else {
+                } else {
                     State = STATE.GAME_OVER;
                     this.levelSwitched = true;
                     currentLevel = 1;

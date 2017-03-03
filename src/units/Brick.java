@@ -11,7 +11,7 @@ public class Brick {
     protected int height;
     protected int x;
     protected int y;
-    protected String bonus;
+    protected Bonus bonus;
     public boolean destroyed;
     public int hitCount;
     public void hitBrick(){
@@ -45,7 +45,7 @@ public class Brick {
         width = height = 0;
         image = null;
         this.hitCount =hitCountIn;
-        this.bonus="ball";
+        this.bonus=null;
         if(hitCount==2){
             setImage(new ImageIcon(
                     this.getClass().getResource("/brick_yellow.png")).getImage());
@@ -71,15 +71,19 @@ public class Brick {
     public void setY(int y) { this.y = y; }
     public int getY() { return y; }
 
-    public String getBonus() {
+    public Bonus getBonus() {
         return this.bonus;
     }
 
-    public void setBonus(String bonus) {
+    public void setBonus(Bonus bonus) {
         this.bonus = bonus;
     }
 
     public Rectangle getRect() {
         return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
     }
+
+    public void addBonus(String BonusType) {
+        this.bonus = new Bonus(this.getX(),this.getY(),BonusType);
+     }
 }
