@@ -201,7 +201,7 @@ public class Game extends JFrame implements Runnable {
             for (Brick brick : this.bricks) {
 
                 // If brick is destroyed, continue to next brick.
-                if (brick.destroyed) {
+                if (brick.isDestroyed()) {
                     // Increment player scores
                     levelScore += 5;
                     this.bricksRemaining--;
@@ -365,9 +365,11 @@ public class Game extends JFrame implements Runnable {
             // Stop the game when the ball exits game field
             if (!this.levelSwitched && this.ball.getCenterY() >= 570) {
                 if (this.ballSecond != null) {
-                    this.ball = this.ballSecond;
+                    this.ball = new Ball((int) this.ballSecond.getCenterX(), (int) this.ballSecond.getCenterY(), this.ballSecond.getRadius(), this.ballSecond.getW(), this.ballSecond.getH(), this.ballSecond.getSpeedX(), this.ballSecond.getSpeedY(), platform, bricks, stones);;
+                    this.ballSecond=null;
                 } else if (this.ballThird != null) {
-                    this.ball = this.ballThird;
+                    this.ball = new Ball((int) this.ballThird.getCenterX(), (int) this.ballThird.getCenterY(), this.ballThird.getRadius(), this.ballThird.getW(), this.ballThird.getH(), this.ballThird.getSpeedX(), this.ballThird.getSpeedY(), platform, bricks, stones);;
+                    this.ballThird=null;
                 } else {
                     State = STATE.GAME_OVER;
                     this.levelSwitched = true;

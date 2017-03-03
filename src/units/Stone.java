@@ -7,6 +7,6 @@ public class Stone extends Brick {
         super(x, y);
         setImage(new ImageIcon(
                 this.getClass().getResource("/stone.png")).getImage());
-        destroyed = false;
+        super.setDestroyed(false);
     }
 }

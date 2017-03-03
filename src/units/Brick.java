@@ -12,7 +12,16 @@ public class Brick {
     protected int x;
     protected int y;
     protected Bonus bonus;
-    public boolean destroyed;
+    private boolean destroyed;
+
+    public boolean isDestroyed() {
+        return this.destroyed;
+    }
+
+    public void setDestroyed(boolean destroyed) {
+        this.destroyed = destroyed;
+    }
+
     public int hitCount;
     public void hitBrick(){
         this.hitCount--;

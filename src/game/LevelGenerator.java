@@ -89,6 +89,11 @@ public class LevelGenerator {
                             bricks.add(new Brick(xA + j * xB * xC, yA + i * yB * yC, 1));
                         }
                     }
+                    if(bricks.size()==8){
+                        bricks.get(3).addBonus("ballSizeUp");
+                        bricks.get(7).addBonus("threeBalls");
+                        bricks.get(1).addBonus("platformSizeUp");
+                    }
                 }
             } else if (level == 8 && yA == 93) {
 
