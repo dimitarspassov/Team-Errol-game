@@ -19,7 +19,10 @@ public class Brick extends Sprite implements Commons{
         this.destroyed = destroyed;
     }
 
-    public int hitCount;
+    private int hitCount;
+    public void incHitCount(){
+        this.hitCount++;
+    }
     public void hitBrick(){
         this.hitCount--;
         if(hitCount==2){

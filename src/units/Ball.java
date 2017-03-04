@@ -145,7 +145,7 @@ public class Ball {
             if (stones != null) {
                 for (Stone stone : stones) {
                     if (stone != null) {
-                        stone.hitCount++;
+                        stone.incHitCount();
                         hitBrick(stone,game);
                     }
                 }

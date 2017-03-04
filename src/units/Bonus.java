@@ -27,15 +27,15 @@ public class Bonus extends Brick{
         switch(bonusType){
 
             case "ballSizeUp":setImage(new ImageIcon(
-                    this.getClass().getResource("/bonus_ball_up.png")).getImage());break;
+                    this.getClass().getResource(PIC_BALL_UP)).getImage());break;
             case "platformSizeUp":setImage(new ImageIcon(
-                    this.getClass().getResource("/bonus_platform_up.png")).getImage());break;
+                    this.getClass().getResource(PIC_PLATFORM_UP)).getImage());break;
             case "threeBalls":setImage(new ImageIcon(
-                    this.getClass().getResource("/bonus_three_balls.png")).getImage());break;
+                    this.getClass().getResource(PIC_THREE_BALLS)).getImage());break;
             case "ballSpeedUp":setImage(new ImageIcon(
-                    this.getClass().getResource("/bonus_ball_speed_up.png")).getImage());break;
+                    this.getClass().getResource(PIC_BALL_SPEED_UP)).getImage());break;
             case "platformSizeDown":setImage(new ImageIcon(
-                    this.getClass().getResource("/bonus_platform_down.png")).getImage());break;
+                    this.getClass().getResource(PIC_PLATFORM_DOWN)).getImage());break;
 
         }
 

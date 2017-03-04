@@ -41,8 +41,8 @@
       <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="329" column="0" lean-forward="false" selection-start-line="329" selection-start-column="0" selection-end-line="329" selection-end-column="0" />
+            <state relative-caret-position="734">
+              <caret line="237" column="31" lean-forward="false" selection-start-line="237" selection-start-column="31" selection-end-line="237" selection-end-column="31" />
               <folding />
             </state>
           </provider>
@@ -51,8 +51,8 @@
       <file leaf-file-name="Ball.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/units/Ball.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="518">
-              <caret line="218" column="31" lean-forward="false" selection-start-line="218" selection-start-column="31" selection-end-line="218" selection-end-column="31" />
+            <state relative-caret-position="-448">
+              <caret line="141" column="17" lean-forward="true" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -81,8 +81,8 @@
       <file leaf-file-name="Commons.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Commons.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="68" lean-forward="true" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
+            <state relative-caret-position="238">
+              <caret line="14" column="48" lean-forward="false" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -91,11 +91,13 @@
       <file leaf-file-name="Brick.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/units/Brick.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-153">
-              <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+            <state relative-caret-position="153">
+              <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
               <folding>
                 <element signature="e#314#315#0" expanded="true" />
                 <element signature="e#356#357#0" expanded="true" />
+                <element signature="e#414#415#0" expanded="true" />
+                <element signature="e#445#446#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -104,10 +106,11 @@
       <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/units/Sprite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state relative-caret-position="884">
+              <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
               <folding>
-                <element signature="e#1284#1285#0" expanded="true" />
+                <element signature="e#1195#1196#0" expanded="true" />
+                <element signature="e#1282#1283#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -133,8 +136,8 @@
       <file leaf-file-name="Bonus.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/units/Bonus.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state relative-caret-position="323">
+              <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -203,13 +206,13 @@
         <option value="$PROJECT_DIR$/src/graphics/ImageLoader.java" />
         <option value="$PROJECT_DIR$/src/game/LevelGenerator.java" />
         <option value="$PROJECT_DIR$/src/units/Platform.java" />
-        <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/units/Stone.java" />
         <option value="$PROJECT_DIR$/src/game/Commons.java" />
+        <option value="$PROJECT_DIR$/src/units/Bonus.java" />
         <option value="$PROJECT_DIR$/src/units/Sprite.java" />
         <option value="$PROJECT_DIR$/src/units/Brick.java" />
-        <option value="$PROJECT_DIR$/src/units/Bonus.java" />
         <option value="$PROJECT_DIR$/src/units/Ball.java" />
+        <option value="$PROJECT_DIR$/src/game/Game.java" />
       </list>
     </option>
   </component>
@@ -906,7 +909,7 @@
       <workItem from="1488395436094" duration="6056000" />
       <workItem from="1488654207438" duration="128000" />
       <workItem from="1488654695930" duration="79000" />
-      <workItem from="1488654792433" duration="4780000" />
+      <workItem from="1488654792433" duration="5606000" />
     </task>
     <task id="LOCAL-00001" summary="Brick class creation">
       <created>1486077974663</created>
@@ -933,7 +936,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="121043000" />
+    <option name="totallyTimeSpent" value="121869000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1221,27 +1224,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Commons.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="68" lean-forward="true" selection-start-line="8" selection-start-column="68" selection-end-line="8" selection-end-column="68" />
+        <state relative-caret-position="238">
+          <caret line="14" column="48" lean-forward="false" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="48" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="329" column="0" lean-forward="false" selection-start-line="329" selection-start-column="0" selection-end-line="329" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/units/Sprite.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="63" column="0" lean-forward="false" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding>
-            <element signature="e#1284#1285#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1253,29 +1238,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/units/Bonus.java">
+    <entry file="file://$PROJECT_DIR$/src/units/Sprite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="884">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+          <folding>
+            <element signature="e#1195#1196#0" expanded="true" />
+            <element signature="e#1282#1283#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/units/Brick.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-153">
-          <caret line="29" column="35" lean-forward="true" selection-start-line="29" selection-start-column="35" selection-end-line="29" selection-end-column="35" />
+        <state relative-caret-position="153">
+          <caret line="23" column="24" lean-forward="true" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
           <folding>
             <element signature="e#314#315#0" expanded="true" />
             <element signature="e#356#357#0" expanded="true" />
+            <element signature="e#414#415#0" expanded="true" />
+            <element signature="e#445#446#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/units/Bonus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="25" column="35" lean-forward="true" selection-start-line="25" selection-start-column="35" selection-end-line="25" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="734">
+          <caret line="237" column="31" lean-forward="false" selection-start-line="237" selection-start-column="31" selection-end-line="237" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/units/Ball.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="518">
-          <caret line="218" column="31" lean-forward="false" selection-start-line="218" selection-start-column="31" selection-end-line="218" selection-end-column="31" />
+        <state relative-caret-position="-448">
+          <caret line="141" column="17" lean-forward="true" selection-start-line="141" selection-start-column="17" selection-end-line="141" selection-end-column="17" />
           <folding />
         </state>
       </provider>

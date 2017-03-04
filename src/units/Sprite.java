@@ -40,14 +40,6 @@ public class Sprite {
     public int getY() { return y; }
 
 
-    public void setDx(int dx) { this.dx = dx; }
-    public int getDx() { return dx; }
-
-
-    public void setDy(int dy) { this.dy = dy; }
-    public int getDy() { return dy; }
-
-
     public void setImage(Image img) {
         image = img;
         width = image.getWidth(null);
@@ -59,6 +51,12 @@ public class Sprite {
     public int getWidth() {return width; }
     public int getHeight() { return height; }
 
+    public void setDx(int dx) { this.dx = dx; }
+    public int getDx() { return dx; }
+
+
+    public void setDy(int dy) { this.dy = dy; }
+    public int getDy() { return dy; }
 
     public Rectangle getRect() {
         return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));

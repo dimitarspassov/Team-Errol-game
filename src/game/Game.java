@@ -235,7 +235,6 @@ public class Game extends JFrame implements Runnable {
                         switch (bonusType) {
                             case "ballSizeUp":
                                 //Ball Size Up Bonus
-                                //this.ball = new Ball((int) (this.ball.getCenterX()), (int) (this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
                                 this.ball.sizeUp();
                                 if(this.ballSecond!=null){
                                     this.ballSecond.sizeUp();
