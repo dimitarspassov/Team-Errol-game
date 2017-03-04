@@ -248,6 +248,10 @@ public class Game extends JFrame implements Runnable {
                                 //Platform Size Up Bonus
                                 this.platform.setPlatformWidth(200);
                                 break;
+                            case "platformSizeDown":
+                                //Platform Size Down
+                                this.platform.setPlatformWidth(70);
+                                break;
                             case "threeBalls":
                                 //Three Ball Bonus
                                 this.ballSecond = new Ball((int) this.ball.getCenterX(), (int) this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX(), this.ball.getSpeedY() * -1, platform, bricks, stones);

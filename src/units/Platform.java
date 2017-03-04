@@ -6,7 +6,6 @@ import graphics.ImageLoader;
 import javax.swing.*;
 import java.awt.*;
 
-//TODO: Create the platform class
 public class Platform {
     private int platformX;
     private int platformY;
