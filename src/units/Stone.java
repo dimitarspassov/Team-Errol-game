@@ -9,4 +9,7 @@ public class Stone extends Brick {
                 this.getClass().getResource(PIC_STONE_BRICK)).getImage());
         super.setDestroyed(false);
     }
+    public void incHitCount(){
+        this.hitCount++;
+    }
 }

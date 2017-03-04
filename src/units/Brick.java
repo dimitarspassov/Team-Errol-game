@@ -18,52 +18,45 @@ public class Brick extends Sprite implements Commons{
     public void setDestroyed(boolean destroyed) {
         this.destroyed = destroyed;
     }
+    protected int hitCount;
 
-    private int hitCount;
-    public void incHitCount(){
-        this.hitCount++;
+    public void setHitCount(int hitCount) {
+        this.hitCount = hitCount;
     }
-    public void hitBrick(){
-        this.hitCount--;
-        if(hitCount==2){
-            setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_YELLOW_BRICK)).getImage());
-        }
-        if(hitCount==1){
-            setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_GREEN_BRICK)).getImage());
-        }
 
-        if(this.hitCount==0){
-            this.destroyed = true;
+    public void hitBrick(){
+        this.decHitCount();
+        switch(this.hitCount){
+            case 2: setImage(new ImageIcon(this.getClass().getResource(PIC_YELLOW_BRICK)).getImage());break;
+            case 1: setImage(new ImageIcon(this.getClass().getResource(PIC_GREEN_BRICK)).getImage());break;
+            case 0: this.setDestroyed(true);break;
         }
      }
     public Brick(int x, int y) {
         super(x, y);
-        hitCount =3;
+        this.setHitCount(3);
         setImage(new ImageIcon(
                 this.getClass().getResource(PIC_BRICK)).getImage());
-        destroyed = false;
+        this.setDestroyed(false);
     }
     public Brick(int x, int y,int hitCountIn) {
         super(x, y);
-        this.hitCount =hitCountIn;
-        this.bonus=null;
-        if(hitCount==2){
-            setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_YELLOW_BRICK)).getImage());
-        }else if(hitCount==1){
-            setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_GREEN_BRICK)).getImage());
-        }else
-            setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_BRICK)).getImage());
-        this.destroyed = false;
+        this.setHitCount(hitCountIn);
+        this.setBonus(null);
+        this.setDestroyed(false);
+        switch(hitCountIn){
+            case 2: setImage(new ImageIcon(this.getClass().getResource(PIC_YELLOW_BRICK)).getImage());break;
+            case 1: setImage(new ImageIcon(this.getClass().getResource(PIC_GREEN_BRICK)).getImage());break;
+            default: setImage(new ImageIcon(this.getClass().getResource(PIC_BRICK)).getImage());break;
+        }
     }
     public void setImage(Image img) {
         image = img;
         width = image.getWidth(null);
         height = image.getHeight(null);
+    }
+    public void decHitCount(){
+        this.hitCount--;
     }
     public Image getImage() { return image; }
     public Bonus getBonus() {
@@ -75,6 +68,6 @@ public class Brick extends Sprite implements Commons{
     }
 
     public void addBonus(String BonusType) {
-        this.bonus = new Bonus(this.getX(),this.getY(),BonusType);
+        this.setBonus(new Bonus(this.getX(),this.getY(),BonusType));
      }
 }
