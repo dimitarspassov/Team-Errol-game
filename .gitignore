@@ -4,3 +4,5 @@
 # IntelliJ
 /out/
 .idea/inspectionProfiles/
+*.xml
+Team-Errol-game.iml

@@ -1,9 +1,11 @@
 package units;
 
+import game.Commons;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class Brick {
+public class Brick implements Commons{
 
 
     protected Image image;
@@ -27,11 +29,11 @@ public class Brick {
         this.hitCount--;
         if(hitCount==2){
             setImage(new ImageIcon(
-                    this.getClass().getResource("/brick_yellow.png")).getImage());
+                    this.getClass().getResource(PIC_YELLOW_BRICK)).getImage());
         }
         if(hitCount==1){
             setImage(new ImageIcon(
-                    this.getClass().getResource("/brick_green.png")).getImage());
+                    this.getClass().getResource(PIC_GREEN_BRICK)).getImage());
         }
 
         if(this.hitCount==0){
