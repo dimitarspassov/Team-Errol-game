@@ -36,6 +36,8 @@ public class Bonus extends Brick{
                     this.getClass().getResource(PIC_BALL_SPEED_UP)).getImage());break;
             case "platformSizeDown":setImage(new ImageIcon(
                     this.getClass().getResource(PIC_PLATFORM_DOWN)).getImage());break;
+            case "platformSpeedUp":setImage(new ImageIcon(
+                    this.getClass().getResource(PIC_PLATFORM_SPEED_UP)).getImage());break;
 
         }
 

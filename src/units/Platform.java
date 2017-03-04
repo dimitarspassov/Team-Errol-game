@@ -3,7 +3,6 @@ package units;
 
 import graphics.ImageLoader;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Platform {
@@ -14,8 +13,6 @@ public class Platform {
     private int velocity;
     public static boolean isMovingLeft;
     public static boolean isMovingRight;
-//    public static boolean isBonus;
-//    public static boolean isSanction;
 
     public int getPlatformX() {
         return this.platformX;
@@ -93,14 +90,14 @@ public class Platform {
 
     public void render(Graphics g){
         if(isMovingRight){
-            g.drawImage(ImageLoader.loadImage("/platform.png"),
+            g.drawImage(ImageLoader.loadImage("/latest_platform.png"),
                     this.platformX,
                     this.platformY,
                     this.platformWidth,
                     this.platformHeight,null);
         }
         else if(isMovingLeft){
-            g.drawImage(ImageLoader.loadImage("/platform.png"),
+            g.drawImage(ImageLoader.loadImage("/latest_platform.png"),
                     this.platformX,
                     this.platformY,
                     this.platformWidth,

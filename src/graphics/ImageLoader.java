@@ -10,7 +10,6 @@ public class ImageLoader implements AutoCloseable {
     public static BufferedImage loadImage(String path) {
 
         try {
-
             return ImageIO.read(ImageLoader.class.getResource(path));
         } catch (IOException ex) {
 

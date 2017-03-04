@@ -172,7 +172,7 @@ public class Game extends JFrame implements Runnable {
 
             //Creating the platform
             this.platform.render(graphics);
-            this.graphics.drawImage(ImageLoader.loadImage("/platform.png"),
+            this.graphics.drawImage(ImageLoader.loadImage("/latest_platform.png"),
                     platform.getPlatformX(),
                     platform.getPlatformY(),
                     platform.getPlatformWidth(),
@@ -248,9 +248,21 @@ public class Game extends JFrame implements Runnable {
                                 this.platform.setPlatformWidth(200);
                                 break;
                             case "platformSizeDown":
-                                //Platform Size Down
+                                //Platform Size Down Bonus
                                 this.platform.setPlatformWidth(70);
                                 break;
+
+                            //TODO: FIX BALL SPEED UP
+                            case "ballSpeedUp":
+                                //Ball Speed Up Bonus
+                                this.ball.setSpeedX(10);
+                                this.ball.setSpeedY(10);
+                                break;
+
+                            //TODO: FIX PLATFORM SPEED UP
+                            case "platformSpeedUp":
+                                //Platform Speed Up
+                                this.platform.setVelocity(17);
                             case "threeBalls":
                                 //Three Ball Bonus
                                 this.ballSecond = new Ball((int) this.ball.getCenterX(), (int) this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX(), this.ball.getSpeedY() * -1, platform, bricks, stones);
