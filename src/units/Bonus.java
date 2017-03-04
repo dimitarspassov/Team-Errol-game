@@ -20,13 +20,6 @@ public class Bonus extends Brick{
     public void setStatus(boolean status) {
         this.status = status;
     }
-    // public Bonus(int x, int y) {
-//
-   //     super(x, y);
-   //     setImage(new ImageIcon(
-   //             this.getClass().getResource("/bonus_ball_up.png")).getImage());
-   // }
-
     public Bonus(int x ,int y,String bonusType) {
         super(x,y);
         this.status=true;

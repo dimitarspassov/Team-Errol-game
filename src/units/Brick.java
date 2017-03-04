@@ -5,15 +5,10 @@ import game.Commons;
 import javax.swing.*;
 import java.awt.*;
 
-public class Brick implements Commons{
+public class Brick extends Sprite implements Commons{
 
 
-    protected Image image;
-    protected int width;
-    protected int height;
-    protected int x;
-    protected int y;
-    protected Bonus bonus;
+    private Bonus bonus;
     private boolean destroyed;
 
     public boolean isDestroyed() {
@@ -41,20 +36,14 @@ public class Brick implements Commons{
         }
      }
     public Brick(int x, int y) {
-        this.x = x;
-        this.y = y;
-        width = height = 0;
-        image = null;
+        super(x, y);
         hitCount =3;
         setImage(new ImageIcon(
                 this.getClass().getResource(PIC_BRICK)).getImage());
         destroyed = false;
     }
     public Brick(int x, int y,int hitCountIn) {
-        this.x = x;
-        this.y = y;
-        width = height = 0;
-        image = null;
+        super(x, y);
         this.hitCount =hitCountIn;
         this.bonus=null;
         if(hitCount==2){
@@ -66,7 +55,7 @@ public class Brick implements Commons{
         }else
             setImage(new ImageIcon(
                     this.getClass().getResource(PIC_BRICK)).getImage());
-        destroyed = false;
+        this.destroyed = false;
     }
     public void setImage(Image img) {
         image = img;
@@ -74,24 +63,12 @@ public class Brick implements Commons{
         height = image.getHeight(null);
     }
     public Image getImage() { return image; }
-
-    public int getWidth() {return width; }
-    public int getHeight() { return height; }
-    public int getX() { return x; }
-
-    public void setY(int y) { this.y = y; }
-    public int getY() { return y; }
-
     public Bonus getBonus() {
         return this.bonus;
     }
 
     public void setBonus(Bonus bonus) {
         this.bonus = bonus;
-    }
-
-    public Rectangle getRect() {
-        return new Rectangle(x, y, image.getWidth(null), image.getHeight(null));
     }
 
     public void addBonus(String BonusType) {

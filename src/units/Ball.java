@@ -216,7 +216,7 @@ public class Ball {
                 this.setSpeedX(dx < 0 ? -dx : dx);
             }
             brick.hitBrick();
-            if(brick.bonus!=null&&brick.isDestroyed()){
+            if(brick.getBonus()!=null&&brick.isDestroyed()){
                 game.addBonus(brick.getBonus());
 
            }
