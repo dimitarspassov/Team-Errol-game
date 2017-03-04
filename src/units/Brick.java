@@ -47,7 +47,7 @@ public class Brick implements Commons{
         image = null;
         hitCount =3;
         setImage(new ImageIcon(
-                this.getClass().getResource("/brick.png")).getImage());
+                this.getClass().getResource(PIC_BRICK)).getImage());
         destroyed = false;
     }
     public Brick(int x, int y,int hitCountIn) {
@@ -59,13 +59,13 @@ public class Brick implements Commons{
         this.bonus=null;
         if(hitCount==2){
             setImage(new ImageIcon(
-                    this.getClass().getResource("/brick_yellow.png")).getImage());
+                    this.getClass().getResource(PIC_YELLOW_BRICK)).getImage());
         }else if(hitCount==1){
             setImage(new ImageIcon(
-                    this.getClass().getResource("/brick_green.png")).getImage());
+                    this.getClass().getResource(PIC_GREEN_BRICK)).getImage());
         }else
             setImage(new ImageIcon(
-                    this.getClass().getResource("/brick.png")).getImage());
+                    this.getClass().getResource(PIC_BRICK)).getImage());
         destroyed = false;
     }
     public void setImage(Image img) {
