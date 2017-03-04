@@ -47,7 +47,7 @@ public class Game extends JFrame implements Runnable {
 
     private Thread thread;
     public static boolean isRunning;
-    private GameTimer gameTimer;
+   // private GameTimer gameTimer;
     private int secondsRemaining;
     public static StringBuilder playerName;
 
@@ -91,7 +91,7 @@ public class Game extends JFrame implements Runnable {
         this.bonuses = new ArrayList<>();
         playerName = new StringBuilder("");
         this.highScores = new Highscores();
-        this.gameTimer = new GameTimer();
+      //  this.gameTimer = new GameTimer();
     }
 
     public void thick() {
@@ -130,8 +130,8 @@ public class Game extends JFrame implements Runnable {
             this.ball.isSpacePressed = false;
             // this.ballSecond = new Ball(350, 550, 10, 20, 20, -5, 5, platform, bricks, stones);
             levelScore = 0;
-            this.gameTimer.initializeTimer();
-            this.secondsRemaining = this.gameTimer.getSeconds();
+           // this.gameTimer.initializeTimer();
+           // this.secondsRemaining = this.gameTimer.getSeconds();
         }
 
         if (State == STATE.GAME) {
@@ -271,8 +271,8 @@ public class Game extends JFrame implements Runnable {
             lastResult = score;
             // Show player scores
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
-            this.secondsRemaining = gameTimer.getSeconds();
-            this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
+           // this.secondsRemaining = gameTimer.getSeconds();
+          //  this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
             this.graphics.drawString("" + score, 740, 30);
 
             // Draw buttons when user is paused the game
