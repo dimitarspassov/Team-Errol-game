@@ -410,6 +410,7 @@ public class Game extends JFrame implements Runnable {
                 } else {
                     State = STATE.GAME_OVER;
                     this.levelSwitched = true;
+                    this.initLevel();
                     currentLevel = 1;
                 }
             }

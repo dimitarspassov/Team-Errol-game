@@ -150,9 +150,13 @@ public class LevelGenerator {
                           //  bricks.get(3).addBonus("ballSizeUp");
                           //  bricks.get(7).addBonus("threeBalls");
                           //  bricks.get(1).addBonus("platformSizeUp");
-                            bricks.get(3).addBonus("ballSpeedUp");
-                            bricks.get(7).addBonus("ballSpeedUp");
-                            bricks.get(1).addBonus("ballSpeedUp");
+                           // bricks.get(3).addBonus("ballSizeUp");
+                           // bricks.get(5).addBonus("ballSpeedUp");
+                           // bricks.get(7).addBonus("threeBalls");
+                            bricks.get(3).addBonus("platformSizeUp");
+                             bricks.get(5).addBonus("platformSizeUp");
+                             bricks.get(7).addBonus("platformSizeUp");
+                            bricks.get(1).addBonus("platformSizeUp");
                         }
 
                     }

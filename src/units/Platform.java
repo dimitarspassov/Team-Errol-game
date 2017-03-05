@@ -71,10 +71,11 @@ public class Platform {
     }
 
     public void thick() {
+        int xMax=795-this.platformWidth;
         if (isMovingRight) {
             // this.velocity = 12;
-            if (this.platformX >= 695) {
-                this.platformX = 695;
+            if (this.platformX >= xMax) {
+                this.platformX = xMax;
             } else {
                 this.platformX += this.velocity;
             }
