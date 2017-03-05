@@ -124,7 +124,7 @@ public class Game extends JFrame implements Runnable {
             this.levelSwitched = false;
             this.bricks = Level.getLevel(currentLevel);
             this.bricksRemaining = this.bricks.length;
-            this.platform = new Platform(350, 550, 100, 20, 30);
+            this.platform = new Platform(350, 550, 100, 20, 12);
             this.stones = Level.getStones(currentLevel);
             this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
             this.ball.isSpacePressed = false;
@@ -172,7 +172,7 @@ public class Game extends JFrame implements Runnable {
 
             //Creating the platform
             this.platform.render(graphics);
-            this.graphics.drawImage(ImageLoader.loadImage("/latest_platform.png"),
+            this.graphics.drawImage(ImageLoader.loadImage("/platform.png"),
                     platform.getPlatformX(),
                     platform.getPlatformY(),
                     platform.getPlatformWidth(),
@@ -255,14 +255,14 @@ public class Game extends JFrame implements Runnable {
                             //TODO: FIX BALL SPEED UP
                             case "ballSpeedUp":
                                 //Ball Speed Up Bonus
-                                this.ball.setSpeedX(10);
-                                this.ball.setSpeedY(10);
+                                this.ball.setSpeedX(this.ball.getSpeedX()*2);
+                                this.ball.setSpeedY(this.ball.getSpeedY()*2);
                                 break;
 
                             //TODO: FIX PLATFORM SPEED UP
                             case "platformSpeedUp":
                                 //Platform Speed Up
-                                this.platform.setVelocity(17);
+                                this.platform.setVelocity(17);break;
                             case "threeBalls":
                                 //Three Ball Bonus
                                 this.ballSecond = new Ball((int) this.ball.getCenterX(), (int) this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX(), this.ball.getSpeedY() * -1, platform, bricks, stones);

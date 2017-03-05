@@ -72,14 +72,14 @@ public class Platform {
 
     public void thick(){
         if(isMovingRight){
-            this.velocity = 12;
+           // this.velocity = 12;
             if (this.platformX >= 695) {
                 this.platformX = 695;
             } else {
                 this.platformX += this.velocity;
             }        }
         else if (isMovingLeft) {
-            this.velocity = 12;
+         //   this.velocity = 12;
             if (this.platformX <= 0) {
                 this.platformX = 0;
             } else {
@@ -90,14 +90,14 @@ public class Platform {
 
     public void render(Graphics g){
         if(isMovingRight){
-            g.drawImage(ImageLoader.loadImage("/latest_platform.png"),
+            g.drawImage(ImageLoader.loadImage("/platform.png"),
                     this.platformX,
                     this.platformY,
                     this.platformWidth,
                     this.platformHeight,null);
         }
         else if(isMovingLeft){
-            g.drawImage(ImageLoader.loadImage("/latest_platform.png"),
+            g.drawImage(ImageLoader.loadImage("/platform.png"),
                     this.platformX,
                     this.platformY,
                     this.platformWidth,
