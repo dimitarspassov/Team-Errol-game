@@ -90,9 +90,9 @@ public class LevelGenerator {
                         }
                     }
                     if(bricks.size()==8){
-                        bricks.get(3).addBonus("ballSpeedUp");
-                        bricks.get(7).addBonus("ballSpeedUp");
-                        bricks.get(1).addBonus("ballSpeedUp");
+                        bricks.get(3).addBonus("platformSizeUp");
+                        bricks.get(7).addBonus("platformSizeDown");
+                        bricks.get(1).addBonus("platformSizeUp");
                     }
                 }
             } else if (level == 8 && yA == 93) {

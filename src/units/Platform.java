@@ -62,24 +62,24 @@ public class Platform {
         this.velocity = velocity;
     }
 
-    public void moving(){
-        if (isMovingLeft){
+    public void moving() {
+        if (isMovingLeft) {
             this.platformX -= this.velocity;
-        } else if (isMovingRight){
+        } else if (isMovingRight) {
             this.platformX += this.velocity;
         }
     }
 
-    public void thick(){
-        if(isMovingRight){
-           // this.velocity = 12;
+    public void thick() {
+        if (isMovingRight) {
+            // this.velocity = 12;
             if (this.platformX >= 695) {
                 this.platformX = 695;
             } else {
                 this.platformX += this.velocity;
-            }        }
-        else if (isMovingLeft) {
-         //   this.velocity = 12;
+            }
+        } else if (isMovingLeft) {
+            //   this.velocity = 12;
             if (this.platformX <= 0) {
                 this.platformX = 0;
             } else {
@@ -88,20 +88,32 @@ public class Platform {
         }
     }
 
-    public void render(Graphics g){
-        if(isMovingRight){
-            g.drawImage(ImageLoader.loadImage("/platform.png"),
+    public void render(Graphics g) {
+        if (isMovingRight) {
+            g.drawImage(ImageLoader.loadImage("/latest-platform.png"),
                     this.platformX,
                     this.platformY,
                     this.platformWidth,
-                    this.platformHeight,null);
-        }
-        else if(isMovingLeft){
-            g.drawImage(ImageLoader.loadImage("/platform.png"),
+                    this.platformHeight, null);
+        } else if (isMovingLeft) {
+            g.drawImage(ImageLoader.loadImage("/latest-platform.png"),
                     this.platformX,
                     this.platformY,
                     this.platformWidth,
-                    this.platformHeight,null);
+                    this.platformHeight, null);
         }
     }
+
+    public void speedUp() {
+        this.setVelocity(20);
+    }
+
+    public void sizeUp(){
+        this.setPlatformWidth(200);
+    }
+
+    public void sizeDown(){
+        this.setPlatformWidth(70);
+    }
+
 }

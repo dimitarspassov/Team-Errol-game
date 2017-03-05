@@ -172,7 +172,7 @@ public class Game extends JFrame implements Runnable {
 
             //Creating the platform
             this.platform.render(graphics);
-            this.graphics.drawImage(ImageLoader.loadImage("/platform.png"),
+            this.graphics.drawImage(ImageLoader.loadImage("/latest-platform.png"),
                     platform.getPlatformX(),
                     platform.getPlatformY(),
                     platform.getPlatformWidth(),
@@ -245,11 +245,11 @@ public class Game extends JFrame implements Runnable {
                                 break;
                             case "platformSizeUp":
                                 //Platform Size Up Bonus
-                                this.platform.setPlatformWidth(200);
+                                this.platform.sizeUp();
                                 break;
                             case "platformSizeDown":
                                 //Platform Size Down Bonus
-                                this.platform.setPlatformWidth(70);
+                                this.platform.sizeDown();
                                 break;
 
                             //TODO: FIX BALL SPEED UP
@@ -257,12 +257,20 @@ public class Game extends JFrame implements Runnable {
                                 //Ball Speed Up Bonus
                                 this.ball.setSpeedX((int) (this.ball.getSpeedX()*1.5));
                                 this.ball.setSpeedY((int) (this.ball.getSpeedY()*1.5));
+                                if(this.ballSecond != null){
+                                    this.ballSecond.setSpeedX((int) (this.ball.getSpeedX()*1.5));
+                                    this.ballSecond.setSpeedY((int) (this.ball.getSpeedY()*1.5));
+                                }
+                                if(this.ballThird != null){
+                                    this.ballThird.setSpeedX((int) (this.ball.getSpeedX()*1.5));
+                                    this.ballThird.setSpeedY((int) (this.ball.getSpeedY()*1.5));
+                                }
                                 break;
 
                             //TODO: FIX PLATFORM SPEED UP
                             case "platformSpeedUp":
                                 //Platform Speed Up
-                                this.platform.setVelocity(17);break;
+                                this.platform.speedUp();break;
                             case "threeBalls":
                                 //Three Ball Bonus
                                 this.ballSecond = new Ball((int) this.ball.getCenterX(), (int) this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX(), this.ball.getSpeedY() * -1, platform, bricks, stones);

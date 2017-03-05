@@ -13,6 +13,6 @@ public interface Commons {
     public static final String PIC_THREE_BALLS = "/bonus_three_balls.png";
     public static final String PIC_BALL_SPEED_UP = "/bonus_ball_speed_up.png";
     public static final String PIC_PLATFORM_DOWN = "/bonus_platform_down.png";
-    public static final String PIC_PLATFORM_SPEED_UP = "/bonus_ball_speed_up.png";
+    public static final String PIC_PLATFORM_SPEED_UP = "/bonus_platform_speed_up.png";
 
 }
