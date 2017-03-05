@@ -233,4 +233,9 @@ public class Ball {
         this.setRadius(20);
 
     }
+
+    public void speedUp(){
+        this.setSpeedX((int) (this.getSpeedX() * 1.7));
+        this.setSpeedY((int) (this.getSpeedY() * 1.7));
+    }
 }
