@@ -255,8 +255,8 @@ public class Game extends JFrame implements Runnable {
                             //TODO: FIX BALL SPEED UP
                             case "ballSpeedUp":
                                 //Ball Speed Up Bonus
-                                this.ball.setSpeedX(this.ball.getSpeedX()*2);
-                                this.ball.setSpeedY(this.ball.getSpeedY()*2);
+                                this.ball.setSpeedX((int) (this.ball.getSpeedX()*1.5));
+                                this.ball.setSpeedY((int) (this.ball.getSpeedY()*1.5));
                                 break;
 
                             //TODO: FIX PLATFORM SPEED UP

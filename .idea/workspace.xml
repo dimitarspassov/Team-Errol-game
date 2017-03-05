@@ -38,11 +38,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="130">
-              <caret line="255" column="47" lean-forward="true" selection-start-line="255" selection-start-column="47" selection-end-line="255" selection-end-column="47" />
+            <state relative-caret-position="453">
+              <caret line="259" column="38" lean-forward="true" selection-start-line="259" selection-start-column="38" selection-end-line="259" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -78,11 +78,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LevelGenerator.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LevelGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/LevelGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="377">
-              <caret line="154" column="63" lean-forward="false" selection-start-line="154" selection-start-column="63" selection-end-line="154" selection-end-column="63" />
+            <state relative-caret-position="-541">
+              <caret line="94" column="59" lean-forward="false" selection-start-line="94" selection-start-column="59" selection-end-line="94" selection-end-column="59" />
               <folding />
             </state>
           </provider>
@@ -924,7 +924,7 @@
       <workItem from="1488654695930" duration="79000" />
       <workItem from="1488654792433" duration="7656000" />
       <workItem from="1488667970871" duration="3515000" />
-      <workItem from="1488704423358" duration="1221000" />
+      <workItem from="1488704423358" duration="2207000" />
     </task>
     <task id="LOCAL-00001" summary="Brick class creation">
       <created>1486077974663</created>
@@ -951,7 +951,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="128655000" />
+    <option name="totallyTimeSpent" value="129641000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1169,18 +1169,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/LevelGenerator.java">
+    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
-          <caret line="154" column="63" lean-forward="false" selection-start-line="154" selection-start-column="63" selection-end-line="154" selection-end-column="63" />
+        <state relative-caret-position="453">
+          <caret line="259" column="38" lean-forward="true" selection-start-line="259" selection-start-column="38" selection-end-line="259" selection-end-column="38" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Game.java">
+    <entry file="file://$PROJECT_DIR$/src/game/LevelGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="255" column="47" lean-forward="true" selection-start-line="255" selection-start-column="47" selection-end-line="255" selection-end-column="47" />
+        <state relative-caret-position="-541">
+          <caret line="94" column="59" lean-forward="false" selection-start-line="94" selection-start-column="59" selection-end-line="94" selection-end-column="59" />
           <folding />
         </state>
       </provider>
