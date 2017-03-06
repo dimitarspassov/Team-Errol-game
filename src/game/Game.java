@@ -48,7 +48,7 @@ public class Game extends JFrame implements Runnable {
 
     private Thread thread;
     public static boolean isRunning;
-    // private GameTimer gameTimer;
+    private GameTimer gameTimer;
     private int secondsRemaining;
     public static StringBuilder playerName;
 
@@ -92,7 +92,7 @@ public class Game extends JFrame implements Runnable {
         this.bonuses = new ArrayList<>();
         playerName = new StringBuilder("");
         this.highScores = new Highscores();
-        //  this.gameTimer = new GameTimer();
+        this.gameTimer = new GameTimer();
     }
 
     public void thick() {
@@ -131,7 +131,7 @@ public class Game extends JFrame implements Runnable {
             this.ball.isSpacePressed = false;
             // this.ballSecond = new Ball(350, 550, 10, 20, 20, -5, 5, platform, bricks, stones);
             levelScore = 0;
-            // this.gameTimer.initializeTimer();
+            this.gameTimer.setStartTime(System.currentTimeMillis());
             // this.secondsRemaining = this.gameTimer.getSeconds();
         }
 
@@ -308,6 +308,8 @@ public class Game extends JFrame implements Runnable {
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
             // this.secondsRemaining = gameTimer.getSeconds();
             //  this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
+            long seconds = this.gameTimer.SetElapsedTime();
+            this.graphics.drawString("Seconds: " + seconds, 30, 30);
             this.graphics.drawString("" + score, 740, 30);
 
             // Draw buttons when user is paused the game
@@ -371,6 +373,27 @@ public class Game extends JFrame implements Runnable {
 
 
             if (this.bricksRemaining == 0 && State == STATE.GAME) {
+
+                //If a player passes level 1 or level 2 inder 1 minute - gets bonus points 60 minus one's points
+                //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
+                if(currentLevel == 1 || currentLevel == 2){
+                    if( this.gameTimer.SetElapsedTime()/60 < 1){
+                        long bonusPointsFromTimer = 60 - (this.gameTimer.SetElapsedTime()%60);
+
+                        this.score += bonusPointsFromTimer;
+
+                    }
+
+                    //Other levels should be passes for less than 2 minutes to get bonus points
+                } else {
+                    if( this.gameTimer.SetElapsedTime()/60 < 2){
+                        long bonusPointsFromTimer = 60 - (this.gameTimer.SetElapsedTime()%60);
+                        //this.graphics.drawString("Bonus Points: " + bonusPointsFromTimer, 30, 30);
+                        this.score += bonusPointsFromTimer;
+                    }
+                }
+
+
                 currentLevel++;
                 levelSwitched = true;
                 if (currentLevel > this.maxLevel) {
