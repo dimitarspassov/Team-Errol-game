@@ -11,11 +11,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
-import java.util.TimerTask;
 
 //By far the most complex component of our project. This is the game itself.
 
 public class Game extends JFrame implements Runnable {
+    public static boolean IS_BALL_SPEED_UP = false;
 
     private String name;
     private int width, height;
@@ -48,7 +48,7 @@ public class Game extends JFrame implements Runnable {
 
     private Thread thread;
     public static boolean isRunning;
-    private GameTimer gameTimer;
+    // private GameTimer gameTimer;
     private int secondsRemaining;
     public static StringBuilder playerName;
 
@@ -92,7 +92,7 @@ public class Game extends JFrame implements Runnable {
         this.bonuses = new ArrayList<>();
         playerName = new StringBuilder("");
         this.highScores = new Highscores();
-        this.gameTimer = new GameTimer();
+        //  this.gameTimer = new GameTimer();
     }
 
     public void thick() {
@@ -125,16 +125,14 @@ public class Game extends JFrame implements Runnable {
             this.levelSwitched = false;
             this.bricks = Level.getLevel(currentLevel);
             this.bricksRemaining = this.bricks.length;
-            this.platform = new Platform(350, 550, 100, 20, 30);
+            this.platform = new Platform(350, 550, 100, 20, 12);
             this.stones = Level.getStones(currentLevel);
             this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
             this.ball.isSpacePressed = false;
             // this.ballSecond = new Ball(350, 550, 10, 20, 20, -5, 5, platform, bricks, stones);
             levelScore = 0;
-
-           this.gameTimer.setStartTime(System.currentTimeMillis());
-
-          //this.secondsRemaining = this.gameTimer.getSeconds();
+            // this.gameTimer.initializeTimer();
+            // this.secondsRemaining = this.gameTimer.getSeconds();
         }
 
         if (State == STATE.GAME) {
@@ -175,7 +173,7 @@ public class Game extends JFrame implements Runnable {
 
             //Creating the platform
             this.platform.render(graphics);
-            this.graphics.drawImage(ImageLoader.loadImage("/platform.png"),
+            this.graphics.drawImage(ImageLoader.loadImage("/latest-platform.png"),
                     platform.getPlatformX(),
                     platform.getPlatformY(),
                     platform.getPlatformWidth(),
@@ -227,7 +225,7 @@ public class Game extends JFrame implements Runnable {
             //Bonuses
             if (bonuses != null) {
                 for (Bonus bonus : this.bonuses) {
-                    if(bonus.isStatus()){
+                    if (bonus.isStatus()) {
                         bonus.setY(bonus.getY() + 3);
                         this.graphics.drawImage(bonus.getImage(), bonus.getX(), bonus.getY(),
                                 bonus.getWidth(), bonus.getHeight(), this);
@@ -238,23 +236,57 @@ public class Game extends JFrame implements Runnable {
                         switch (bonusType) {
                             case "ballSizeUp":
                                 //Ball Size Up Bonus
-                                //this.ball = new Ball((int) (this.ball.getCenterX()), (int) (this.ball.getCenterY()), 20, 40, 40, this.ball.getSpeedX(), this.ball.getSpeedY(), platform, bricks, stones);
                                 this.ball.sizeUp();
-                                if(this.ballSecond!=null){
+                                if (this.ballSecond != null) {
                                     this.ballSecond.sizeUp();
                                 }
-                                if(this.ballThird!=null){
+                                if (this.ballThird != null) {
                                     this.ballThird.sizeUp();
                                 }
                                 break;
                             case "platformSizeUp":
                                 //Platform Size Up Bonus
-                                this.platform.setPlatformWidth(200);
+                                this.platform.sizeUp();
+                                break;
+                            case "platformSizeDown":
+                                //Platform Size Down Bonus
+                                this.platform.sizeDown();
+                                break;
+
+                            case "ballSpeedUp":
+                                //Ball Speed Up Bonus
+                                this.ball.speedUp();
+                                if (this.ballSecond != null) {
+                                    this.ballSecond.speedUp();
+                                }
+                                if (this.ballThird != null) {
+                                    this.ballThird.speedUp();
+                                }
+                                break;
+
+                            case "platformSpeedUp":
+                                //Platform Speed Up Bonus
+                                this.platform.speedUp();
                                 break;
                             case "threeBalls":
                                 //Three Ball Bonus
-                                this.ballSecond = new Ball((int) this.ball.getCenterX(), (int) this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX(), this.ball.getSpeedY() * -1, platform, bricks, stones);
-                                this.ballThird = new Ball((int) this.ball.getCenterX(), (int) this.ball.getCenterY(), this.ball.getRadius(), this.ball.getW(), this.ball.getH(), this.ball.getSpeedX() * -1, this.ball.getSpeedY(), platform, bricks, stones);
+                                this.ballSecond = new Ball(
+                                        (int) this.ball.getCenterX(),
+                                        (int) this.ball.getCenterY(),
+                                        this.ball.getRadius(),
+                                        this.ball.getW(),
+                                        this.ball.getH(),
+                                        this.ball.getSpeedX(),
+                                        this.ball.getSpeedY() * -1,
+                                        platform, bricks, stones);
+                                this.ballThird = new Ball(
+                                        (int) this.ball.getCenterX(),
+                                        (int) this.ball.getCenterY(),
+                                        this.ball.getRadius(),
+                                        this.ball.getW(), this.ball.getH(),
+                                        this.ball.getSpeedX() * -1,
+                                        this.ball.getSpeedY(),
+                                        platform, bricks, stones);
                                 break;
 
 
@@ -262,20 +294,20 @@ public class Game extends JFrame implements Runnable {
 
                     }
                 }
-               // ArrayList<Bonus> newBonuses = new ArrayList<>();
-               // for (Bonus bonus : this.bonuses) {
-               //    if(bonus.isStatus()){
-               //        newBonuses.add(bonus);
-               //    }
-               // }
-               // this.bonuses=newBonuses;
+                // ArrayList<Bonus> newBonuses = new ArrayList<>();
+                // for (Bonus bonus : this.bonuses) {
+                //    if(bonus.isStatus()){
+                //        newBonuses.add(bonus);
+                //    }
+                // }
+                // this.bonuses=newBonuses;
             }
 
             lastResult = score;
             // Show player scores
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
-          // this.secondsRemaining = gameTimer.getSeconds();
-          // this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
+            // this.secondsRemaining = gameTimer.getSeconds();
+            //  this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
             this.graphics.drawString("" + score, 740, 30);
 
             // Draw buttons when user is paused the game
@@ -339,21 +371,6 @@ public class Game extends JFrame implements Runnable {
 
 
             if (this.bricksRemaining == 0 && State == STATE.GAME) {
-
-                //If a player passes level 1 or level 2 inder 1 minute - gets bonus points 60 minus one's points
-                //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
-                if(currentLevel == 1 || currentLevel == 2){
-                    if( this.gameTimer.SetElapsedTime()/60 < 1){
-                        this.score += (60 - (this.gameTimer.SetElapsedTime()%60));
-                    }
-
-                //Other levels should be passes for less than 2 minutes to get bonus points
-                } else {
-                    if( this.gameTimer.SetElapsedTime()/60 < 2){
-                        this.score += (60 - this.gameTimer.SetElapsedTime()%60);
-                    }
-                }
-
                 currentLevel++;
                 levelSwitched = true;
                 if (currentLevel > this.maxLevel) {
@@ -368,11 +385,11 @@ public class Game extends JFrame implements Runnable {
             //Bonus clear
             ArrayList<Bonus> newBonuses = new ArrayList<>();
             for (Bonus bonus : this.bonuses) {
-                if(bonus.isStatus()&&bonus.getY()<570){
+                if (bonus.isStatus() && bonus.getY() < 570) {
                     newBonuses.add(bonus);
                 }
             }
-            this.bonuses=newBonuses;
+            this.bonuses = newBonuses;
 
             if (this.ballSecond != null && this.ballSecond.getCenterY() >= 570) {
                 this.ballSecond = null;
@@ -383,14 +400,17 @@ public class Game extends JFrame implements Runnable {
             // Stop the game when the ball exits game field
             if (!this.levelSwitched && this.ball.getCenterY() >= 570) {
                 if (this.ballSecond != null) {
-                    this.ball = new Ball((int) this.ballSecond.getCenterX(), (int) this.ballSecond.getCenterY(), this.ballSecond.getRadius(), this.ballSecond.getW(), this.ballSecond.getH(), this.ballSecond.getSpeedX(), this.ballSecond.getSpeedY(), platform, bricks, stones);;
-                    this.ballSecond=null;
+                    this.ball = new Ball((int) this.ballSecond.getCenterX(), (int) this.ballSecond.getCenterY(), this.ballSecond.getRadius(), this.ballSecond.getW(), this.ballSecond.getH(), this.ballSecond.getSpeedX(), this.ballSecond.getSpeedY(), platform, bricks, stones);
+                    ;
+                    this.ballSecond = null;
                 } else if (this.ballThird != null) {
-                    this.ball = new Ball((int) this.ballThird.getCenterX(), (int) this.ballThird.getCenterY(), this.ballThird.getRadius(), this.ballThird.getW(), this.ballThird.getH(), this.ballThird.getSpeedX(), this.ballThird.getSpeedY(), platform, bricks, stones);;
-                    this.ballThird=null;
+                    this.ball = new Ball((int) this.ballThird.getCenterX(), (int) this.ballThird.getCenterY(), this.ballThird.getRadius(), this.ballThird.getW(), this.ballThird.getH(), this.ballThird.getSpeedX(), this.ballThird.getSpeedY(), platform, bricks, stones);
+                    ;
+                    this.ballThird = null;
                 } else {
                     State = STATE.GAME_OVER;
                     this.levelSwitched = true;
+                    this.initLevel();
                     currentLevel = 1;
                 }
             }
@@ -401,9 +421,9 @@ public class Game extends JFrame implements Runnable {
 
     private void initLevel() {
         this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
-        this.ballSecond=null;
-        this.ballThird=null;
-        this.bonuses=new ArrayList<>();
+        this.ballSecond = null;
+        this.ballThird = null;
+        this.bonuses = new ArrayList<>();
     }
 
     private synchronized void pause() {
@@ -466,4 +486,3 @@ public class Game extends JFrame implements Runnable {
         }
     }
 }
-
