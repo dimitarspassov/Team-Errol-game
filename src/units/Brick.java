@@ -3,7 +3,6 @@ package units;
 import game.Commons;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Brick extends Sprite implements Commons{
 
@@ -50,15 +49,9 @@ public class Brick extends Sprite implements Commons{
             default: setImage(new ImageIcon(this.getClass().getResource(PIC_BRICK)).getImage());break;
         }
     }
-    public void setImage(Image img) {
-        image = img;
-        width = image.getWidth(null);
-        height = image.getHeight(null);
-    }
     public void decHitCount(){
         this.hitCount--;
     }
-    public Image getImage() { return image; }
     public Bonus getBonus() {
         return this.bonus;
     }

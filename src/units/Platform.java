@@ -24,8 +24,8 @@ public class Platform extends Sprite implements Commons {
         this.setY(platformY);
         this.setWidth(platformWidth);
         this.setHeight(platformHeight);
-        this.velocity = velocity;
-    }
+        this.setVelocity(velocity);
+     }
 
     public void moving() {
         if (isMovingLeft) {
