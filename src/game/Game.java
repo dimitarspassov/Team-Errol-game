@@ -308,9 +308,23 @@ public class Game extends JFrame implements Runnable {
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
             // this.secondsRemaining = gameTimer.getSeconds();
             //  this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
-            long seconds = this.gameTimer.SetElapsedTime();
-            this.graphics.drawString("Seconds: " + seconds, 30, 30);
-            this.graphics.drawString("" + score, 740, 30);
+            long bonusPoints = 60 - this.gameTimer.SetElapsedTime();
+          //  System.out.println(bonusPoints);
+            if(currentLevel == 1 || currentLevel == 2){
+                if (bonusPoints >= 0) {
+
+                    this.graphics.drawString("Bonus Points: " + bonusPoints, 30, 30);
+                }
+
+            } else {
+                bonusPoints = 120 - this.gameTimer.SetElapsedTime();
+                if (bonusPoints >= 0) {
+
+                    this.graphics.drawString("Bonus Points: " + bonusPoints, 30, 30);
+                }
+            }
+
+            this.graphics.drawString("Score: " + score, 620, 30);
 
             // Draw buttons when user is paused the game
             if (isGamePaused) {
@@ -509,3 +523,4 @@ public class Game extends JFrame implements Runnable {
         }
     }
 }
+
