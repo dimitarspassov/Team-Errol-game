@@ -1,6 +1,7 @@
 package game;
 
 import display.Display;
+import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import units.*;
 
@@ -138,39 +139,7 @@ public class Game extends JFrame implements Runnable {
 
         if (State == STATE.GAME) {
 
-            switch (currentLevel) {
-                case 1:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic1.png"), 0, 0, 800, 600, null);
-                    break;
-                case 2:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic2.png"), 0, 0, 800, 600, null);
-                    break;
-                case 3:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic3.png"), 0, 0, 800, 600, null);
-                    break;
-                case 4:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic4.png"), 0, 0, 800, 600, null);
-                    break;
-                case 5:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic5.png"), 0, 0, 800, 600, null);
-                    break;
-                case 6:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic6.png"), 0, 0, 800, 600, null);
-                    break;
-                case 7:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic7.png"), 0, 0, 800, 600, null);
-                    break;
-                case 8:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic8.png"), 0, 0, 800, 600, null);
-                    break;
-                case 9:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic9.png"), 0, 0, 800, 600, null);
-                    break;
-                default:
-                    this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic10.png"), 0, 0, 800, 600, null);
-                    break;
-            }
-
+            BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
 
             //Creating the platform
             this.platform.render(graphics);
@@ -224,6 +193,7 @@ public class Game extends JFrame implements Runnable {
                 }
             }
             //Bonuses
+
             if (bonuses != null) {
                 for (Bonus bonus : this.bonuses) {
                     if (bonus.getStatus()) {
@@ -295,13 +265,6 @@ public class Game extends JFrame implements Runnable {
 
                     }
                 }
-                // ArrayList<Bonus> newBonuses = new ArrayList<>();
-                // for (Bonus bonus : this.bonuses) {
-                //    if(bonus.getStatus()){
-                //        newBonuses.add(bonus);
-                //    }
-                // }
-                // this.bonuses=newBonuses;
             }
 
             lastResult = score;
@@ -310,8 +273,8 @@ public class Game extends JFrame implements Runnable {
             // this.secondsRemaining = gameTimer.getSeconds();
             //  this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
             long bonusPoints = 60 - this.gameTimer.getElapsedTime();
-          //  System.out.println(bonusPoints);
-            if(currentLevel == 1 || currentLevel == 2){
+            //  System.out.println(bonusPoints);
+            if (currentLevel == 1 || currentLevel == 2) {
                 if (bonusPoints >= 0) {
 
                     this.graphics.drawString("Bonus Points: " + bonusPoints, 30, 30);
@@ -324,7 +287,7 @@ public class Game extends JFrame implements Runnable {
                     this.graphics.drawString("Bonus Points: " + bonusPoints, 30, 30);
                 }
             }
-            lastBonusPoints =bonusPoints;
+            lastBonusPoints = bonusPoints;
 
             this.graphics.drawString("Score: " + score, 620, 30);
 
@@ -361,6 +324,7 @@ public class Game extends JFrame implements Runnable {
         double timePerTick = 1_000_000_000 / fps;
 
         double delta = 0;
+
         long lasTimeTicked = System.nanoTime();
 
         while (isRunning) {
@@ -372,8 +336,9 @@ public class Game extends JFrame implements Runnable {
             long now = System.nanoTime();
 
             delta += (now - lasTimeTicked) / timePerTick;
+            lasTimeTicked = now;
 
-            if (delta >= 2) {
+            if (delta >= 1) {
                 thick();
                 delta--;
                 ball.move(this);
@@ -388,26 +353,26 @@ public class Game extends JFrame implements Runnable {
             render();
 
 
-            if (this.bricksRemaining == 0 && State == STATE.GAME) {
+            if (this.bricksRemaining <= this.bricks.length - 1 && State == STATE.GAME) {
 
                 //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
-                if(currentLevel == 1 || currentLevel == 2){
-                    if( this.gameTimer.getElapsedTime()/60 < 1){
-                        long bonusPointsFromTimer = 60 - (this.gameTimer.getElapsedTime()%60);
+                if (currentLevel == 1 || currentLevel == 2) {
+                    if (this.gameTimer.getElapsedTime() / 60 < 1) {
+                        long bonusPointsFromTimer = 60 - (this.gameTimer.getElapsedTime() % 60);
 
                         this.score += bonusPointsFromTimer;
-                        lastBonusPoints =bonusPointsFromTimer;
+                        lastBonusPoints = bonusPointsFromTimer;
 
                     }
 
                     //Other levels should be passed for less than 2 minutes to get bonus points
                 } else {
-                    if( this.gameTimer.getElapsedTime()/60 < 2){
-                        long bonusPointsFromTimer = 60 - (this.gameTimer.getElapsedTime()%60);
+                    if (this.gameTimer.getElapsedTime() / 60 < 2) {
+                        long bonusPointsFromTimer = 60 - (this.gameTimer.getElapsedTime() % 60);
                         //this.graphics.drawString("Bonus Points: " + bonusPointsFromTimer, 30, 30);
                         this.score += bonusPointsFromTimer;
-                        lastBonusPoints =bonusPointsFromTimer;
+                        lastBonusPoints = bonusPointsFromTimer;
                     }
                 }
 
@@ -416,6 +381,7 @@ public class Game extends JFrame implements Runnable {
                 levelSwitched = true;
                 if (currentLevel > this.maxLevel) {
                     State = STATE.WIN;
+                    playSound(this, "/sounds/level_complete.wav");
 
                 } else {
                     playSound(this, "/sounds/level_complete.wav");
