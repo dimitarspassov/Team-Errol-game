@@ -1,6 +1,8 @@
 package game;
 
 import display.Display;
+import gameState.Level;
+import gameState.UnitLoader;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import units.*;
@@ -148,22 +150,9 @@ public class Game extends JFrame implements Runnable {
                     platform.getPlatformY(),
                     platform.getPlatformWidth(),
                     platform.getPlatformHeight(), null);
-            //Main Ball
-            this.ball.render(graphics);
-            this.graphics.setColor(Color.WHITE);
-            this.graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
-            //Second Ball
-            if (this.ballSecond != null) {
-                this.ballSecond.render(graphics);
-                // this.graphics.setColor(Color.WHITE);
-                this.graphics.fillOval((int) ballSecond.getCenterX(), (int) ballSecond.getCenterY(), ballSecond.getH(), ballSecond.getW());
-            }
-            //Third Ball
-            if (this.ballThird != null) {
-                this.ballThird.render(graphics);
-                //    this.graphics.setColor(Color.WHITE);
-                this.graphics.fillOval((int) ballThird.getCenterX(), (int) ballThird.getCenterY(), ballThird.getH(), ballThird.getW());
-            }
+
+
+            UnitLoader.renderBalls(this.ball, this.ballSecond, this.ballThird, graphics);
 
             // Draw the bricks
             score -= levelScore;
@@ -195,76 +184,7 @@ public class Game extends JFrame implements Runnable {
             //Bonuses
 
             if (bonuses != null) {
-                for (Bonus bonus : this.bonuses) {
-                    if (bonus.getStatus()) {
-                        bonus.setY(bonus.getY() + 3);
-                        this.graphics.drawImage(bonus.getImage(), bonus.getX(), bonus.getY(),
-                                bonus.getWidth(), bonus.getHeight(), this);
-                    }
-                    if (bonus.getRect().intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
-                        String bonusType = bonus.getBonusType();
-                        bonus.setStatus(false);
-                        switch (bonusType) {
-                            case "ballSizeUp":
-                                //Ball Size Up Bonus
-                                this.ball.sizeUp();
-                                if (this.ballSecond != null) {
-                                    this.ballSecond.sizeUp();
-                                }
-                                if (this.ballThird != null) {
-                                    this.ballThird.sizeUp();
-                                }
-                                break;
-                            case "platformSizeUp":
-                                //Platform Size Up Bonus
-                                this.platform.sizeUp();
-                                break;
-                            case "platformSizeDown":
-                                //Platform Size Down Bonus
-                                this.platform.sizeDown();
-                                break;
-
-                            case "ballSpeedUp":
-                                //Ball Speed Up Bonus
-                                this.ball.speedUp();
-                                if (this.ballSecond != null) {
-                                    this.ballSecond.speedUp();
-                                }
-                                if (this.ballThird != null) {
-                                    this.ballThird.speedUp();
-                                }
-                                break;
-
-                            case "platformSpeedUp":
-                                //Platform Speed Up Bonus
-                                this.platform.speedUp();
-                                break;
-                            case "threeBalls":
-                                //Three Ball Bonus
-                                this.ballSecond = new Ball(
-                                        (int) this.ball.getCenterX(),
-                                        (int) this.ball.getCenterY(),
-                                        this.ball.getRadius(),
-                                        this.ball.getW(),
-                                        this.ball.getH(),
-                                        this.ball.getSpeedX(),
-                                        this.ball.getSpeedY() * -1,
-                                        platform, bricks, stones);
-                                this.ballThird = new Ball(
-                                        (int) this.ball.getCenterX(),
-                                        (int) this.ball.getCenterY(),
-                                        this.ball.getRadius(),
-                                        this.ball.getW(), this.ball.getH(),
-                                        this.ball.getSpeedX() * -1,
-                                        this.ball.getSpeedY(),
-                                        platform, bricks, stones);
-                                break;
-
-
-                        }
-
-                    }
-                }
+                UnitLoader.renderBonuses(this.bonuses, this.ball, this.ballSecond, this.ballThird,bricks,stones, this.platform, this.graphics);
             }
 
             lastResult = score;

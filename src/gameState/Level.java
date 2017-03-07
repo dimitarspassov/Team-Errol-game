@@ -1,4 +1,4 @@
-package game;
+package gameState;
 
 
 import units.Brick;
