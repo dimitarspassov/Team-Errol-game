@@ -54,6 +54,7 @@ public class Game extends JFrame implements Runnable {
 
     private Menu menu;
     public static int lastResult;
+    public static long lastBonus;
     private int score;
     private int levelScore;
 
@@ -323,6 +324,7 @@ public class Game extends JFrame implements Runnable {
                     this.graphics.drawString("Bonus Points: " + bonusPoints, 30, 30);
                 }
             }
+            lastBonus=bonusPoints;
 
             this.graphics.drawString("Score: " + score, 620, 30);
 
@@ -395,6 +397,7 @@ public class Game extends JFrame implements Runnable {
                         long bonusPointsFromTimer = 60 - (this.gameTimer.SetElapsedTime()%60);
 
                         this.score += bonusPointsFromTimer;
+                        lastBonus=bonusPointsFromTimer;
 
                     }
 
@@ -404,6 +407,7 @@ public class Game extends JFrame implements Runnable {
                         long bonusPointsFromTimer = 60 - (this.gameTimer.SetElapsedTime()%60);
                         //this.graphics.drawString("Bonus Points: " + bonusPointsFromTimer, 30, 30);
                         this.score += bonusPointsFromTimer;
+                        lastBonus=bonusPointsFromTimer;
                     }
                 }
 
