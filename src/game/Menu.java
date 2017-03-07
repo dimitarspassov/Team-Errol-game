@@ -26,7 +26,7 @@ public class Menu {
             Font f1 = new Font("arial", Font.BOLD, 30);
             g.setFont(f1);
             g.drawString(String.format("Level %d completed!", --level), 250, 100);
-            g.drawString(String.format("Bonus collected %d", Game.lastBonus), 250, 200);
+            g.drawString(String.format("Bonus collected: %d", Math.max(Game.lastBonusPoints,0)), 250, 200);
 
             g.drawImage(ImageLoader.loadImage("/button_next-level.png"), 300, 300, 200, 50, null);
             g.drawImage(ImageLoader.loadImage("/button_back-to-menu.png"), 300, 400, 200, 50, null);

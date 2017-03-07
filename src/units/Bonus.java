@@ -2,9 +2,7 @@ package units;
 
 import javax.swing.*;
 
-/**
- * Created by Krasimir on 1.3.2017 г..
- */
+
 public class Bonus extends Brick{
     private String bonusType;
     private boolean status;
@@ -13,7 +11,7 @@ public class Bonus extends Brick{
         return this.bonusType;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return this.status;
     }
 

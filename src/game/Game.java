@@ -54,7 +54,7 @@ public class Game extends JFrame implements Runnable {
 
     private Menu menu;
     public static int lastResult;
-    public static long lastBonus;
+    public static long lastBonusPoints;
     private int score;
     private int levelScore;
 
@@ -87,12 +87,12 @@ public class Game extends JFrame implements Runnable {
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
         currentLevel = 1;
         this.maxLevel = 10;
-        this.levelSwitched = true;
+        levelSwitched = true;
         this.bricks = new Brick[1];
         this.stones = null;
         this.bonuses = new ArrayList<>();
         playerName = new StringBuilder("");
-        this.highScores = new Highscores();
+        highScores = new Highscores();
         this.gameTimer = new GameTimer();
     }
 
@@ -118,12 +118,12 @@ public class Game extends JFrame implements Runnable {
         }
         this.graphics = this.bs.getDrawGraphics();
 
-        if (this.levelSwitched) {
+        if (levelSwitched) {
             if (currentLevel == 1) {
                 score = 0;
                 levelScore = 0;
             }
-            this.levelSwitched = false;
+            levelSwitched = false;
             this.bricks = Level.getLevel(currentLevel);
             this.bricksRemaining = this.bricks.length;
             this.platform = new Platform(350, 550, 100, 20, 12);
@@ -226,7 +226,7 @@ public class Game extends JFrame implements Runnable {
             //Bonuses
             if (bonuses != null) {
                 for (Bonus bonus : this.bonuses) {
-                    if (bonus.isStatus()) {
+                    if (bonus.getStatus()) {
                         bonus.setY(bonus.getY() + 3);
                         this.graphics.drawImage(bonus.getImage(), bonus.getX(), bonus.getY(),
                                 bonus.getWidth(), bonus.getHeight(), this);
@@ -297,7 +297,7 @@ public class Game extends JFrame implements Runnable {
                 }
                 // ArrayList<Bonus> newBonuses = new ArrayList<>();
                 // for (Bonus bonus : this.bonuses) {
-                //    if(bonus.isStatus()){
+                //    if(bonus.getStatus()){
                 //        newBonuses.add(bonus);
                 //    }
                 // }
@@ -309,7 +309,7 @@ public class Game extends JFrame implements Runnable {
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
             // this.secondsRemaining = gameTimer.getSeconds();
             //  this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
-            long bonusPoints = 60 - this.gameTimer.SetElapsedTime();
+            long bonusPoints = 60 - this.gameTimer.getElapsedTime();
           //  System.out.println(bonusPoints);
             if(currentLevel == 1 || currentLevel == 2){
                 if (bonusPoints >= 0) {
@@ -318,13 +318,13 @@ public class Game extends JFrame implements Runnable {
                 }
 
             } else {
-                bonusPoints = 120 - this.gameTimer.SetElapsedTime();
+                bonusPoints = 120 - this.gameTimer.getElapsedTime();
                 if (bonusPoints >= 0) {
 
                     this.graphics.drawString("Bonus Points: " + bonusPoints, 30, 30);
                 }
             }
-            lastBonus=bonusPoints;
+            lastBonusPoints =bonusPoints;
 
             this.graphics.drawString("Score: " + score, 620, 30);
 
@@ -345,7 +345,7 @@ public class Game extends JFrame implements Runnable {
             this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic.png"), 0, 0, 800, 600, null);
             this.menu.render(graphics, currentLevel);
         }
-        //Take a careful look at these two operations. This is the cornerstone of visualizing our graphics.
+
         // Whatever we draw, it finally goes through dispose and the it is shown.
         this.graphics.dispose();
         this.bs.show();
@@ -390,24 +390,24 @@ public class Game extends JFrame implements Runnable {
 
             if (this.bricksRemaining == 0 && State == STATE.GAME) {
 
-                //If a player passes level 1 or level 2 inder 1 minute - gets bonus points 60 minus one's points
+                //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
                 if(currentLevel == 1 || currentLevel == 2){
-                    if( this.gameTimer.SetElapsedTime()/60 < 1){
-                        long bonusPointsFromTimer = 60 - (this.gameTimer.SetElapsedTime()%60);
+                    if( this.gameTimer.getElapsedTime()/60 < 1){
+                        long bonusPointsFromTimer = 60 - (this.gameTimer.getElapsedTime()%60);
 
                         this.score += bonusPointsFromTimer;
-                        lastBonus=bonusPointsFromTimer;
+                        lastBonusPoints =bonusPointsFromTimer;
 
                     }
 
-                    //Other levels should be passes for less than 2 minutes to get bonus points
+                    //Other levels should be passed for less than 2 minutes to get bonus points
                 } else {
-                    if( this.gameTimer.SetElapsedTime()/60 < 2){
-                        long bonusPointsFromTimer = 60 - (this.gameTimer.SetElapsedTime()%60);
+                    if( this.gameTimer.getElapsedTime()/60 < 2){
+                        long bonusPointsFromTimer = 60 - (this.gameTimer.getElapsedTime()%60);
                         //this.graphics.drawString("Bonus Points: " + bonusPointsFromTimer, 30, 30);
                         this.score += bonusPointsFromTimer;
-                        lastBonus=bonusPointsFromTimer;
+                        lastBonusPoints =bonusPointsFromTimer;
                     }
                 }
 
@@ -426,7 +426,7 @@ public class Game extends JFrame implements Runnable {
             //Bonus clear
             ArrayList<Bonus> newBonuses = new ArrayList<>();
             for (Bonus bonus : this.bonuses) {
-                if (bonus.isStatus() && bonus.getY() < 570) {
+                if (bonus.getStatus() && bonus.getY() < 570) {
                     newBonuses.add(bonus);
                 }
             }
@@ -442,11 +442,11 @@ public class Game extends JFrame implements Runnable {
             if (!this.levelSwitched && this.ball.getCenterY() >= 570) {
                 if (this.ballSecond != null) {
                     this.ball = new Ball((int) this.ballSecond.getCenterX(), (int) this.ballSecond.getCenterY(), this.ballSecond.getRadius(), this.ballSecond.getW(), this.ballSecond.getH(), this.ballSecond.getSpeedX(), this.ballSecond.getSpeedY(), platform, bricks, stones);
-                    ;
+
                     this.ballSecond = null;
                 } else if (this.ballThird != null) {
                     this.ball = new Ball((int) this.ballThird.getCenterX(), (int) this.ballThird.getCenterY(), this.ballThird.getRadius(), this.ballThird.getW(), this.ballThird.getH(), this.ballThird.getSpeedX(), this.ballThird.getSpeedY(), platform, bricks, stones);
-                    ;
+
                     this.ballThird = null;
                 } else {
                     State = STATE.GAME_OVER;
