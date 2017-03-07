@@ -314,7 +314,7 @@ public class Game extends JFrame implements Runnable {
             }
             this.bonuses = newBonuses;
 
-            balls = balls.stream().filter(ball -> ball.getCenterY() < 570).collect(Collectors.toList());
+            balls = balls.stream().filter(ball -> ball.getY() < 570).collect(Collectors.toList());
 
             // Stop the game when all balls exit game field
             if (balls.size() == 0) {

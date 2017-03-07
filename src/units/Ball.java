@@ -4,15 +4,9 @@ import game.Game;
 
 import java.awt.*;
 
-public class Ball {
-    private float centerX;
-    private float centerY;
-    private int w;
-    private int h;
+public class Ball extends Sprite {
     private int radius;
 
-    private int speedX;
-    private int speedY;
     private Platform platform;
     Brick[] bricks;
     Stone[] stones;
@@ -20,50 +14,17 @@ public class Ball {
     public static boolean isSpacePressed;
 
     public Ball(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY, Platform platform, Brick[] bricks, Stone[] stones) {
-        this.centerX = centerX;
-        this.centerY = centerY;
+        this.setX(centerX);
+        this.setY(centerY);
         this.radius = radius;
-        this.w = w;
-        this.h = h;
-        this.speedX = speedX;
-        this.speedY = speedY;
+        this.setWidth(w);
+        this.setHeight(h);
+        this.setDx(speedX);
+        this.setDy(speedY);
         this.platform = platform;
         this.bricks = bricks;
         this.stones = stones;
     }
-
-    public float getCenterX() {
-        return centerX;
-    }
-
-    public void setCenterX(float centerX) {
-        this.centerX = centerX;
-    }
-
-    public float getCenterY() {
-        return centerY;
-    }
-
-    public void setCenterY(float centerY) {
-        this.centerY = centerY;
-    }
-
-    public int getW() {
-        return w;
-    }
-
-    public void setW(int w) {
-        this.w = w;
-    }
-
-    public int getH() {
-        return h;
-    }
-
-    public void setH(int h) {
-        this.h = h;
-    }
-
     public int getRadius() {
         return radius;
     }
@@ -72,73 +33,54 @@ public class Ball {
         this.radius = radius;
     }
 
-    public int getSpeedX() {
-        return speedX;
-    }
-
-    public void setSpeedX(int speedX) {
-        this.speedX = speedX;
-    }
-
-    public int getSpeedY() {
-        return speedY;
-    }
-
-    public void setSpeedY(int speedY) {
-        this.speedY = speedY;
-    }
 
     public void move(Game game) {
-        float ballMinX = radius;
-        float ballMinY = radius;
-        float ballMaxX = 800 - radius;
-        float ballMaxY = 600 - radius;
+        int ballMinX = radius;
+        int ballMinY = radius;
+        int ballMaxX = 800 - radius;
+        int ballMaxY = 600 - radius;
 
 
 // If Space is pressed-ball moves,
 // otherwise stands still on platform
         if (isSpacePressed) {
-            centerX += speedX;
-            centerY += speedY;
+            this.setX(this.getX() + this.getDx());
+            this.setY(this.getY() + this.getDy());
 
-            if (new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH())
+            if (new Rectangle(this.getX(),  this.getY(), this.getWidth(), getHeight())
                     .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
                 if (Game.State == Game.STATE.GAME) {
                     Game.playSound(this, "/sounds/ping_platform.wav");
                 }
-                this.setSpeedY(-this.getSpeedY());
+                this.setDy(-this.getDy());
 
                 int segment = platform.getPlatformWidth() / 5;
                 int first = platform.getPlatformX() + segment;
                 int second = platform.getPlatformX() + segment * 2;
                 int third = platform.getPlatformX() + segment * 3;
                 int fourth = platform.getPlatformX() + segment * 4;
-                int center = (int) (this.getCenterX() + this.getW() / 2);
+                int center = (this.getX() + this.getWidth() / 2);
 
-                if (center < first) {
-                    this.setSpeedX(-5);
-                } else if (center >= first && center < second) {
-                    this.setSpeedX(-5);
+                if (center < first || (center >= first && center < second)) {
+                    this.setDx(-5);
                 } else if (center >= second && center < third) {
-                    if (this.getSpeedX() > 0) {
-                        this.setSpeedX(1);
+                    if (this.getDx() > 0) {
+                        this.setDx(1);
                     } else {
-                        this.setSpeedX(-1);
+                        this.setDx(-1);
                     }
-                } else if (center >= third && center < fourth) {
-                    this.setSpeedX(5);
-                } else if (center > fourth) {
-                    this.setSpeedX(5);
+                } else if (center > fourth || (center >= third && center < fourth)) {
+                    this.setDx(5);
                 }
                 // Reset ball's position out of collision.
-                this.setCenterY(platform.getPlatformY() - this.getH());
+                this.setY(platform.getPlatformY() - this.getHeight());
             }
 
             // Draw the bricks
             if (bricks != null) {
                 for (Brick brick : bricks) {
                     if (brick.isDestroyed()) continue;
-                    hitBrick(brick,game);
+                    hitBrick(brick, game);
                 }
             }
             // Draw the stones
@@ -146,96 +88,96 @@ public class Ball {
                 for (Stone stone : stones) {
                     if (stone != null) {
                         stone.incHitCount();
-                        hitBrick(stone,game);
+                        hitBrick(stone, game);
                     }
                 }
             }
 
 
-            if (centerX <= 0) {
+            if (this.getX() <= 0) {
 
-                speedX = -speedX;
-                centerX = ballMinX - 1;
+                this.setDx(-this.getDx());
+                this.setX(ballMinX - 1);
                 if (Game.State == Game.STATE.GAME) {
                     Game.playSound(this, "/sounds/ping_wall.wav");
                 }
 
-            } else if (centerX + speedX > ballMaxX - speedX - radius) {
+            } else if (this.getX() + this.getDx() > ballMaxX - this.getDx() - radius) {
 
-                speedX = -speedX;
+                this.setDx(-this.getDx());
                 if (Game.State == Game.STATE.GAME) {
                     Game.playSound(this, "/sounds/ping_wall.wav");
                 }
             }
-            if (centerY <= 0) {
-                speedY = -speedY;
+            if (this.getY() <= 0) {
+                this.setDy(-this.getDy());
                 {
                     Game.playSound(this, "/sounds/ping_wall.wav");
                 }
-            } else if (centerY > ballMaxY) {
-                speedY = -speedY;
-                centerY = ballMaxY;
+            } else if (this.getY() > ballMaxY) {
+                this.setDy(-this.getDy());
+                this.setY(ballMaxY);
                 if (Game.State == Game.STATE.GAME) {
                     Game.playSound(this, "/sounds/ping_wall.wav");
                 }
             }
         } else {
-            centerX = platform.getPlatformX() + 45;
-            centerY = platform.getPlatformY() - 20;
+            this.setX(platform.getPlatformX() + 45);
+            this.setY(platform.getPlatformY() - 20);
         }
     }
 
     private void hitBrick(Brick brick, Game game) {
 
 
-        if (brick.getRect().intersects(new Rectangle((int) getCenterX(), (int) getCenterY(), getW(), getH()))) {
+        if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
 
             if (Game.State == Game.STATE.GAME) {
                 Game.playSound(this, "/sounds/ping_brick.wav");
             }
-            int top = (int) this.getCenterY();
-            int bottom = (int) (this.getCenterY() + this.getH());
-            int left = (int) this.getCenterX();
-            int right = (int) (this.getCenterX() + this.getW());
+            int top =  this.getY();
+            int bottom =(this.getY() + this.getHeight());
+            int left = this.getX();
+            int right = (this.getX() + this.getWidth());
 
 
-            int oldDy = this.getSpeedY();
+            int oldDy = this.getDy();
             if (brick.getRect().contains(left, top - 1)) {
-                int dy = this.getSpeedY();
-                this.setSpeedY(dy < 0 ? -dy : dy);
+                int dy = this.getDy();
+                this.setDy(dy < 0 ? -dy : dy);
             } else if (brick.getRect().contains(left, bottom + 1)) {
-                int dy = this.getSpeedY();
-                this.setSpeedY(dy < 0 ? dy : -dy);
+                int dy = this.getDy();
+                this.setDy(dy < 0 ? dy : -dy);
             }
 
-            if (brick.getRect().contains(right + 1, top) && oldDy == this.getSpeedY()) {
-                int dx = this.getSpeedX();
-                this.setSpeedX(dx < 0 ? dx : -dx);
-            } else if (brick.getRect().contains(left - 1, top) && oldDy == this.getSpeedY()) {
-                int dx = this.getSpeedX();
-                this.setSpeedX(dx < 0 ? -dx : dx);
+            if (brick.getRect().contains(right + 1, top) && oldDy == this.getDy()) {
+                int dx = this.getDx();
+                this.setDx(dx < 0 ? dx : -dx);
+            } else if (brick.getRect().contains(left - 1, top) && oldDy == this.getDy()) {
+                int dx = this.getDx();
+                this.setDx(dx < 0 ? -dx : dx);
             }
             brick.hitBrick();
-            if(brick.getBonus()!=null&&brick.isDestroyed()){
+            if (brick.getBonus() != null && brick.isDestroyed()) {
                 game.addBonus(brick.getBonus());
 
-           }
+            }
         }
     }
 
     public void render(Graphics g) {
-        g.drawOval((int) this.centerX, (int) this.centerY, this.w, this.h);
+        g.drawOval(this.getX(), this.getY(), this.getWidth(), this.getHeight());
     }
 
     public void sizeUp() {
-        this.setH(40);
-        this.setW(40);
+        this.setHeight(40);
+        this.setWidth(40);
         this.setRadius(20);
 
     }
 
-    public void speedUp(){
-        this.setSpeedX((int) (this.getSpeedX() * 1.7));
-        this.setSpeedY((int) (this.getSpeedY() * 1.7));
+    public void speedUp() {
+        this.setDx((int) (this.getDx() * 1.7));
+        this.setDy((int) (this.getDy() * 1.7));
     }
 }

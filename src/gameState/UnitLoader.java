@@ -14,7 +14,7 @@ public class UnitLoader {
         balls.stream().forEach(ball -> {
             ball.render(graphics);
             graphics.setColor(Color.WHITE);
-            graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
+            graphics.fillOval((int) ball.getX(), (int) ball.getY(), ball.getHeight(), ball.getWidth());
         });
 
     }
@@ -57,23 +57,23 @@ public class UnitLoader {
                     case "threeBalls":
                         //Three Ball Bonus
                         balls.add(new Ball(
-                                (int) balls.get(0).getCenterX()+15,
-                                (int) balls.get(0).getCenterY()-15,
+                                (int) balls.get(0).getX()+15,
+                                (int) balls.get(0).getY()-15,
                                 balls.get(0).getRadius(),
-                                balls.get(0).getW(),
-                                balls.get(0).getH(),
-                                balls.get(0).getSpeedX(),
-                                balls.get(0).getSpeedY() * -1,
+                                balls.get(0).getWidth(),
+                                balls.get(0).getHeight(),
+                                balls.get(0).getDx(),
+                                balls.get(0).getDy() * -1,
                                 platform, bricks, stones));
 
                         balls.add(new Ball(
-                                (int) balls.get(0).getCenterX()-15,
-                                (int) balls.get(0).getCenterY()+15,
+                                (int) balls.get(0).getX()-15,
+                                (int) balls.get(0).getY()+15,
                                 balls.get(0).getRadius(),
-                                balls.get(0).getW(),
-                                balls.get(0).getH(),
-                                balls.get(0).getSpeedX(),
-                                balls.get(0).getSpeedY() * -1,
+                                balls.get(0).getWidth(),
+                                balls.get(0).getHeight(),
+                                balls.get(0).getDx(),
+                                balls.get(0).getDy() * -1,
                                 platform, bricks, stones));
                         break;
                 }
