@@ -148,10 +148,10 @@ public class Game extends JFrame implements Runnable {
             //Creating the platform
             this.platform.render(graphics);
             this.graphics.drawImage(ImageLoader.loadImage("/latest-platform.png"),
-                    platform.getPlatformX(),
-                    platform.getPlatformY(),
-                    platform.getPlatformWidth(),
-                    platform.getPlatformHeight(), null);
+                    platform.getX(),
+                    platform.getY(),
+                    platform.getWidth(),
+                    platform.getHeight(), null);
 
 
             UnitLoader.renderBalls(balls, graphics);

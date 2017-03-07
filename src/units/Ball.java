@@ -1,10 +1,11 @@
 package units;
 
+import game.Commons;
 import game.Game;
 
 import java.awt.*;
 
-public class Ball extends Sprite {
+public class Ball extends Sprite implements Commons{
     private int radius;
 
     private Platform platform;
@@ -48,17 +49,17 @@ public class Ball extends Sprite {
             this.setY(this.getY() + this.getDy());
 
             if (new Rectangle(this.getX(),  this.getY(), this.getWidth(), getHeight())
-                    .intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
+                    .intersects(new Rectangle(platform.getX(), platform.getY(), platform.getWidth(), platform.getHeight()))) {
                 if (Game.State == Game.STATE.GAME) {
                     Game.playSound(this, "/sounds/ping_platform.wav");
                 }
                 this.setDy(-this.getDy());
 
-                int segment = platform.getPlatformWidth() / 5;
-                int first = platform.getPlatformX() + segment;
-                int second = platform.getPlatformX() + segment * 2;
-                int third = platform.getPlatformX() + segment * 3;
-                int fourth = platform.getPlatformX() + segment * 4;
+                int segment = platform.getWidth() / 5;
+                int first = platform.getX() + segment;
+                int second = platform.getX() + segment * 2;
+                int third = platform.getX() + segment * 3;
+                int fourth = platform.getX() + segment * 4;
                 int center = (this.getX() + this.getWidth() / 2);
 
                 if (center < first || (center >= first && center < second)) {
@@ -73,7 +74,7 @@ public class Ball extends Sprite {
                     this.setDx(5);
                 }
                 // Reset ball's position out of collision.
-                this.setY(platform.getPlatformY() - this.getHeight());
+                this.setY(platform.getY() - this.getHeight());
             }
 
             // Draw the bricks
@@ -122,8 +123,8 @@ public class Ball extends Sprite {
                 }
             }
         } else {
-            this.setX(platform.getPlatformX() + 45);
-            this.setY(platform.getPlatformY() - 20);
+            this.setX(platform.getX() + 45);
+            this.setY(platform.getY() - 20);
         }
     }
 

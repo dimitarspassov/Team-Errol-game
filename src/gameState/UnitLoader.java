@@ -14,7 +14,7 @@ public class UnitLoader {
         balls.stream().forEach(ball -> {
             ball.render(graphics);
             graphics.setColor(Color.WHITE);
-            graphics.fillOval((int) ball.getX(), (int) ball.getY(), ball.getHeight(), ball.getWidth());
+            graphics.fillOval( ball.getX(),  ball.getY(), ball.getHeight(), ball.getWidth());
         });
 
     }
@@ -28,7 +28,7 @@ public class UnitLoader {
                 graphics.drawImage(bonus.getImage(), bonus.getX(), bonus.getY(),
                         bonus.getWidth(), bonus.getHeight(), null);
             }
-            if (bonus.getRect().intersects(new Rectangle(platform.getPlatformX(), platform.getPlatformY(), platform.getPlatformWidth(), platform.getPlatformHeight()))) {
+            if (bonus.getRect().intersects(new Rectangle(platform.getX(), platform.getY(), platform.getWidth(), platform.getHeight()))) {
                 String bonusType = bonus.getBonusType();
                 bonus.setStatus(false);
                 switch (bonusType) {
