@@ -353,7 +353,7 @@ public class Game extends JFrame implements Runnable {
             render();
 
 
-            if (this.bricksRemaining <= this.bricks.length - 1 && State == STATE.GAME) {
+            if (this.bricksRemaining == 0 && State == STATE.GAME) {
 
                 //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
