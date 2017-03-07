@@ -14,6 +14,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 //By far the most complex component of our project. This is the game itself.
 
@@ -25,9 +27,10 @@ public class Game extends JFrame implements Runnable {
 
     private Display display;
     private Platform platform;
-    private Ball ball;
-    private Ball ballSecond;
-    private Ball ballThird;
+    //    private Ball ball;
+//    private Ball ballSecond;
+//    private Ball ballThird;
+    private List<Ball> balls;
 
     private static boolean isGamePaused;
     private static boolean isSoundMuted;
@@ -52,7 +55,6 @@ public class Game extends JFrame implements Runnable {
     private Thread thread;
     public static boolean isRunning;
     private GameTimer gameTimer;
-    private int secondsRemaining;
     public static StringBuilder playerName;
 
     private Menu menu;
@@ -131,16 +133,16 @@ public class Game extends JFrame implements Runnable {
             this.bricksRemaining = this.bricks.length;
             this.platform = new Platform(350, 550, 100, 20, 12);
             this.stones = Level.getStones(currentLevel);
-            this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
-            this.ball.isSpacePressed = false;
-            // this.ballSecond = new Ball(350, 550, 10, 20, 20, -5, 5, platform, bricks, stones);
+            this.balls = new ArrayList<>();
+            balls.add(new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+            balls.get(0).isSpacePressed = false;
             levelScore = 0;
             this.gameTimer.setStartTime(System.currentTimeMillis());
-            // this.secondsRemaining = this.gameTimer.getSeconds();
+
         }
 
         if (State == STATE.GAME) {
-
+       
             BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
 
             //Creating the platform
@@ -152,7 +154,7 @@ public class Game extends JFrame implements Runnable {
                     platform.getPlatformHeight(), null);
 
 
-            UnitLoader.renderBalls(this.ball, this.ballSecond, this.ballThird, graphics);
+            UnitLoader.renderBalls(balls, graphics);
 
             // Draw the bricks
             score -= levelScore;
@@ -184,7 +186,7 @@ public class Game extends JFrame implements Runnable {
             //Bonuses
 
             if (bonuses != null) {
-                UnitLoader.renderBonuses(this.bonuses, this.ball, this.ballSecond, this.ballThird,bricks,stones, this.platform, this.graphics);
+                UnitLoader.renderBonuses(this.bonuses, balls, bricks, stones, this.platform, this.graphics);
             }
 
             lastResult = score;
@@ -261,13 +263,7 @@ public class Game extends JFrame implements Runnable {
             if (delta >= 1) {
                 thick();
                 delta--;
-                ball.move(this);
-                if (ballSecond != null) {
-                    ballSecond.move(this);
-                }
-                if (ballThird != null) {
-                    ballThird.move(this);
-                }
+                balls.stream().forEach(b -> b.move(this));
 
             }
             render();
@@ -318,38 +314,24 @@ public class Game extends JFrame implements Runnable {
             }
             this.bonuses = newBonuses;
 
-            if (this.ballSecond != null && this.ballSecond.getCenterY() >= 570) {
-                this.ballSecond = null;
-            }
-            if (this.ballThird != null && this.ballThird.getCenterY() >= 570) {
-                this.ballThird = null;
-            }
-            // Stop the game when the ball exits game field
-            if (!this.levelSwitched && this.ball.getCenterY() >= 570) {
-                if (this.ballSecond != null) {
-                    this.ball = new Ball((int) this.ballSecond.getCenterX(), (int) this.ballSecond.getCenterY(), this.ballSecond.getRadius(), this.ballSecond.getW(), this.ballSecond.getH(), this.ballSecond.getSpeedX(), this.ballSecond.getSpeedY(), platform, bricks, stones);
+            balls = balls.stream().filter(ball -> ball.getCenterY() < 570).collect(Collectors.toList());
 
-                    this.ballSecond = null;
-                } else if (this.ballThird != null) {
-                    this.ball = new Ball((int) this.ballThird.getCenterX(), (int) this.ballThird.getCenterY(), this.ballThird.getRadius(), this.ballThird.getW(), this.ballThird.getH(), this.ballThird.getSpeedX(), this.ballThird.getSpeedY(), platform, bricks, stones);
-
-                    this.ballThird = null;
-                } else {
-                    State = STATE.GAME_OVER;
-                    this.levelSwitched = true;
-                    this.initLevel();
-                    currentLevel = 1;
-                }
+            // Stop the game when all balls exit game field
+            if (balls.size() == 0) {
+                State = STATE.GAME_OVER;
+                this.levelSwitched = true;
+                this.initLevel();
+                currentLevel = 1;
             }
+
         }
 
         this.stop();
     }
 
     private void initLevel() {
-        this.ball = new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
-        this.ballSecond = null;
-        this.ballThird = null;
+        balls = new ArrayList<>();
+        balls.add(new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
         this.bonuses = new ArrayList<>();
     }
 

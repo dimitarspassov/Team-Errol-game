@@ -5,31 +5,21 @@ import units.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UnitLoader {
 
-    public static void renderBalls(Ball ball, Ball ballSecond, Ball ballThird, Graphics graphics) {
+    public static void renderBalls(List<Ball> balls, Graphics graphics) {
 
-        //Main Ball
-        ball.render(graphics);
-        graphics.setColor(Color.WHITE);
-        graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
-        //Second Ball
-        if (ballSecond != null) {
-            ballSecond.render(graphics);
-            // this.graphics.setColor(Color.WHITE);
-            graphics.fillOval((int) ballSecond.getCenterX(), (int) ballSecond.getCenterY(), ballSecond.getH(), ballSecond.getW());
-        }
-        //Third Ball
-        if (ballThird != null) {
-            ballThird.render(graphics);
-            //this.graphics.setColor(Color.WHITE);
-            graphics.fillOval((int) ballThird.getCenterX(), (int) ballThird.getCenterY(), ballThird.getH(), ballThird.getW());
-        }
+        balls.stream().forEach(ball -> {
+            ball.render(graphics);
+            graphics.setColor(Color.WHITE);
+            graphics.fillOval((int) ball.getCenterX(), (int) ball.getCenterY(), ball.getH(), ball.getW());
+        });
 
     }
 
-    public static void renderBonuses(ArrayList<Bonus> bonuses, Ball ball, Ball ballSecond, Ball ballThird, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics) {
+    public static void renderBonuses(ArrayList<Bonus> bonuses, List<Ball> balls, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics) {
 
 
         for (Bonus bonus : bonuses) {
@@ -44,13 +34,7 @@ public class UnitLoader {
                 switch (bonusType) {
                     case "ballSizeUp":
                         //Ball Size Up Bonus
-                        ball.sizeUp();
-                        if (ballSecond != null) {
-                            ballSecond.sizeUp();
-                        }
-                        if (ballThird != null) {
-                            ballThird.sizeUp();
-                        }
+                        balls.stream().forEach(ball -> ball.sizeUp());
                         break;
                     case "platformSizeUp":
                         //Platform Size Up Bonus
@@ -63,13 +47,7 @@ public class UnitLoader {
 
                     case "ballSpeedUp":
                         //Ball Speed Up Bonus
-                        ball.speedUp();
-                        if (ballSecond != null) {
-                            ballSecond.speedUp();
-                        }
-                        if (ballThird != null) {
-                            ballThird.speedUp();
-                        }
+                        balls.stream().forEach(ball -> ball.speedUp());
                         break;
 
                     case "platformSpeedUp":
@@ -78,23 +56,25 @@ public class UnitLoader {
                         break;
                     case "threeBalls":
                         //Three Ball Bonus
-                        ballSecond = new Ball(
-                                (int) ball.getCenterX(),
-                                (int) ball.getCenterY(),
-                                ball.getRadius(),
-                                ball.getW(),
-                                ball.getH(),
-                                ball.getSpeedX(),
-                                ball.getSpeedY() * -1,
-                                platform, bricks, stones);
-                        ballThird = new Ball(
-                                (int) ball.getCenterX(),
-                                (int) ball.getCenterY(),
-                                ball.getRadius(),
-                                ball.getW(), ball.getH(),
-                                ball.getSpeedX() * -1,
-                                ball.getSpeedY(),
-                                platform, bricks, stones);
+                        balls.add(new Ball(
+                                (int) balls.get(0).getCenterX()+15,
+                                (int) balls.get(0).getCenterY()-15,
+                                balls.get(0).getRadius(),
+                                balls.get(0).getW(),
+                                balls.get(0).getH(),
+                                balls.get(0).getSpeedX(),
+                                balls.get(0).getSpeedY() * -1,
+                                platform, bricks, stones));
+
+                        balls.add(new Ball(
+                                (int) balls.get(0).getCenterX()-15,
+                                (int) balls.get(0).getCenterY()+15,
+                                balls.get(0).getRadius(),
+                                balls.get(0).getW(),
+                                balls.get(0).getH(),
+                                balls.get(0).getSpeedX(),
+                                balls.get(0).getSpeedY() * -1,
+                                platform, bricks, stones));
                         break;
                 }
             }
