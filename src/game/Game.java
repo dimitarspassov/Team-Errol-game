@@ -129,6 +129,7 @@ public class Game extends JFrame implements Runnable, Commons {
                 levelScore = 0;
             }
             levelSwitched = false;
+
             this.bricks = Level.getLevel(currentLevel);
             this.bricksRemaining = this.bricks.length;
             this.platform = new Platform(350, 550, 100, 20, 12);
@@ -191,6 +192,7 @@ public class Game extends JFrame implements Runnable, Commons {
 
             lastResult = score;
             // Show player scores
+            this.graphics.setColor(Color.WHITE);
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
             // this.secondsRemaining = gameTimer.getSeconds();
             //  this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);

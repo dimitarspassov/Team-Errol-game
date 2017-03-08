@@ -82,7 +82,6 @@ public class UnitLoader implements Commons{
                                 platform, bricks, stones));
                                   });
                        balls.addAll(ballsNew);
-
                         break;
                 }
             }

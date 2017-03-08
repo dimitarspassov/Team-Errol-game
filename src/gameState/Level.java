@@ -86,7 +86,7 @@ public class Level {
 
         }
 
-
+        generator.setBonusesForCurrentLevel(bricks);
         return bricks;
     }
 

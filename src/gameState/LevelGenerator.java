@@ -5,11 +5,13 @@ import units.Stone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 //This is a specific class for generating the levels. We will use it in order to avoid duplicated code.
 
 public class LevelGenerator {
 
+    private static final String[] BONUS_TYPES = {"ballSizeUp", "platformSizeUp", "threeBalls", "ballSpeedUp", "platformSizeDown", "platformSpeedUp"};
 
     private byte level;
 
@@ -89,11 +91,7 @@ public class LevelGenerator {
                             bricks.add(new Brick(xA + j * xB * xC, yA + i * yB * yC, 1));
                         }
                     }
-                    if (bricks.size() == 8) {
-                        bricks.get(3).addBonus("ballSpeedUp");
-                        bricks.get(7).addBonus("ballSpeedUp");
-                        bricks.get(1).addBonus("ballSpeedUp");
-                    }
+
                 }
             } else if (level == 8 && yA == 93) {
 
@@ -146,19 +144,6 @@ public class LevelGenerator {
 
                     } else {
                         bricks.add(new Brick(xA + j * xB * xC, yA + i * yB * yC, hitCount));
-                        if (bricks.size() == 8) {
-                            //  bricks.get(3).addBonus("ballSizeUp");
-                            //  bricks.get(7).addBonus("threeBalls");
-                            //  bricks.get(1).addBonus("platformSizeUp");
-                            // bricks.get(3).addBonus("ballSizeUp");
-                            // bricks.get(5).addBonus("ballSpeedUp");
-                            // bricks.get(7).addBonus("threeBalls");
-                            bricks.get(3).addBonus("threeBalls");
-                            bricks.get(5).addBonus("threeBalls");
-                            bricks.get(7).addBonus("ballSpeedUp");
-                            bricks.get(1).addBonus("threeBalls");
-                        }
-
                     }
 
                 }
@@ -234,5 +219,35 @@ public class LevelGenerator {
                 stones.add(new Stone(100 + (40 * 3) * 2, 48 + 8 * 12 * 3));
             }
         }
+    }
+
+    //Here we set the bonuses using Random selection.
+    //First we get the amount of bonuses, corresponding to the amount of bricks for current level.
+    //Then for each iteration of the loop we add a random bonus to a random brick.
+    public void setBonusesForCurrentLevel(Brick[] bricks) {
+
+
+        Random rnd = new Random();
+
+        int bonusAmount = bricks.length / 4;
+
+        for (int i = 0; i < bonusAmount; i++) {
+            int n = rnd.nextInt(BONUS_TYPES.length);
+            String currentBonusType = BONUS_TYPES[n];
+
+            boolean bonusAssigned = false;
+
+            while (!bonusAssigned) {
+
+                n = rnd.nextInt(bricks.length);
+
+                if (bricks[n].getBonus() == null) {
+                    bricks[n].addBonus(currentBonusType);
+
+                    bonusAssigned = true;
+                }
+            }
+        }
+
     }
 }
