@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 //By far the most complex component of our project. This is the game itself.
 
-public class Game extends JFrame implements Runnable {
+public class Game extends JFrame implements Runnable, Commons {
     public static boolean IS_BALL_SPEED_UP = false;
 
     private String name;
@@ -147,7 +147,7 @@ public class Game extends JFrame implements Runnable {
 
             //Creating the platform
             this.platform.render(graphics);
-            this.graphics.drawImage(ImageLoader.loadImage("/latest-platform.png"),
+            this.graphics.drawImage(ImageLoader.loadImage(PIC_LATEST_PLATFORM),
                     platform.getX(),
                     platform.getY(),
                     platform.getWidth(),
@@ -215,19 +215,19 @@ public class Game extends JFrame implements Runnable {
 
             // Draw buttons when user is paused the game
             if (isGamePaused) {
-                this.graphics.drawImage(ImageLoader.loadImage("/button_resume-game.png"), 300, 250, 200, 50, null);
-                this.graphics.drawImage(ImageLoader.loadImage("/button_exit.png"), 300, 350, 200, 50, null);
+                this.graphics.drawImage(ImageLoader.loadImage(BUTTON_RESUME_GAME), 300, 250, 200, 50, null);
+                this.graphics.drawImage(ImageLoader.loadImage(BUTTON_EXIT), 300, 350, 200, 50, null);
             }
 
             // Draw image for state of sound
             if (isSoundMuted) {
-                this.graphics.drawImage(ImageLoader.loadImage("/mute.png"), 740, 50, 40, 40, null);
+                this.graphics.drawImage(ImageLoader.loadImage(PIC_MUTE), 740, 50, 40, 40, null);
             } else {
-                this.graphics.drawImage(ImageLoader.loadImage("/sound.png"), 740, 50, 40, 40, null);
+                this.graphics.drawImage(ImageLoader.loadImage(PIC_SOUND), 740, 50, 40, 40, null);
             }
 
         } else {
-            this.graphics.drawImage(ImageLoader.loadImage("/backgroundPic.png"), 0, 0, 800, 600, null);
+            this.graphics.drawImage(ImageLoader.loadImage(BACKGROUND_PIC), 0, 0, 800, 600, null);
             this.menu.render(graphics, currentLevel);
         }
 
@@ -297,10 +297,10 @@ public class Game extends JFrame implements Runnable {
                 levelSwitched = true;
                 if (currentLevel > this.maxLevel) {
                     State = STATE.WIN;
-                    playSound(this, "/sounds/level_complete.wav");
+                    playSound(this, SOUND_LEVEL_COMPLETE);
 
                 } else {
-                    playSound(this, "/sounds/level_complete.wav");
+                    playSound(this, SOUND_LEVEL_COMPLETE);
                     State = STATE.MID_LEVEL_PAUSE;
                     this.initLevel();
                 }

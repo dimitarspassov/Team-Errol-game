@@ -52,7 +52,7 @@ public class Ball extends Sprite implements Commons{
             if (new Rectangle(this.getX(),  this.getY(), this.getWidth(), getHeight())
                     .intersects(new Rectangle(platform.getX(), platform.getY(), platform.getWidth(), platform.getHeight()))) {
                 if (Game.State == Game.STATE.GAME) {
-                    Game.playSound(this, "/sounds/ping_platform.wav");
+                    Game.playSound(this, SOUND_PLATFORM);
                 }
                 this.setDy(-this.getDy());
 
@@ -101,26 +101,26 @@ public class Ball extends Sprite implements Commons{
                 this.setDx(-this.getDx());
                 this.setX(ballMinX - 1);
                 if (Game.State == Game.STATE.GAME) {
-                    Game.playSound(this, "/sounds/ping_wall.wav");
+                    Game.playSound(this, SOUND_WALL);
                 }
 
             } else if (this.getX() + this.getDx() > ballMaxX - this.getDx() - radius) {
 
                 this.setDx(-this.getDx());
                 if (Game.State == Game.STATE.GAME) {
-                    Game.playSound(this, "/sounds/ping_wall.wav");
+                    Game.playSound(this, SOUND_WALL);
                 }
             }
             if (this.getY() <= 0) {
                 this.setDy(-this.getDy());
                 {
-                    Game.playSound(this, "/sounds/ping_wall.wav");
+                    Game.playSound(this, SOUND_WALL);
                 }
             } else if (this.getY() > ballMaxY) {
                 this.setDy(-this.getDy());
                 this.setY(ballMaxY);
                 if (Game.State == Game.STATE.GAME) {
-                    Game.playSound(this, "/sounds/ping_wall.wav");
+                    Game.playSound(this, SOUND_WALL);
                 }
             }
         } else {
@@ -135,7 +135,7 @@ public class Ball extends Sprite implements Commons{
         if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
 
             if (Game.State == Game.STATE.GAME) {
-                Game.playSound(this, "/sounds/ping_brick.wav");
+                Game.playSound(this, SOUND_BRICK);
             }
             int top =  this.getY();
             int bottom =(this.getY() + this.getHeight());
@@ -168,7 +168,7 @@ public class Ball extends Sprite implements Commons{
     }
 
     public void render(Graphics g) {
-        g.drawImage(ImageLoader.loadImage("/Ball.png"),this.x,this.y,this.width,this.height,null);
+        g.drawImage(ImageLoader.loadImage(PIC_BALL),this.x,this.y,this.width,this.height,null);
     }
 
     public void sizeUp() {

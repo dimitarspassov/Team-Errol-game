@@ -89,7 +89,7 @@ public class LevelGenerator {
                             bricks.add(new Brick(xA + j * xB * xC, yA + i * yB * yC, 1));
                         }
                     }
-                    if(bricks.size()==8){
+                    if (bricks.size() == 8) {
                         bricks.get(3).addBonus("ballSpeedUp");
                         bricks.get(7).addBonus("ballSpeedUp");
                         bricks.get(1).addBonus("ballSpeedUp");
@@ -146,16 +146,16 @@ public class LevelGenerator {
 
                     } else {
                         bricks.add(new Brick(xA + j * xB * xC, yA + i * yB * yC, hitCount));
-                        if(bricks.size()==8){
-                          //  bricks.get(3).addBonus("ballSizeUp");
-                          //  bricks.get(7).addBonus("threeBalls");
-                          //  bricks.get(1).addBonus("platformSizeUp");
-                           // bricks.get(3).addBonus("ballSizeUp");
-                           // bricks.get(5).addBonus("ballSpeedUp");
-                           // bricks.get(7).addBonus("threeBalls");
+                        if (bricks.size() == 8) {
+                            //  bricks.get(3).addBonus("ballSizeUp");
+                            //  bricks.get(7).addBonus("threeBalls");
+                            //  bricks.get(1).addBonus("platformSizeUp");
+                            // bricks.get(3).addBonus("ballSizeUp");
+                            // bricks.get(5).addBonus("ballSpeedUp");
+                            // bricks.get(7).addBonus("threeBalls");
                             bricks.get(3).addBonus("threeBalls");
-                             bricks.get(5).addBonus("threeBalls");
-                             bricks.get(7).addBonus("threeBalls");
+                            bricks.get(5).addBonus("threeBalls");
+                            bricks.get(7).addBonus("threeBalls");
                             bricks.get(1).addBonus("threeBalls");
                         }
 
@@ -217,11 +217,11 @@ public class LevelGenerator {
                         } else if (j == 2 && i == 3) {
                             stones.add(new Stone(85 + j * xB * xC, yA + i * yB * yC));
                         }
-                    }else if(level==7){
+                    } else if (level == 7) {
 
-                        stones.add(new Stone(xA + j * xB * xC*2, yA + i * yB * yC));
+                        stones.add(new Stone(xA + j * xB * xC * 2, yA + i * yB * yC));
 
-                    } else{
+                    } else {
                         stones.add(new Stone(xA + j * xB * xC, yA + i * yB * yC));
                     }
                 }

@@ -56,13 +56,13 @@ public class Platform extends Sprite implements Commons {
 
     public void render(Graphics g) {
         if (isMovingRight) {
-            g.drawImage(ImageLoader.loadImage("/latest-platform.png"),
+            g.drawImage(ImageLoader.loadImage(PIC_LATEST_PLATFORM),
                     this.getX(),
                     this.getY(),
                     this.getWidth(),
                     this.getHeight(), null);
         } else if (isMovingLeft) {
-            g.drawImage(ImageLoader.loadImage("/latest-platform.png"),
+            g.drawImage(ImageLoader.loadImage(PIC_LATEST_PLATFORM),
                     this.getX(),
                     this.getY(),
                     this.getWidth(),

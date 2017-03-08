@@ -1,6 +1,7 @@
 package gameState;
 
 
+import game.Commons;
 import graphics.ImageLoader;
 import units.*;
 
@@ -8,14 +9,14 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnitLoader {
+public class UnitLoader implements Commons{
 
     public static void renderBalls(List<Ball> balls, Graphics graphics) {
 
         balls.stream().forEach(ball -> {
             ball.render(graphics);
             graphics.setColor(Color.WHITE);
-            graphics.drawImage(ImageLoader.loadImage("/Ball.png"),
+            graphics.drawImage(ImageLoader.loadImage(PIC_BALL),
                     ball.getX(),
                     ball.getY(),
                     ball.getWidth(),
