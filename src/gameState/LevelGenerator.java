@@ -154,7 +154,7 @@ public class LevelGenerator {
                             // bricks.get(5).addBonus("ballSpeedUp");
                             // bricks.get(7).addBonus("threeBalls");
                             bricks.get(3).addBonus("threeBalls");
-                            bricks.get(5).addBonus("ballSizeUp");
+                            bricks.get(5).addBonus("threeBalls");
                             bricks.get(7).addBonus("ballSpeedUp");
                             bricks.get(1).addBonus("threeBalls");
                         }

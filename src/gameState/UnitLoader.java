@@ -60,25 +60,29 @@ public class UnitLoader implements Commons{
                         break;
                     case "threeBalls":
                         //Three Ball Bonus
-                        balls.add(new Ball(
-                                (int) balls.get(0).getX()+15,
-                                (int) balls.get(0).getY()-15,
-                                balls.get(0).getRadius(),
-                                balls.get(0).getWidth(),
-                                balls.get(0).getHeight(),
-                                balls.get(0).getDx(),
-                                balls.get(0).getDy() * -1,
+                        List<Ball> ballsNew = new ArrayList<>() ;
+                        balls.stream().forEach(ball ->{ballsNew.add(new Ball(
+                                 ball.getX()+15,
+                                        ball.getY()-15,
+                                ball.getRadius(),
+                                ball.getWidth(),
+                                ball.getHeight(),
+                                ball.getDx(),
+                                ball.getDy() * -1,
                                 platform, bricks, stones));
 
-                        balls.add(new Ball(
-                                (int) balls.get(0).getX()-15,
-                                (int) balls.get(0).getY()+15,
-                                balls.get(0).getRadius(),
-                                balls.get(0).getWidth(),
-                                balls.get(0).getHeight(),
-                                balls.get(0).getDx(),
-                                balls.get(0).getDy() * -1,
+                            ballsNew.add(new Ball(
+                                        ball.getX()-15,
+                                ball.getY()+15,
+                                ball.getRadius(),
+                                ball.getWidth(),
+                                ball.getHeight(),
+                                ball.getDx()*-2,
+                                ball.getDy() ,
                                 platform, bricks, stones));
+                                  });
+                       balls.addAll(ballsNew);
+
                         break;
                 }
             }
