@@ -2,6 +2,7 @@ package units;
 
 import game.Commons;
 import game.Game;
+import graphics.ImageLoader;
 
 import java.awt.*;
 
@@ -167,7 +168,7 @@ public class Ball extends Sprite implements Commons{
     }
 
     public void render(Graphics g) {
-        g.drawOval(this.getX(), this.getY(), this.getWidth(), this.getHeight());
+        g.drawImage(ImageLoader.loadImage("/Ball.png"),this.x,this.y,this.width,this.height,null);
     }
 
     public void sizeUp() {

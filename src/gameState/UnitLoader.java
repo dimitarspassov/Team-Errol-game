@@ -1,6 +1,7 @@
 package gameState;
 
 
+import graphics.ImageLoader;
 import units.*;
 
 import java.awt.*;
@@ -14,7 +15,11 @@ public class UnitLoader {
         balls.stream().forEach(ball -> {
             ball.render(graphics);
             graphics.setColor(Color.WHITE);
-            graphics.fillOval( ball.getX(),  ball.getY(), ball.getHeight(), ball.getWidth());
+            graphics.drawImage(ImageLoader.loadImage("/Ball.png"),
+                    ball.getX(),
+                    ball.getY(),
+                    ball.getWidth(),
+                    ball.getHeight(),null);
         });
 
     }

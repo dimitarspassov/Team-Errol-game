@@ -1,6 +1,7 @@
 package units;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by Krasimir on 4.3.2017 г..
@@ -13,6 +14,9 @@ public class Sprite {
     protected int dx;
     protected int dy;
     protected Image image;
+
+    private BufferedImage bufferedImage;
+
     protected int width;
     protected int height;
 
@@ -29,6 +33,10 @@ public class Sprite {
         dx = dy = 0;
         width = height = 0;
         image = null;
+    }
+
+    public Sprite(BufferedImage bufferedImage){
+        this.bufferedImage=bufferedImage;
     }
 
 
