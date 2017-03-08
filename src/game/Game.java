@@ -143,7 +143,6 @@ public class Game extends JFrame implements Runnable, Commons {
         }
 
         if (State == STATE.GAME) {
-       
             BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
 
             //Creating the platform
@@ -160,7 +159,7 @@ public class Game extends JFrame implements Runnable, Commons {
             // Draw the bricks
             score -= levelScore;
             levelScore = 0;
-            this.bricksRemaining = Level.getLevel(currentLevel).length;
+            this.bricksRemaining = this.bricks.length;
             for (Brick brick : this.bricks) {
 
                 // If brick is destroyed, continue to next brick.
