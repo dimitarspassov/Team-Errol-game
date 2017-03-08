@@ -230,11 +230,9 @@ public class LevelGenerator {
         Random rnd = new Random();
 
         int bonusAmount = bricks.length / 4;
-
         for (int i = 0; i < bonusAmount; i++) {
             int n = rnd.nextInt(BONUS_TYPES.length);
             String currentBonusType = BONUS_TYPES[n];
-
             boolean bonusAssigned = false;
 
             while (!bonusAssigned) {
@@ -243,7 +241,6 @@ public class LevelGenerator {
 
                 if (bricks[n].getBonus() == null) {
                     bricks[n].addBonus(currentBonusType);
-
                     bonusAssigned = true;
                 }
             }

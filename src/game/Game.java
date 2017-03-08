@@ -38,6 +38,8 @@ public class Game extends JFrame implements Runnable, Commons {
     private Stone[] stones;
     private ArrayList<Bonus> bonuses;
     private int bricksRemaining;
+    private boolean unitsInitialized;
+
 
     private static byte currentLevel;
     private byte maxLevel;
@@ -90,10 +92,10 @@ public class Game extends JFrame implements Runnable, Commons {
         this.addKeyListener(new InputHandler(this.display.getCanvas()));
         this.menu = new Menu();
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
-        currentLevel = 1;
+        currentLevel = 0;
         this.maxLevel = 10;
-        levelSwitched = true;
-        this.bricks = new Brick[1];
+        levelSwitched = false;
+        this.bricks = new Brick[0];
         this.stones = null;
         this.bonuses = new ArrayList<>();
         playerName = new StringBuilder("");
@@ -103,8 +105,9 @@ public class Game extends JFrame implements Runnable, Commons {
 
     public void thick() {
 
-        if (State == STATE.GAME) {
+        if (State == STATE.GAME && unitsInitialized) {
             this.platform.thick();
+            balls.stream().forEach(b -> b.move(this));
         }
 
     }
@@ -139,7 +142,7 @@ public class Game extends JFrame implements Runnable, Commons {
             balls.get(0).isSpacePressed = false;
             levelScore = 0;
             this.gameTimer.setStartTime(System.currentTimeMillis());
-
+            unitsInitialized = true;
         }
 
         if (State == STATE.GAME) {
@@ -264,13 +267,12 @@ public class Game extends JFrame implements Runnable, Commons {
             if (delta >= 1) {
                 thick();
                 delta--;
-                balls.stream().forEach(b -> b.move(this));
 
             }
             render();
 
 
-            if (this.bricksRemaining == 0 && State == STATE.GAME) {
+            if (this.bricksRemaining == 0 && State == STATE.GAME && unitsInitialized) {
 
                 //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
@@ -315,16 +317,18 @@ public class Game extends JFrame implements Runnable, Commons {
             }
             this.bonuses = newBonuses;
 
-            balls = balls.stream().filter(ball -> ball.getY() < 570).collect(Collectors.toList());
+            if (State == STATE.GAME && unitsInitialized) {
 
-            // Stop the game when all balls exit game field
-            if (balls.size() == 0) {
-                State = STATE.GAME_OVER;
-                this.levelSwitched = true;
-                this.initLevel();
-                currentLevel = 1;
+                balls = balls.stream().filter(ball -> ball.getY() < 570).collect(Collectors.toList());
+
+                // Stop the game when all balls exit game field
+                if (balls.size() == 0) {
+                    State = STATE.GAME_OVER;
+                    this.levelSwitched = true;
+                    this.initLevel();
+                    currentLevel = 1;
+                }
             }
-
         }
 
         this.stop();
