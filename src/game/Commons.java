@@ -38,7 +38,7 @@ public interface Commons {
     public static final String BUTTON_EXIT = "/buttons/button_exit.png";
     public static final String BUTTON_GAME_OVER = "/buttons/button_game-over.png";
     public static final String BUTTON_HIGHSCORES= "/buttons/button_highscores.png";
-    public static final String BUTTON_NAME_SCORE = "/buttons/button_name-score";
+    public static final String BUTTON_NAME_SCORE = "/buttons/button_name-score.png";
     public static final String BUTTON_NEW_HIGHSCORE = "/buttons/button_new-highscore.png";
     public static final String BUTTON_NEXT_LEVEL = "/buttons/button_next-level.png";
     public static final String BUTTON_NO_HIGHSCORES = "/buttons/button_no-highscores-yet.png";
