@@ -14,13 +14,11 @@ public class UnitLoader implements Commons{
     public static void renderBalls(List<Ball> balls, Graphics graphics) {
 
         balls.stream().forEach(ball -> {
-            ball.render(graphics);
-            graphics.setColor(Color.WHITE);
-            graphics.drawImage(ImageLoader.loadImage(PIC_BALL),
-                    ball.getX(),
-                    ball.getY(),
-                    ball.getWidth(),
-                    ball.getHeight(),null);
+             graphics.drawImage(ImageLoader.loadImage(PIC_BALL),
+                   ball.getX(),
+                   ball.getY(),
+                   ball.getWidth(),
+                   ball.getHeight(),null);
         });
 
     }
