@@ -89,6 +89,7 @@ public class Game extends JFrame implements Runnable, Commons {
         this.display = new Display(name, width, height);
         this.addKeyListener(new InputHandler(this.display.getCanvas()));
         this.menu = new Menu();
+
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
         currentLevel = 0;
         this.maxLevel = 10;
@@ -145,8 +146,10 @@ public class Game extends JFrame implements Runnable, Commons {
             unitsInitialized = true;
         }
 
-        this.soundLoader.playBackgroundMusic(isSoundMuted);
+        soundLoader.playBackgroundMusic(isSoundMuted);
         if (State == STATE.GAME) {
+
+
             BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
 
             //Creating the platform
@@ -231,6 +234,7 @@ public class Game extends JFrame implements Runnable, Commons {
             }
 
         } else {
+
             this.graphics.drawImage(ImageLoader.loadImage(BACKGROUND_PIC), 0, 0, 800, 600, null);
             this.menu.render(graphics, currentLevel);
         }
@@ -359,6 +363,7 @@ public class Game extends JFrame implements Runnable, Commons {
     static void turnSoundOnOff() {
         isSoundMuted = !isSoundMuted;
     }
+
     synchronized void start() {
 
         this.isRunning = true;
@@ -397,6 +402,10 @@ public class Game extends JFrame implements Runnable, Commons {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static boolean soundState(){
+        return isSoundMuted;
     }
 }
 

@@ -9,7 +9,6 @@ public class MouseInput implements MouseListener, Commons {
 
     public MouseInput(Canvas canvas) {
         canvas.addMouseListener(this);
-
     }
 
 
