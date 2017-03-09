@@ -3,7 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Team_Errol_game_jar</output-path>
     <root id="archive" name="Team-Errol-game.jar">
       <element id="module-output" name="Team-Errol-game" />
+      <element id="library" level="project" name="buttons" />
       <element id="library" level="project" name="resources" />
+      <element id="library" level="project" name="backgrounds" />
     </root>
   </artifact>
 </component>
