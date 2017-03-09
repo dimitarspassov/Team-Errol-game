@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
  * Created by Krasimir on 4.3.2017 г..
  */
 
-public class Sprite {
+public abstract class Sprite {
 
     protected int x;
     protected int y;
