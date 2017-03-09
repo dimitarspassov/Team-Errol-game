@@ -48,6 +48,7 @@ public interface Commons {
     String BUTTON_WINNER = "/buttons/button_winner.png";
 
     String SOUND_BUTTON = "/sounds/button.wav";
+    String SOUND_BACKGROUND = "/sounds/music_background.wav";
     String SOUND_LEVEL_COMPLETE = "/sounds/level_complete.wav";
     String SOUND_BRICK = "/sounds/ping_brick.wav";
     String SOUND_PLATFORM = "/sounds/ping_platform.wav";

@@ -5,6 +5,7 @@ import gameState.Level;
 import gameState.UnitLoader;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
+import sound.SoundLoader;
 import units.*;
 
 import javax.sound.sampled.AudioInputStream;
@@ -43,6 +44,7 @@ public class Game extends JFrame implements Runnable, Commons {
 
     public static Highscores highScores;
 
+    private SoundLoader soundLoader;
     private BufferStrategy bs;
     private Graphics graphics;
 
@@ -97,6 +99,8 @@ public class Game extends JFrame implements Runnable, Commons {
         playerName = new StringBuilder("");
         highScores = new Highscores();
         this.gameTimer = new GameTimer();
+        this.soundLoader = new SoundLoader();
+        soundLoader.playBackgroundMusic(false);
     }
 
     public void thick() {
@@ -141,6 +145,7 @@ public class Game extends JFrame implements Runnable, Commons {
             unitsInitialized = true;
         }
 
+        this.soundLoader.playBackgroundMusic(isSoundMuted);
         if (State == STATE.GAME) {
             BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
 
@@ -354,7 +359,6 @@ public class Game extends JFrame implements Runnable, Commons {
     static void turnSoundOnOff() {
         isSoundMuted = !isSoundMuted;
     }
-
     synchronized void start() {
 
         this.isRunning = true;
