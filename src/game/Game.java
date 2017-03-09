@@ -20,16 +20,12 @@ import java.util.stream.Collectors;
 //By far the most complex component of our project. This is the game itself.
 
 public class Game extends JFrame implements Runnable, Commons {
-    public static boolean IS_BALL_SPEED_UP = false;
 
     private String name;
     private int width, height;
 
     private Display display;
     private Platform platform;
-    //    private Ball ball;
-//    private Ball ballSecond;
-//    private Ball ballThird;
     private List<Ball> balls;
 
     private static boolean isGamePaused;
@@ -47,25 +43,25 @@ public class Game extends JFrame implements Runnable, Commons {
 
     public static Highscores highScores;
 
-    public BufferStrategy bs;
-    public Graphics graphics;
+    private BufferStrategy bs;
+    private Graphics graphics;
 
     public void addBonus(Bonus bonus) {
         this.bonuses.add(bonus);
     }
 
     private Thread thread;
-    public static boolean isRunning;
+    private boolean isRunning;
     private GameTimer gameTimer;
     public static StringBuilder playerName;
 
     private Menu menu;
-    public static int lastResult;
-    public static long lastBonusPoints;
+    static int lastResult;
+    static long lastBonusPoints;
     private int score;
     private int levelScore;
 
-    public static enum STATE {
+    public enum STATE {
         MENU,
         GAME,
         MID_LEVEL_PAUSE,
@@ -75,7 +71,7 @@ public class Game extends JFrame implements Runnable, Commons {
         WIN
     }
 
-    public static STATE State = STATE.MENU;
+    public static STATE State;
 
 
     public Game(String name, int width, int height) {
@@ -83,7 +79,7 @@ public class Game extends JFrame implements Runnable, Commons {
         this.name = name;
         this.width = width;
         this.height = height;
-
+        State = STATE.MENU;
     }
 
     public void initialization() {
@@ -196,10 +192,9 @@ public class Game extends JFrame implements Runnable, Commons {
             // Show player scores
             this.graphics.setColor(Color.WHITE);
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
-            // this.secondsRemaining = gameTimer.getSeconds();
-            //  this.graphics.drawString("Seconds: " + secondsRemaining, 30, 30);
+
             long bonusPoints = 60 - this.gameTimer.getElapsedTime();
-            //  System.out.println(bonusPoints);
+
             if (currentLevel == 1 || currentLevel == 2) {
                 if (bonusPoints >= 0) {
 
@@ -324,7 +319,7 @@ public class Game extends JFrame implements Runnable, Commons {
                 // Stop the game when all balls exit game field
                 if (balls.size() == 0) {
                     State = STATE.GAME_OVER;
-                    this.levelSwitched = true;
+                    levelSwitched = true;
                     this.initLevel();
                     currentLevel = 1;
                 }
@@ -348,19 +343,19 @@ public class Game extends JFrame implements Runnable, Commons {
         }
     }
 
-    public static boolean getPauseState() {
+    static boolean getPauseState() {
         return isGamePaused;
     }
 
-    public static void turnPauseOnOff(boolean state) {
+    static void turnPauseOnOff(boolean state) {
         isGamePaused = state;
     }
 
-    public static void turnSoundOnOff() {
+    static void turnSoundOnOff() {
         isSoundMuted = !isSoundMuted;
     }
 
-    public synchronized void start() {
+    synchronized void start() {
 
         this.isRunning = true;
         thread = new Thread(this);

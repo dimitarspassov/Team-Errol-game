@@ -35,10 +35,6 @@ public class Sprite {
         image = null;
     }
 
-    public Sprite(BufferedImage bufferedImage){
-        this.bufferedImage=bufferedImage;
-    }
-
 
     public void setX(int x) { this.x = x; }
     public int getX() { return x; }

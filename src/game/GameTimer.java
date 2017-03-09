@@ -15,12 +15,8 @@ public class GameTimer {
 
     //Calculates elapsed time
     public long getElapsedTime() {
-        long elapsedTime = (System.currentTimeMillis() - getStartTime());
+        long elapsedTime = (System.currentTimeMillis() - this.startTime);
         return elapsedTime / 1000;
-    }
-
-    public long getStartTime() {
-        return this.startTime;
     }
 
 }

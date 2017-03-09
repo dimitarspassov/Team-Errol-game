@@ -11,13 +11,6 @@ public class Platform extends Sprite implements Commons {
     public static boolean isMovingLeft;
     public static boolean isMovingRight;
 
-    public int getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(int velocity) {
-        this.velocity = velocity;
-    }
 
     public Platform(int platformX, int platformY, int platformWidth, int platformHeight, int velocity) {
         this.setX(platformX);
@@ -27,25 +20,24 @@ public class Platform extends Sprite implements Commons {
         this.setVelocity(velocity);
      }
 
-    public void moving() {
-        if (isMovingLeft) {
-            this.setX(this.getX()-this.velocity);
-        } else if (isMovingRight) {
-            this.setX(this.getX()+this.velocity);
-         }
+    private void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
+
+
+
 
     public void thick() {
         int xMax=795-this.getWidth();
         if (isMovingRight) {
-            // this.velocity = 12;
+
             if (this.getX() >= xMax) {
                 this.setX(xMax);
             } else {
                 this.setX(this.getX()+this.velocity);
             }
         } else if (isMovingLeft) {
-            //   this.velocity = 12;
+
             if (this.getX() <= 0) {
                 this.setX(0);
             } else {

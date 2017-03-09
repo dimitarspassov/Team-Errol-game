@@ -6,12 +6,12 @@ import graphics.ImageLoader;
 
 import java.awt.*;
 
-public class Ball extends Sprite implements Commons{
+public class Ball extends Sprite implements Commons {
     private int radius;
 
     private Platform platform;
-    Brick[] bricks;
-    Stone[] stones;
+    private Brick[] bricks;
+    private Stone[] stones;
 
     public static boolean isSpacePressed;
 
@@ -27,18 +27,18 @@ public class Ball extends Sprite implements Commons{
         this.bricks = bricks;
         this.stones = stones;
     }
+
     public int getRadius() {
         return radius;
     }
 
-    public void setRadius(int radius) {
+    private void setRadius(int radius) {
         this.radius = radius;
     }
 
 
     public void move(Game game) {
         int ballMinX = radius;
-        int ballMinY = radius;
         int ballMaxX = 800 - radius;
         int ballMaxY = 600 - radius;
 
@@ -49,7 +49,7 @@ public class Ball extends Sprite implements Commons{
             this.setX(this.getX() + this.getDx());
             this.setY(this.getY() + this.getDy());
 
-            if (new Rectangle(this.getX(),  this.getY(), this.getWidth(), getHeight())
+            if (new Rectangle(this.getX(), this.getY(), this.getWidth(), getHeight())
                     .intersects(new Rectangle(platform.getX(), platform.getY(), platform.getWidth(), platform.getHeight()))) {
                 if (Game.State == Game.STATE.GAME) {
                     Game.playSound(this, SOUND_PLATFORM);
@@ -137,8 +137,8 @@ public class Ball extends Sprite implements Commons{
             if (Game.State == Game.STATE.GAME) {
                 Game.playSound(this, SOUND_BRICK);
             }
-            int top =  this.getY();
-            int bottom =(this.getY() + this.getHeight());
+            int top = this.getY();
+            int bottom = (this.getY() + this.getHeight());
             int left = this.getX();
             int right = (this.getX() + this.getWidth());
 
@@ -165,10 +165,6 @@ public class Ball extends Sprite implements Commons{
 
             }
         }
-    }
-
-    public void render(Graphics g) {
-        g.drawImage(ImageLoader.loadImage(PIC_BALL),this.x,this.y,this.width,this.height,null);
     }
 
     public void sizeUp() {

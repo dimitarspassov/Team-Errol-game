@@ -21,7 +21,7 @@ public class Highscores {
         this.sortedResults = sortScores();
     }
 
-    public static TreeMap<String, Integer> makeNewScoreTable() {
+    private TreeMap<String, Integer> makeNewScoreTable() {
 
 
         File file = new File("./save/highscores.ser");

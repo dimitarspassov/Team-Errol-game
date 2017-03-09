@@ -29,7 +29,7 @@ public class Bonus extends Brick{
         }
 
     }
-    public void setBonusType(String bonusType) {
+    private void setBonusType(String bonusType) {
         this.bonusType = bonusType;
     }
 
