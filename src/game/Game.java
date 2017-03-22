@@ -1,7 +1,6 @@
 package game;
 
 import display.Display;
-import gameState.Level;
 import gameState.UnitLoader;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
@@ -93,7 +92,7 @@ public class Game extends JFrame implements Runnable, Commons {
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
         currentLevel = 0;
         this.maxLevel = 10;
-        levelSwitched = false;
+        levelSwitched = true;
         this.bricks = new Brick[0];
         this.stones = null;
         this.bonuses = new ArrayList<>();
@@ -134,10 +133,10 @@ public class Game extends JFrame implements Runnable, Commons {
             }
             levelSwitched = false;
 
-            this.bricks = Level.getLevel(currentLevel);
+            this.bricks = UnitLoader.getBricks(currentLevel);
             this.bricksRemaining = this.bricks.length;
             this.platform = new Platform(350, 550, 100, 20, 12);
-            this.stones = Level.getStones(currentLevel);
+            this.stones = UnitLoader.getStones(currentLevel);
             this.balls = new ArrayList<>();
             balls.add(new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
             balls.get(0).isSpacePressed = false;
@@ -402,10 +401,6 @@ public class Game extends JFrame implements Runnable, Commons {
                 e.printStackTrace();
             }
         }
-    }
-
-    public static boolean soundState(){
-        return isSoundMuted;
     }
 }
 
