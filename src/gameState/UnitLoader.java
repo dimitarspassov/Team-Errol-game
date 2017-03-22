@@ -102,6 +102,7 @@ public class UnitLoader implements Commons {
 
     private static ILevel currentLevelClass(byte level) {
 
+        //TODO: Generate new Level via reflection!
         ILevel currentLevel = new Level1();
         switch (level) {
             case 2:

@@ -61,6 +61,7 @@ public class Game extends JFrame implements Runnable, Commons {
     static long lastBonusPoints;
     private int score;
     private int levelScore;
+    private int lives;
 
     public enum STATE {
         MENU,
@@ -88,7 +89,7 @@ public class Game extends JFrame implements Runnable, Commons {
         this.display = new Display(name, width, height);
         this.addKeyListener(new InputHandler(this.display.getCanvas()));
         this.menu = new Menu();
-
+        this.lives = 3;
         this.addMouseListener(new MouseInput(this.display.getCanvas()));
         currentLevel = 0;
         this.maxLevel = 10;
@@ -218,6 +219,7 @@ public class Game extends JFrame implements Runnable, Commons {
             lastBonusPoints = bonusPoints;
 
             this.graphics.drawString("Score: " + score, 620, 30);
+            this.graphics.drawString("Lives: " + this.lives, 300, 30);
 
             // Draw buttons when user is paused the game
             if (isGamePaused) {
@@ -326,10 +328,19 @@ public class Game extends JFrame implements Runnable, Commons {
 
                 // Stop the game when all balls exit game field
                 if (balls.size() == 0) {
-                    State = STATE.GAME_OVER;
-                    levelSwitched = true;
-                    this.initLevel();
-                    currentLevel = 1;
+
+                    this.lives--;
+
+                    if (lives == 0) {
+                        State = STATE.GAME_OVER;
+                        levelSwitched = true;
+                        this.initLevel();
+                        currentLevel = 1;
+                    } else {
+                        this.platform = new Platform(350, 550, 100, 20, 12);
+                        balls.add(new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+                        Ball.isSpacePressed = false;
+                    }
                 }
             }
         }
