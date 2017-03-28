@@ -62,18 +62,7 @@ public class Game extends JFrame implements Runnable, Commons {
     private int score;
     private int levelScore;
     private int lives;
-
-    public enum STATE {
-        MENU,
-        GAME,
-        MID_LEVEL_PAUSE,
-        PLAYER_INIT,
-        HIGHSCORES,
-        GAME_OVER,
-        WIN
-    }
-
-    public static STATE State;
+    private State state;
 
 
     public Game(String name, int width, int height) {
@@ -81,16 +70,16 @@ public class Game extends JFrame implements Runnable, Commons {
         this.name = name;
         this.width = width;
         this.height = height;
-        State = STATE.MENU;
+        this.state = State.MENU;
     }
 
     public void initialization() {
 
         this.display = new Display(name, width, height);
-        this.addKeyListener(new InputHandler(this.display.getCanvas()));
-        this.menu = new Menu();
+        this.addKeyListener(new InputHandler(this.display.getCanvas(), this));
+        this.menu = new Menu(this);
         this.lives = 3;
-        this.addMouseListener(new MouseInput(this.display.getCanvas()));
+        this.addMouseListener(new MouseInput(this.display.getCanvas(), this));
         currentLevel = 0;
         this.maxLevel = 10;
         levelSwitched = true;
@@ -100,13 +89,13 @@ public class Game extends JFrame implements Runnable, Commons {
         playerName = new StringBuilder("");
         highScores = new Highscores();
         this.gameTimer = new GameTimer();
-        this.soundLoader = new SoundLoader();
+        this.soundLoader = new SoundLoader(this);
         soundLoader.playBackgroundMusic(false);
     }
 
     public void thick() {
 
-        if (State == STATE.GAME && unitsInitialized) {
+        if (this.state == State.GAME && unitsInitialized) {
             this.platform.thick();
             balls.stream().forEach(b -> b.move(this));
         }
@@ -131,6 +120,7 @@ public class Game extends JFrame implements Runnable, Commons {
             if (currentLevel == 1) {
                 score = 0;
                 levelScore = 0;
+                this.lives = 3;
             }
             levelSwitched = false;
 
@@ -147,7 +137,7 @@ public class Game extends JFrame implements Runnable, Commons {
         }
 
         soundLoader.playBackgroundMusic(isSoundMuted);
-        if (State == STATE.GAME) {
+        if (this.state == State.GAME) {
 
 
             BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
@@ -277,7 +267,7 @@ public class Game extends JFrame implements Runnable, Commons {
             render();
 
 
-            if (this.bricksRemaining == 0 && State == STATE.GAME && unitsInitialized) {
+            if (this.bricksRemaining == 0 && this.state == State.GAME && unitsInitialized) {
 
                 //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
@@ -304,12 +294,12 @@ public class Game extends JFrame implements Runnable, Commons {
                 currentLevel++;
                 levelSwitched = true;
                 if (currentLevel > this.maxLevel) {
-                    State = STATE.WIN;
+                    this.state = State.WIN;
                     playSound(this, SOUND_LEVEL_COMPLETE);
 
                 } else {
                     playSound(this, SOUND_LEVEL_COMPLETE);
-                    State = STATE.MID_LEVEL_PAUSE;
+                    this.state = State.MID_LEVEL_PAUSE;
                     this.initLevel();
                 }
             }
@@ -322,7 +312,7 @@ public class Game extends JFrame implements Runnable, Commons {
             }
             this.bonuses = newBonuses;
 
-            if (State == STATE.GAME && unitsInitialized) {
+            if (this.state == State.GAME && unitsInitialized) {
 
                 balls = balls.stream().filter(ball -> ball.getY() < 570).collect(Collectors.toList());
 
@@ -332,7 +322,7 @@ public class Game extends JFrame implements Runnable, Commons {
                     this.lives--;
 
                     if (lives == 0) {
-                        State = STATE.GAME_OVER;
+                        this.state = State.GAME_OVER;
                         levelSwitched = true;
                         this.initLevel();
                         currentLevel = 1;
@@ -398,6 +388,15 @@ public class Game extends JFrame implements Runnable, Commons {
     static void setCurrentLevel(byte level) {
 
         currentLevel = level;
+    }
+
+
+    public State getGameState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
     }
 
     public static void playSound(Object object, String filename) {

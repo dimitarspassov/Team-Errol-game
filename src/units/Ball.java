@@ -2,6 +2,7 @@ package units;
 
 import game.Commons;
 import game.Game;
+import game.State;
 import graphics.ImageLoader;
 
 import java.awt.*;
@@ -51,7 +52,7 @@ public class Ball extends Sprite implements Commons {
 
             if (new Rectangle(this.getX(), this.getY(), this.getWidth(), getHeight())
                     .intersects(new Rectangle(platform.getX(), platform.getY(), platform.getWidth(), platform.getHeight()))) {
-                if (Game.State == Game.STATE.GAME) {
+                if (game.getGameState() == State.GAME) {
                     Game.playSound(this, SOUND_PLATFORM);
                 }
                 this.setDy(-this.getDy());
@@ -100,14 +101,14 @@ public class Ball extends Sprite implements Commons {
 
                 this.setDx(-this.getDx());
                 this.setX(ballMinX - 1);
-                if (Game.State == Game.STATE.GAME) {
+                if (game.getGameState() == State.GAME) {
                     Game.playSound(this, SOUND_WALL);
                 }
 
             } else if (this.getX() + this.getDx() > ballMaxX - this.getDx() - radius) {
 
                 this.setDx(-this.getDx());
-                if (Game.State == Game.STATE.GAME) {
+                if (game.getGameState() == State.GAME) {
                     Game.playSound(this, SOUND_WALL);
                 }
             }
@@ -119,7 +120,7 @@ public class Ball extends Sprite implements Commons {
             } else if (this.getY() > ballMaxY) {
                 this.setDy(-this.getDy());
                 this.setY(ballMaxY);
-                if (Game.State == Game.STATE.GAME) {
+                if (game.getGameState() == State.GAME) {
                     Game.playSound(this, SOUND_WALL);
                 }
             }
@@ -134,7 +135,7 @@ public class Ball extends Sprite implements Commons {
 
         if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
 
-            if (Game.State == Game.STATE.GAME) {
+            if (game.getGameState() ==State.GAME) {
                 Game.playSound(this, SOUND_BRICK);
             }
             int top = this.getY();

@@ -3,18 +3,22 @@ package sound;
 
 import game.Commons;
 import game.Game;
+import game.State;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
 
 public class SoundLoader implements Commons {
 
+    private Game game;
     private AudioInputStream ais;
     private Clip clip;
     private String currentState;
 
-    public SoundLoader() {
+    public SoundLoader(Game game) {
+
         currentState = "menu";
+        this.game = game;
     }
 
     public void playBackgroundMusic(boolean soundOff) {
@@ -50,16 +54,16 @@ public class SoundLoader implements Commons {
 
     private boolean stateChanged() {
 
-        if (currentState.equals("menu") && Game.State != Game.STATE.GAME) {
+        if (currentState.equals("menu") && this.game.getGameState() != State.GAME) {
 
             currentState = "menu";
             return false;
 
-        } else if (currentState.equals("menu") && Game.State == Game.STATE.GAME) {
+        } else if (currentState.equals("menu") && this.game.getGameState() == State.GAME) {
 
             currentState = "game";
             return true;
-        } else if (currentState.equals("game") && Game.State == Game.STATE.GAME) {
+        } else if (currentState.equals("game") && this.game.getGameState() == State.GAME) {
             currentState = "game";
             return false;
         } else {

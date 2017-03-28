@@ -7,8 +7,11 @@ import java.awt.event.MouseListener;
 
 public class MouseInput implements MouseListener, Commons {
 
-    public MouseInput(Canvas canvas) {
+    private Game game;
+
+    public MouseInput(Canvas canvas, Game game) {
         canvas.addMouseListener(this);
+        this.game = game;
     }
 
 
@@ -48,12 +51,12 @@ public class MouseInput implements MouseListener, Commons {
             }
         }
 
-        if (Game.State == Game.STATE.MENU) {
+        if (this.game.getGameState() == State.MENU) {
 
             //Resume game Button
             if (Game.getCurrentLevel() > 1 && mX >= 300 && mX <= 500) {
                 if (mY >= 100 && mY <= 150) {
-                    Game.State = Game.STATE.GAME;
+                    this.game.setState(State.GAME);
                     Game.playSound(this, SOUND_BUTTON);
 
                 }
@@ -62,7 +65,7 @@ public class MouseInput implements MouseListener, Commons {
             //StartGame Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 200 && mY <= 250) {
-                    Game.State = Game.STATE.GAME;
+                    this.game.setState(State.GAME);
                     Game.setCurrentLevel((byte) 1);
                     Game.levelSwitched = true;
                     Game.playSound(this, SOUND_BUTTON);
@@ -72,7 +75,7 @@ public class MouseInput implements MouseListener, Commons {
             //HighScores Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 300 && mY <= 350) {
-                    Game.State = Game.STATE.HIGHSCORES;
+                    this.game.setState(State.HIGHSCORES);
                     Game.playSound(this, SOUND_BUTTON);
                 }
             }
@@ -87,11 +90,11 @@ public class MouseInput implements MouseListener, Commons {
             }
         }
 
-        if (Game.State == Game.STATE.MID_LEVEL_PAUSE) {
+        if (this.game.getGameState() == State.MID_LEVEL_PAUSE) {
             //Next Level Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 300 && mY <= 350) {
-                    Game.State = Game.STATE.GAME;
+                    this.game.setState(State.GAME);
                     Game.playSound(this, SOUND_BUTTON);
                 }
             }
@@ -100,14 +103,14 @@ public class MouseInput implements MouseListener, Commons {
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 400 && mY <= 450) {
                     Game.levelSwitched = true;
-                    Game.State = Game.STATE.MENU;
+                    this.game.setState(State.MENU);
                     Game.playSound(this, SOUND_BUTTON);
 
                 }
             }
         }
 
-        if (Game.State == Game.STATE.GAME_OVER || Game.State == Game.STATE.WIN) {
+        if (this.game.getGameState() == State.GAME_OVER || this.game.getGameState() == State.WIN) {
 
 
             if ((Game.highScores.sortScores().size() < 10 || Game.lastResult > Game.highScores.getMinResult()) && Game.lastResult > 0) {
@@ -115,7 +118,7 @@ public class MouseInput implements MouseListener, Commons {
                 if (mX >= 300 && mX <= 500) {
                     if (mY >= 200 && mY <= 250) {
 
-                        Game.State = Game.STATE.PLAYER_INIT;
+                        this.game.setState(State.PLAYER_INIT);
                         Game.playSound(this, SOUND_BUTTON);
                     }
                 }
@@ -126,18 +129,18 @@ public class MouseInput implements MouseListener, Commons {
                 if (mY >= 300 && mY <= 350) {
                     Game.setCurrentLevel((byte) 1);
                     Game.levelSwitched = true;
-                    Game.State = Game.STATE.MENU;
+                    this.game.setState(State.MENU);
                     Game.playSound(this, SOUND_BUTTON);
                 }
             }
         }
 
-        if (Game.State == Game.STATE.PLAYER_INIT) {
+        if (this.game.getGameState() == State.PLAYER_INIT) {
 
             //Back to Menu Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 500 && mY <= 550) {
-                    Game.State = Game.STATE.MENU;
+                    this.game.setState(State.MENU);
                     Game.setCurrentLevel((byte) 1);
                     Game.levelSwitched = true;
                     Game.playSound(this, SOUND_BUTTON);
@@ -150,19 +153,19 @@ public class MouseInput implements MouseListener, Commons {
                     if (Game.playerName.length() > 0) {
 
                         Game.highScores.insertPlayer(Game.playerName.toString(), Game.lastResult);
-                        Game.State = Game.STATE.HIGHSCORES;
+                        this.game.setState(State.HIGHSCORES);
                         Game.playSound(this, SOUND_BUTTON);
                     }
                 }
             }
         }
 
-        if (Game.State == Game.STATE.HIGHSCORES) {
+        if (this.game.getGameState() == State.HIGHSCORES) {
 
             //Back to Menu Button
             if (mX >= 300 && mX <= 500) {
                 if (mY >= 500 && mY <= 550) {
-                    Game.State = Game.STATE.MENU;
+                    this.game.setState(State.MENU);
                     Game.playSound(this, SOUND_BUTTON);
 
                 }

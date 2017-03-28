@@ -9,10 +9,17 @@ import java.util.Collections;
 
 public class Menu implements Commons {
 
+
+    private Game game;
+
+    public Menu(Game game) {
+        this.game = game;
+    }
+
     public void render(Graphics g, byte level) {
 
 
-        if (Game.State == Game.STATE.MENU) {
+        if (this.game.getGameState() == State.MENU) {
 
             if (Game.getCurrentLevel() > 1) {
                 g.drawImage(ImageLoader.loadImage(BUTTON_RESUME_GAME), 300, 100, 200, 50, null);
@@ -21,18 +28,18 @@ public class Menu implements Commons {
             g.drawImage(ImageLoader.loadImage(BUTTON_HIGHSCORES), 300, 300, 200, 50, null);
             g.drawImage(ImageLoader.loadImage(BUTTON_EXIT), 300, 400, 200, 50, null);
 
-        } else if (Game.State == Game.STATE.MID_LEVEL_PAUSE) {
+        } else if (this.game.getGameState() == State.MID_LEVEL_PAUSE) {
 
             g.setColor(Color.WHITE);
             Font f1 = new Font("arial", Font.BOLD, 30);
             g.setFont(f1);
             g.drawString(String.format("Level %d completed!", --level), 250, 100);
-            g.drawString(String.format("Bonus collected: %d", Math.max(Game.lastBonusPoints,0)), 250, 200);
+            g.drawString(String.format("Bonus collected: %d", Math.max(Game.lastBonusPoints, 0)), 250, 200);
 
             g.drawImage(ImageLoader.loadImage(BUTTON_NEXT_LEVEL), 300, 300, 200, 50, null);
             g.drawImage(ImageLoader.loadImage(BUTTON_BACK_TO_MENU), 300, 400, 200, 50, null);
 
-        } else if (Game.State == Game.STATE.GAME_OVER) {
+        } else if (this.game.getGameState() == State.GAME_OVER) {
 
 
             g.drawImage(ImageLoader.loadImage(BUTTON_GAME_OVER), 250, 100, 300, 50, null);
@@ -46,7 +53,7 @@ public class Menu implements Commons {
             g.drawImage(ImageLoader.loadImage(BUTTON_BACK_TO_MENU), 300, 300, 200, 50, null);
 
 
-        } else if (Game.State == Game.STATE.WIN) {
+        } else if (this.game.getGameState() == State.WIN) {
             g.drawImage(ImageLoader.loadImage(BUTTON_WINNER), 250, 100, 300, 50, null);
 
             if (Game.highScores.sortScores().size() < 10 || (Game.highScores.sortScores().size() == 10 && Game.lastResult > Game.highScores.getMinResult())) {
@@ -58,7 +65,7 @@ public class Menu implements Commons {
             g.drawImage(ImageLoader.loadImage(BUTTON_BACK_TO_MENU), 300, 300, 200, 50, null);
 
 
-        } else if (Game.State == Game.STATE.PLAYER_INIT) {
+        } else if (this.game.getGameState() == State.PLAYER_INIT) {
 
             g.drawImage(ImageLoader.loadImage(PIC_INPUT_BACKGROUND), 300, 200, 200, 50, null);
             g.setColor(Color.WHITE);
@@ -68,7 +75,7 @@ public class Menu implements Commons {
             g.drawImage(ImageLoader.loadImage(BUTTON_ADD_SCORE), 300, 400, 200, 50, null);
             g.drawImage(ImageLoader.loadImage(BUTTON_BACK_TO_MENU), 300, 500, 200, 50, null);
 
-        } else if (Game.State == Game.STATE.HIGHSCORES) {
+        } else if (this.game.getGameState() == State.HIGHSCORES) {
 
             ArrayList<String> table = Game.highScores.sortScores();
 

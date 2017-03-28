@@ -10,10 +10,11 @@ import java.awt.event.KeyListener;
 //This is the input handler class. We will extend it later with movement commands for the platform.
 public class InputHandler implements KeyListener {
 
+    private Game game;
 
-    public InputHandler(Canvas canvas) {
+    public InputHandler(Canvas canvas, Game game) {
         canvas.addKeyListener(this);
-
+        this.game = game;
     }
 
     @Override
@@ -25,7 +26,7 @@ public class InputHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
-        if (Game.State == Game.STATE.PLAYER_INIT) {
+        if (this.game.getGameState() == State.PLAYER_INIT) {
 
             if (code == 8) {
                 if (Game.playerName.length() > 0) {
@@ -46,7 +47,7 @@ public class InputHandler implements KeyListener {
         }
 
         // Press Escape to pause the game
-        if (Game.State == Game.STATE.GAME && code == KeyEvent.VK_ESCAPE) {
+        if (this.game.getGameState() == State.GAME && code == KeyEvent.VK_ESCAPE) {
             Game.turnPauseOnOff(true);
         }
 
