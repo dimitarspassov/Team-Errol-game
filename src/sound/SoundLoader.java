@@ -13,11 +13,11 @@ public class SoundLoader implements Commons {
     private Game game;
     private AudioInputStream ais;
     private Clip clip;
-    private String currentState;
+    private State currentState;
 
     public SoundLoader(Game game) {
 
-        currentState = "menu";
+        currentState = State.MENU;
         this.game = game;
     }
 
@@ -32,7 +32,7 @@ public class SoundLoader implements Commons {
         } else if (!soundOff && clip == null) {
 
             try {
-                if (currentState.equals("menu")) {
+                if (this.currentState == State.MENU) {
                     this.ais = AudioSystem.getAudioInputStream(this.getClass().getResource(SOUND_MENU));
                 } else {
                     this.ais = AudioSystem.getAudioInputStream(this.getClass().getResource(SOUND_BACKGROUND));
@@ -42,11 +42,7 @@ public class SoundLoader implements Commons {
                 clip.open(ais);
                 clip.loop(50);
 
-            } catch (UnsupportedAudioFileException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (LineUnavailableException e) {
+            } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                 e.printStackTrace();
             }
         }
@@ -54,22 +50,34 @@ public class SoundLoader implements Commons {
 
     private boolean stateChanged() {
 
-        if (currentState.equals("menu") && this.game.getGameState() != State.GAME) {
-
-            currentState = "menu";
+        if (this.currentState == State.MENU && this.game.getGameState() != State.GAME) {
+            currentState = State.MENU;
             return false;
 
-        } else if (currentState.equals("menu") && this.game.getGameState() == State.GAME) {
-
-            currentState = "game";
+        } else if (this.currentState == State.MENU && this.game.getGameState() == State.GAME) {
+            currentState = State.GAME;
             return true;
-        } else if (currentState.equals("game") && this.game.getGameState() == State.GAME) {
-            currentState = "game";
+        } else if (currentState == State.GAME && this.game.getGameState() == State.GAME) {
+            currentState = State.GAME;
             return false;
         } else {
 
-            currentState = "menu";
+            currentState = State.MENU;
             return true;
+        }
+    }
+
+    public void playSound(String filename) {
+
+        if (!Game.isSoundMuted()) {
+            try {
+                AudioInputStream audioIn = AudioSystem.getAudioInputStream(this.getClass().getResource(filename));
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioIn);
+                clip.start();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 }

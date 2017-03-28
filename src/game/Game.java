@@ -7,9 +7,6 @@ import graphics.ImageLoader;
 import sound.SoundLoader;
 import units.*;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
@@ -295,10 +292,10 @@ public class Game extends JFrame implements Runnable, Commons {
                 levelSwitched = true;
                 if (currentLevel > this.maxLevel) {
                     this.state = State.WIN;
-                    playSound(this, SOUND_LEVEL_COMPLETE);
+                    soundLoader.playSound(SOUND_LEVEL_COMPLETE);
 
                 } else {
-                    playSound(this, SOUND_LEVEL_COMPLETE);
+                    soundLoader.playSound(SOUND_LEVEL_COMPLETE);
                     this.state = State.MID_LEVEL_PAUSE;
                     this.initLevel();
                 }
@@ -352,6 +349,10 @@ public class Game extends JFrame implements Runnable, Commons {
         }
     }
 
+    public static boolean isSoundMuted() {
+        return isSoundMuted;
+    }
+
     static boolean getPauseState() {
         return isGamePaused;
     }
@@ -390,27 +391,16 @@ public class Game extends JFrame implements Runnable, Commons {
         currentLevel = level;
     }
 
-
     public State getGameState() {
-        return state;
+        return this.state;
     }
 
     public void setState(State state) {
         this.state = state;
     }
 
-    public static void playSound(Object object, String filename) {
-
-        if (!isSoundMuted) {
-            try {
-                AudioInputStream audioIn = AudioSystem.getAudioInputStream(object.getClass().getResource(filename));
-                Clip clip = AudioSystem.getClip();
-                clip.open(audioIn);
-                clip.start();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+    public void playSound(String fileName){
+        this.soundLoader.playSound(fileName);
     }
 }
 
