@@ -353,7 +353,7 @@ public class Game extends JFrame implements Runnable, Commons {
         return isSoundMuted;
     }
 
-    static boolean getPauseState() {
+    static boolean isPaused() {
         return isGamePaused;
     }
 

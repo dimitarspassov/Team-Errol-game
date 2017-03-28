@@ -107,7 +107,6 @@ public class Highscores {
 
         sortedResults = new ArrayList<>();
         results.entrySet().stream()
-                .sorted(Map.Entry.comparingByKey((v1, v2) -> v2.compareTo(v1)))
                 .sorted((k1, k2) -> k1.getValue().compareTo(k2.getValue()))
                 .limit(10)
                 .forEach(pair -> {
