@@ -1,7 +1,5 @@
 package game;
 
-import units.platform.Platform;
-
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -52,11 +50,11 @@ public class InputHandler implements KeyListener {
 
         //Implementing platform's moving
         if (code == KeyEvent.VK_RIGHT) {
-            Platform.isMovingRight = true;
-            Platform.isMovingLeft = false;
+            game.getPlatform().moveRight(true);
+            game.getPlatform().moveLeft(false);
         } else if (code == KeyEvent.VK_LEFT) {
-            Platform.isMovingRight = false;
-            Platform.isMovingLeft = true;
+            game.getPlatform().moveRight(false);
+            game.getPlatform().moveLeft(true);
         }
     }
 
@@ -65,11 +63,11 @@ public class InputHandler implements KeyListener {
         int code = e.getKeyCode();
 
         if (code == KeyEvent.VK_RIGHT) {
-            Platform.isMovingRight = false;
-            Platform.isMovingLeft = false;
+            game.getPlatform().moveRight(false);
+            game.getPlatform().moveLeft(false);
         } else if (code == KeyEvent.VK_LEFT) {
-            Platform.isMovingRight = false;
-            Platform.isMovingLeft = false;
+            game.getPlatform().moveRight(false);
+            game.getPlatform().moveLeft(false);
         }
     }
 

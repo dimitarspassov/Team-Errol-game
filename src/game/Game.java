@@ -4,12 +4,13 @@ import display.Display;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
-import units.brick.Bonus;
-import units.brick.Brick;
-import units.platform.Platform;
-import units.brick.Stone;
 import units.ball.Ball;
 import units.ball.SimpleBall;
+import units.brick.Bonus;
+import units.brick.Brick;
+import units.brick.Stone;
+import units.platform.Platform;
+import units.platform.SimplePlatform;
 import utilities.StaticData;
 import utilities.UnitLoader;
 
@@ -129,7 +130,7 @@ public class Game extends JFrame implements Runnable {
 
             this.bricks = UnitLoader.getBricks(currentLevel);
             this.bricksRemaining = this.bricks.length;
-            this.platform = new Platform(350, 550, 100, 20, 12);
+            this.platform = new SimplePlatform(350, 550, 100, 20, 12);
             this.stones = UnitLoader.getStones(currentLevel);
             this.balls = new ArrayList<>();
             balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
@@ -330,7 +331,7 @@ public class Game extends JFrame implements Runnable {
                         this.initLevel();
                         currentLevel = 1;
                     } else {
-                        this.platform = new Platform(350, 550, 100, 20, 12);
+                        this.platform = new SimplePlatform(350, 550, 100, 20, 12);
                         balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
                         this.pressSpace(false);
                     }
@@ -411,6 +412,10 @@ public class Game extends JFrame implements Runnable {
 
     public void pressSpace(boolean command) {
         this.balls.forEach(b -> b.pressSpace(command));
+    }
+
+    public Platform getPlatform() {
+        return this.platform;
     }
 }
 
