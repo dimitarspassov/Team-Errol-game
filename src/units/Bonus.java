@@ -1,6 +1,6 @@
 package units;
 
-import gameState.StaticData;
+import utilities.StaticData;
 
 import javax.swing.*;
 

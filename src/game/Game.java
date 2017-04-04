@@ -1,8 +1,8 @@
 package game;
 
 import display.Display;
-import gameState.StaticData;
-import gameState.UnitLoader;
+import utilities.StaticData;
+import utilities.UnitLoader;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
@@ -71,14 +71,14 @@ public class Game extends JFrame implements Runnable {
         this.state = State.MENU;
     }
 
-    public void initialization() {
+    private void initialization() {
 
         this.display = new Display(name, width, height);
         this.addKeyListener(new InputHandler(this.display.getCanvas(), this));
         this.menu = new Menu(this);
         this.lives = 3;
         this.addMouseListener(new MouseInput(this.display.getCanvas(), this));
-        currentLevel = 0;
+        currentLevel = 1;
         this.maxLevel = 10;
         levelSwitched = true;
         this.bricks = new Brick[0];
@@ -91,7 +91,7 @@ public class Game extends JFrame implements Runnable {
         soundLoader.playBackgroundMusic(false);
     }
 
-    public void thick() {
+    private void thick() {
 
         if (this.state == State.GAME && unitsInitialized) {
             this.platform.thick();
@@ -100,7 +100,7 @@ public class Game extends JFrame implements Runnable {
 
     }
 
-    public void render() {
+    private void render() {
 
 
         //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
@@ -400,7 +400,7 @@ public class Game extends JFrame implements Runnable {
         this.state = state;
     }
 
-    public void playSound(String fileName){
+    public void playSound(String fileName) {
         this.soundLoader.playSound(fileName);
     }
 }

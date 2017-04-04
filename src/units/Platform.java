@@ -1,7 +1,7 @@
 package units;
 
 
-import gameState.StaticData;
+import utilities.StaticData;
 import graphics.ImageLoader;
 
 import java.awt.*;

@@ -3,7 +3,7 @@ package sound;
 
 import game.Game;
 import game.State;
-import gameState.StaticData;
+import utilities.StaticData;
 
 import javax.sound.sampled.*;
 import java.io.IOException;

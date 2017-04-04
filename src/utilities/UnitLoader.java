@@ -1,11 +1,13 @@
-package gameState;
+package utilities;
 
 
+import annotations.LevelClass;
 import graphics.ImageLoader;
-import levels.*;
+import levels.ILevel;
 import units.*;
 
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,40 +101,34 @@ public class UnitLoader {
         return currentLevelClass(level).generateStones();
     }
 
+
     private static ILevel currentLevelClass(byte level) {
 
-        //TODO: Generate new Level via reflection!
-        ILevel currentLevel = new Level1();
-        switch (level) {
-            case 2:
-                currentLevel = new Level2();
-                break;
-            case 3:
-                currentLevel = new Level3();
-                break;
-            case 4:
-                currentLevel = new Level4();
-                break;
-            case 5:
-                currentLevel = new Level5();
-                break;
-            case 6:
-                currentLevel = new Level6();
-                break;
-            case 7:
-                currentLevel = new Level7();
-                break;
-            case 8:
-                currentLevel = new Level8();
-                break;
-            case 9:
-                currentLevel = new Level9();
-                break;
-            case 10:
-                currentLevel = new Level10();
-                break;
-        }
 
+        ILevel currentLevel = null;
+        File levelsFile = new File(StaticData.LEVEL_FOLDER);
+
+        for (File file : levelsFile.listFiles()) {
+
+            if (!file.isFile() || !file.getName().endsWith(".java")) {
+                continue;
+            }
+
+            String fileName = file.getName();
+            if (fileName.equals("Level" + level + ".java")) {
+
+                try {
+                    Class<ILevel> currentLevelClass = (Class<ILevel>) Class.forName(StaticData.LEVEL_CLASS_LOCATION + "Level" + level);
+                    if (!currentLevelClass.isAnnotationPresent(LevelClass.class)) {
+                        continue;
+                    }
+                    currentLevel = currentLevelClass.newInstance();
+
+                } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
         return currentLevel;
 
     }

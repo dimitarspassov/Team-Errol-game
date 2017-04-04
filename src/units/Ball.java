@@ -2,7 +2,7 @@ package units;
 
 import game.Game;
 import game.State;
-import gameState.StaticData;
+import utilities.StaticData;
 
 import java.awt.*;
 

@@ -1,4 +1,4 @@
-package gameState;
+package utilities;
 
 public class StaticData {
 
@@ -51,5 +51,8 @@ public class StaticData {
     public static final String SOUND_BRICK = "/sounds/ping_brick.wav";
     public static final String SOUND_PLATFORM = "/sounds/ping_platform.wav";
     public static final String SOUND_WALL = "/sounds/ping_wall.wav";
+
+    public static final String LEVEL_FOLDER="src/levels";
+    public static final String LEVEL_CLASS_LOCATION="levels.";
 
 }

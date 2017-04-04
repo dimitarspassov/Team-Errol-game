@@ -1,7 +1,7 @@
 package game;
 
 
-import gameState.StaticData;
+import utilities.StaticData;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

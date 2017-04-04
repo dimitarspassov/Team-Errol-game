@@ -1,11 +1,13 @@
 package levels;
 
+import annotations.LevelClass;
 import units.Brick;
 import units.Stone;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@LevelClass
 public class Level1 extends Level implements ILevel {
 
     public Level1() {
