@@ -1,12 +1,12 @@
 package units;
 
 
-import game.Commons;
+import gameState.StaticData;
 import graphics.ImageLoader;
 
 import java.awt.*;
 
-public class Platform extends Sprite implements Commons {
+public class Platform extends Sprite {
     private int velocity;
     public static boolean isMovingLeft;
     public static boolean isMovingRight;
@@ -48,13 +48,13 @@ public class Platform extends Sprite implements Commons {
 
     public void render(Graphics g) {
         if (isMovingRight) {
-            g.drawImage(ImageLoader.loadImage(PIC_LATEST_PLATFORM),
+            g.drawImage(ImageLoader.loadImage(StaticData.PIC_LATEST_PLATFORM),
                     this.getX(),
                     this.getY(),
                     this.getWidth(),
                     this.getHeight(), null);
         } else if (isMovingLeft) {
-            g.drawImage(ImageLoader.loadImage(PIC_LATEST_PLATFORM),
+            g.drawImage(ImageLoader.loadImage(StaticData.PIC_LATEST_PLATFORM),
                     this.getX(),
                     this.getY(),
                     this.getWidth(),

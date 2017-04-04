@@ -1,14 +1,14 @@
 package sound;
 
 
-import game.Commons;
 import game.Game;
 import game.State;
+import gameState.StaticData;
 
 import javax.sound.sampled.*;
 import java.io.IOException;
 
-public class SoundLoader implements Commons {
+public class SoundLoader {
 
     private Game game;
     private AudioInputStream ais;
@@ -33,9 +33,9 @@ public class SoundLoader implements Commons {
 
             try {
                 if (this.currentState == State.MENU) {
-                    this.ais = AudioSystem.getAudioInputStream(this.getClass().getResource(SOUND_MENU));
+                    this.ais = AudioSystem.getAudioInputStream(this.getClass().getResource(StaticData.SOUND_MENU));
                 } else {
-                    this.ais = AudioSystem.getAudioInputStream(this.getClass().getResource(SOUND_BACKGROUND));
+                    this.ais = AudioSystem.getAudioInputStream(this.getClass().getResource(StaticData.SOUND_BACKGROUND));
                 }
 
                 this.clip = AudioSystem.getClip();

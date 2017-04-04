@@ -1,7 +1,6 @@
 package gameState;
 
 
-import game.Commons;
 import graphics.ImageLoader;
 import levels.*;
 import units.*;
@@ -10,12 +9,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UnitLoader implements Commons {
+public class UnitLoader {
 
     public static void renderBalls(List<Ball> balls, Graphics graphics) {
 
         balls.stream().forEach(ball -> {
-            graphics.drawImage(ImageLoader.loadImage(PIC_BALL),
+            graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_BALL),
                     ball.getX(),
                     ball.getY(),
                     ball.getWidth(),

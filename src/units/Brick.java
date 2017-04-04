@@ -1,10 +1,10 @@
 package units;
 
-import game.Commons;
+import gameState.StaticData;
 
 import javax.swing.*;
 
-public class Brick extends Sprite implements Commons {
+public class Brick extends Sprite {
 
 
     private Bonus bonus;
@@ -28,10 +28,10 @@ public class Brick extends Sprite implements Commons {
         this.decHitCount();
         switch (this.hitCount) {
             case 2:
-                setImage(new ImageIcon(this.getClass().getResource(PIC_YELLOW_BRICK)).getImage());
+                setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_YELLOW_BRICK)).getImage());
                 break;
             case 1:
-                setImage(new ImageIcon(this.getClass().getResource(PIC_GREEN_BRICK)).getImage());
+                setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_GREEN_BRICK)).getImage());
                 break;
             case 0:
                 this.setDestroyed(true);
@@ -43,7 +43,7 @@ public class Brick extends Sprite implements Commons {
         super(x, y);
         this.setHitCount(3);
         setImage(new ImageIcon(
-                this.getClass().getResource(PIC_BRICK)).getImage());
+                this.getClass().getResource(StaticData.PIC_BRICK)).getImage());
         this.setDestroyed(false);
     }
 
@@ -54,13 +54,13 @@ public class Brick extends Sprite implements Commons {
         this.setDestroyed(false);
         switch (hitCountIn) {
             case 2:
-                setImage(new ImageIcon(this.getClass().getResource(PIC_YELLOW_BRICK)).getImage());
+                setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_YELLOW_BRICK)).getImage());
                 break;
             case 1:
-                setImage(new ImageIcon(this.getClass().getResource(PIC_GREEN_BRICK)).getImage());
+                setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_GREEN_BRICK)).getImage());
                 break;
             default:
-                setImage(new ImageIcon(this.getClass().getResource(PIC_BRICK)).getImage());
+                setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_BRICK)).getImage());
                 break;
         }
     }

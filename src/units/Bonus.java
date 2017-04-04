@@ -1,5 +1,7 @@
 package units;
 
+import gameState.StaticData;
+
 import javax.swing.*;
 
 
@@ -14,17 +16,17 @@ public class Bonus extends Brick{
         switch(bonusType){
 
             case "ballSizeUp":setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_BALL_UP)).getImage());break;
+                    this.getClass().getResource(StaticData.PIC_BALL_UP)).getImage());break;
             case "platformSizeUp":setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_PLATFORM_UP)).getImage());break;
+                    this.getClass().getResource(StaticData.PIC_PLATFORM_UP)).getImage());break;
             case "threeBalls":setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_THREE_BALLS)).getImage());break;
+                    this.getClass().getResource(StaticData.PIC_THREE_BALLS)).getImage());break;
             case "ballSpeedUp":setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_BALL_SPEED_UP)).getImage());break;
+                    this.getClass().getResource(StaticData.PIC_BALL_SPEED_UP)).getImage());break;
             case "platformSizeDown":setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_PLATFORM_DOWN)).getImage());break;
+                    this.getClass().getResource(StaticData.PIC_PLATFORM_DOWN)).getImage());break;
             case "platformSpeedUp":setImage(new ImageIcon(
-                    this.getClass().getResource(PIC_PLATFORM_SPEED_UP)).getImage());break;
+                    this.getClass().getResource(StaticData.PIC_PLATFORM_SPEED_UP)).getImage());break;
 
         }
 
