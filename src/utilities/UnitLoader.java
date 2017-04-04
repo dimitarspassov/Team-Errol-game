@@ -4,7 +4,12 @@ package utilities;
 import annotations.LevelClass;
 import graphics.ImageLoader;
 import levels.ILevel;
-import units.*;
+import units.brick.Bonus;
+import units.brick.Brick;
+import units.platform.Platform;
+import units.brick.Stone;
+import units.ball.Ball;
+import units.ball.SimpleBall;
 
 import java.awt.*;
 import java.io.File;
@@ -16,7 +21,7 @@ public class UnitLoader {
     public static void renderBalls(List<Ball> balls, Graphics graphics) {
 
         balls.stream().forEach(ball -> {
-            graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_BALL),
+            graphics.drawImage(ImageLoader.loadImage(ball.getImage()),
                     ball.getX(),
                     ball.getY(),
                     ball.getWidth(),
@@ -39,7 +44,7 @@ public class UnitLoader {
                 bonus.setStatus(false);
                 switch (bonusType) {
                     case "ballSizeUp":
-                        //Ball Size Up Bonus
+                        //SimpleBall Size Up Bonus
                         balls.stream().forEach(ball -> ball.sizeUp());
                         break;
                     case "platformSizeUp":
@@ -52,7 +57,7 @@ public class UnitLoader {
                         break;
 
                     case "ballSpeedUp":
-                        //Ball Speed Up Bonus
+                        //SimpleBall Speed Up Bonus
                         balls.stream().forEach(ball -> ball.speedUp());
                         break;
 
@@ -61,30 +66,31 @@ public class UnitLoader {
                         platform.speedUp();
                         break;
                     case "threeBalls":
-                        //Three Ball Bonus
-                        List<Ball> ballsNew = new ArrayList<>();
+                        //Three SimpleBall Bonus
+                        List<SimpleBall> ballsNew = new ArrayList<>();
                         balls.stream().forEach(ball -> {
-                            ballsNew.add(new Ball(
+                            ballsNew.add(new SimpleBall(
                                     ball.getX() + 15,
                                     ball.getY() - 15,
                                     ball.getRadius(),
                                     ball.getWidth(),
                                     ball.getHeight(),
-                                    ball.getDx(),
-                                    ball.getDy() * -1,
+                                    ball.getSpeedX(),
+                                    ball.getSpeedY() * -1,
                                     platform, bricks, stones));
 
-                            ballsNew.add(new Ball(
+                            ballsNew.add(new SimpleBall(
                                     ball.getX() - 15,
                                     ball.getY() + 15,
                                     ball.getRadius(),
                                     ball.getWidth(),
                                     ball.getHeight(),
-                                    ball.getDx() * -2,
-                                    ball.getDy(),
+                                    ball.getSpeedX() * -2,
+                                    ball.getSpeedY(),
                                     platform, bricks, stones));
                         });
                         balls.addAll(ballsNew);
+                        balls.forEach(b -> b.pressSpace(true));
                         break;
                 }
             }

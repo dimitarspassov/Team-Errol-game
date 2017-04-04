@@ -1,6 +1,7 @@
-package units;
+package units.platform;
 
 
+import units.Sprite;
 import utilities.StaticData;
 import graphics.ImageLoader;
 

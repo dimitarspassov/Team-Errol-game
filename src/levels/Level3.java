@@ -1,8 +1,8 @@
 package levels;
 
 import annotations.LevelClass;
-import units.Brick;
-import units.Stone;
+import units.brick.Brick;
+import units.brick.Stone;
 
 import java.util.ArrayList;
 import java.util.List;

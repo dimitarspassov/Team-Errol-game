@@ -1,5 +1,6 @@
-package units;
+package units.brick;
 
+import units.Sprite;
 import utilities.StaticData;
 
 import javax.swing.*;

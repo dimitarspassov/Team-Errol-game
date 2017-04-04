@@ -1,12 +1,17 @@
 package game;
 
 import display.Display;
-import utilities.StaticData;
-import utilities.UnitLoader;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
-import units.*;
+import units.brick.Bonus;
+import units.brick.Brick;
+import units.platform.Platform;
+import units.brick.Stone;
+import units.ball.Ball;
+import units.ball.SimpleBall;
+import utilities.StaticData;
+import utilities.UnitLoader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -127,8 +132,8 @@ public class Game extends JFrame implements Runnable {
             this.platform = new Platform(350, 550, 100, 20, 12);
             this.stones = UnitLoader.getStones(currentLevel);
             this.balls = new ArrayList<>();
-            balls.add(new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
-            balls.get(0).isSpacePressed = false;
+            balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+            balls.get(0).pressSpace(false);
             levelScore = 0;
             this.gameTimer.setStartTime(System.currentTimeMillis());
             unitsInitialized = true;
@@ -326,8 +331,8 @@ public class Game extends JFrame implements Runnable {
                         currentLevel = 1;
                     } else {
                         this.platform = new Platform(350, 550, 100, 20, 12);
-                        balls.add(new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
-                        Ball.isSpacePressed = false;
+                        balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+                        this.pressSpace(false);
                     }
                 }
             }
@@ -338,7 +343,7 @@ public class Game extends JFrame implements Runnable {
 
     private void initLevel() {
         balls = new ArrayList<>();
-        balls.add(new Ball(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+        balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
         this.bonuses = new ArrayList<>();
     }
 
@@ -402,6 +407,10 @@ public class Game extends JFrame implements Runnable {
 
     public void playSound(String fileName) {
         this.soundLoader.playSound(fileName);
+    }
+
+    public void pressSpace(boolean command) {
+        this.balls.forEach(b -> b.pressSpace(command));
     }
 }
 

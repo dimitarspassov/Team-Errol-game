@@ -1,4 +1,4 @@
-package units;
+package units.brick;
 
 import utilities.StaticData;
 

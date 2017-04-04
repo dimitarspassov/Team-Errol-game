@@ -3,10 +3,6 @@ package units;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/**
- * Created by Krasimir on 4.3.2017 г..
- */
-
 public abstract class Sprite {
 
     protected int x;

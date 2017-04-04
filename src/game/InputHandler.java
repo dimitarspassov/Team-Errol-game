@@ -1,7 +1,6 @@
 package game;
 
-import units.Ball;
-import units.Platform;
+import units.platform.Platform;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -43,7 +42,7 @@ public class InputHandler implements KeyListener {
 
         // Press Space to start ball's moving
         if (code == KeyEvent.VK_SPACE) {
-            Ball.isSpacePressed = true;
+            game.pressSpace(true);
         }
 
         // Press Escape to pause the game
