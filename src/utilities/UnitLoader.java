@@ -2,6 +2,7 @@ package utilities;
 
 
 import annotations.LevelClass;
+import enumerations.BonusType;
 import levels.Level;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
@@ -39,32 +40,32 @@ public class UnitLoader {
                         bonus.getWidth(), bonus.getHeight(), null);
             }
             if (bonus.getRect().intersects(new Rectangle(platform.getX(), platform.getY(), platform.getWidth(), platform.getHeight()))) {
-                String bonusType = bonus.getBonusType();
+                BonusType bonusType = bonus.getBonusType();
                 bonus.setStatus(false);
                 switch (bonusType) {
-                    case "ballSizeUp":
+                    case BALL_SIZE_UP:
                         //SimpleBall Size Up Bonus
                         balls.stream().forEach(ball -> ball.sizeUp());
                         break;
-                    case "platformSizeUp":
+                    case PLATFORM_SIZE_UP:
                         //Platform Size Up Bonus
                         platform.sizeUp();
                         break;
-                    case "platformSizeDown":
+                    case PLATFORM_SIZE_DOWN:
                         //Platform Size Down Bonus
                         platform.sizeDown();
                         break;
 
-                    case "ballSpeedUp":
+                    case BALL_SPEED_UP:
                         //SimpleBall Speed Up Bonus
                         balls.stream().forEach(ball -> ball.speedUp());
                         break;
 
-                    case "platformSpeedUp":
+                    case PLATFORM_SPEED_UP:
                         //Platform Speed Up Bonus
                         platform.speedUp();
                         break;
-                    case "threeBalls":
+                    case THREE_BALLS:
                         //Three SimpleBall Bonus
                         List<SimpleBall> ballsNew = new ArrayList<>();
                         balls.stream().forEach(ball -> {

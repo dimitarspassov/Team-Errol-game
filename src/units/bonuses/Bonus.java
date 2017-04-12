@@ -1,5 +1,6 @@
 package units.bonuses;
 
+import enumerations.BonusType;
 import units.GameUnit;
 
 import java.awt.*;
@@ -10,7 +11,7 @@ public interface Bonus extends GameUnit {
 
     void setStatus(boolean status);
 
-    String getBonusType();
+    BonusType getBonusType();
 
     void setY(int y);
 

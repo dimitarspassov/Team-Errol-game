@@ -2,7 +2,7 @@ package sound;
 
 
 import game.Game;
-import game.State;
+import enumerations.State;
 import utilities.StaticData;
 
 import javax.sound.sampled.*;

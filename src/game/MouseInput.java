@@ -1,6 +1,7 @@
 package game;
 
 
+import enumerations.State;
 import utilities.StaticData;
 
 import java.awt.*;

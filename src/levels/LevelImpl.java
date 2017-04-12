@@ -1,7 +1,7 @@
 package levels;
 
 
-import units.bricks.BonusHolder;
+import enumerations.BonusType;
 import units.bricks.Brick;
 import units.bricks.Stone;
 
@@ -10,9 +10,7 @@ import java.util.Random;
 //The pattern for all levels
 public abstract class LevelImpl implements Level {
 
-    private static final int BONUS_AMOUNT_DIVIDER = 2;
-    //We initialize an array with all bonus types
-    private static final String[] BONUS_TYPES = {"ballSizeUp", "platformSizeUp", "threeBalls", "ballSpeedUp", "platformSizeDown", "platformSpeedUp"};
+    private static final int BONUS_AMOUNT_DIVIDER = 3;
     private Brick[] bricks;
     private Stone[] stones;
 
@@ -45,16 +43,16 @@ public abstract class LevelImpl implements Level {
 
         int bonusAmount = bricks.length / BONUS_AMOUNT_DIVIDER;
         for (int i = 0; i < bonusAmount; i++) {
-            int n = rnd.nextInt(BONUS_TYPES.length);
-            String currentBonusType = BONUS_TYPES[n];
+            int n = rnd.nextInt(BonusType.values().length);
+            BonusType currentBonusType = BonusType.values()[n];
             boolean bonusAssigned = false;
 
             while (!bonusAssigned) {
 
                 n = rnd.nextInt(bricks.length);
 
-                if (((BonusHolder) bricks[n]).getBonus() == null) {
-                    ((BonusHolder) bricks[n]).addBonus(currentBonusType);
+                if (bricks[n].getBonus() == null) {
+                    bricks[n].addBonus(currentBonusType);
                     bonusAssigned = true;
                 }
             }

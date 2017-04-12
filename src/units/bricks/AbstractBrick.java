@@ -1,6 +1,10 @@
 package units.bricks;
 
 
+import enumerations.BonusType;
+import units.bonuses.Bonus;
+import units.bonuses.BonusImpl;
+
 import java.awt.*;
 
 public abstract class AbstractBrick implements Brick {
@@ -10,13 +14,14 @@ public abstract class AbstractBrick implements Brick {
     private int hitCount;
     private boolean destroyed;
     private Image image;
-
+    private Bonus bonus;
 
     protected AbstractBrick(int x, int y) {
         this.setX(x);
         this.setY(y);
         this.setHitCount(3);
         this.destroyed = false;
+        this.bonus = null;
     }
 
     protected AbstractBrick(int x, int y, int hitCountIn) {
@@ -25,6 +30,15 @@ public abstract class AbstractBrick implements Brick {
         this.destroyed = false;
     }
 
+    @Override
+    public Bonus getBonus() {
+        return this.bonus;
+    }
+
+    @Override
+    public void addBonus(BonusType type) {
+        this.setBonus(new BonusImpl(this.getX(), this.getY(), type));
+    }
 
     public int getX() {
         return this.x;
@@ -88,5 +102,8 @@ public abstract class AbstractBrick implements Brick {
         this.hitCount = hitCount;
     }
 
+    private void setBonus(Bonus bonus) {
+        this.bonus = bonus;
+    }
 
 }

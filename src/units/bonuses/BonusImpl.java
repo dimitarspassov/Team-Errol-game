@@ -1,5 +1,6 @@
 package units.bonuses;
 
+import enumerations.BonusType;
 import utilities.StaticData;
 
 import javax.swing.*;
@@ -10,38 +11,38 @@ public class BonusImpl implements Bonus {
 
     private int x;
     private int y;
-    private String bonusType;
+    private BonusType bonusType;
     private Image image;
     private boolean status;
 
-    public BonusImpl(int x, int y, String bonusType) {
+    public BonusImpl(int x, int y, BonusType bonusType) {
         this.x = x;
         this.y = y;
         this.setStatus(true);
         this.setBonusType(bonusType);
         switch (bonusType) {
 
-            case "ballSizeUp":
+            case BALL_SIZE_UP:
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.PIC_BALL_UP)).getImage());
                 break;
-            case "platformSizeUp":
+            case PLATFORM_SIZE_UP:
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.PIC_PLATFORM_UP)).getImage());
                 break;
-            case "threeBalls":
+            case THREE_BALLS:
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.PIC_THREE_BALLS)).getImage());
                 break;
-            case "ballSpeedUp":
+            case BALL_SPEED_UP:
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.PIC_BALL_SPEED_UP)).getImage());
                 break;
-            case "platformSizeDown":
+            case PLATFORM_SIZE_DOWN:
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.PIC_PLATFORM_DOWN)).getImage());
                 break;
-            case "platformSpeedUp":
+            case PLATFORM_SPEED_UP:
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.PIC_PLATFORM_SPEED_UP)).getImage());
                 break;
@@ -50,11 +51,11 @@ public class BonusImpl implements Bonus {
 
     }
 
-    private void setBonusType(String bonusType) {
+    private void setBonusType(BonusType bonusType) {
         this.bonusType = bonusType;
     }
 
-    public String getBonusType() {
+    public BonusType getBonusType() {
         return this.bonusType;
     }
 
@@ -95,7 +96,6 @@ public class BonusImpl implements Bonus {
     public Rectangle getRect() {
         return new Rectangle(this.getX(), this.getY(), this.image.getWidth(null), this.image.getHeight(null));
     }
-
 
     public void setStatus(boolean status) {
         this.status = status;

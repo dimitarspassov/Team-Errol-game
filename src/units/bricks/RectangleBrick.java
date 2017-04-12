@@ -1,14 +1,14 @@
 package units.bricks;
 
+import enumerations.BonusType;
 import units.bonuses.Bonus;
 import units.bonuses.BonusImpl;
 import utilities.StaticData;
 
 import javax.swing.*;
 
-public class RectangleBrick extends AbstractBrick implements BonusHolder {
+public class RectangleBrick extends AbstractBrick {
 
-    private Bonus bonus;
 
     public RectangleBrick(int x, int y) {
         super(x, y);
@@ -45,19 +45,4 @@ public class RectangleBrick extends AbstractBrick implements BonusHolder {
                 break;
         }
     }
-
-    @Override
-    public Bonus getBonus() {
-        return this.bonus;
-    }
-
-    @Override
-    public void addBonus(String BonusType) {
-        this.setBonus(new BonusImpl(this.getX(), this.getY(), BonusType));
-    }
-
-    private void setBonus(Bonus bonus) {
-        this.bonus = bonus;
-    }
-
 }

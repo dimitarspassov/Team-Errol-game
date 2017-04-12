@@ -1,5 +1,6 @@
 package game;
 
+import enumerations.State;
 import utilities.StaticData;
 import graphics.ImageLoader;
 

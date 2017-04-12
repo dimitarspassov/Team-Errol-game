@@ -1,9 +1,8 @@
 package units.balls;
 
+import enumerations.State;
 import game.Game;
-import game.State;
 import graphics.ImageLoader;
-import units.bricks.BonusHolder;
 import units.bricks.Brick;
 import units.bricks.Stone;
 import units.platform.Platform;
@@ -18,7 +17,7 @@ public class SimpleBall extends AbstractBall implements Ball {
 
     public SimpleBall(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
                       Platform platform, Brick[] bricks, Stone[] stones) {
-        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones,image);
+        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, image);
 
     }
 
@@ -155,13 +154,12 @@ public class SimpleBall extends AbstractBall implements Ball {
             }
             brick.hitBrick();
             if (brick.isDestroyed()) {
-                this.collectBonus((BonusHolder) brick, game);
+                this.collectBonus(brick, game);
             }
-
         }
     }
 
-    private void collectBonus(BonusHolder brick, Game game) {
+    private void collectBonus(Brick brick, Game game) {
         if (brick.getBonus() != null) {
             game.addBonus(brick.getBonus());
         }

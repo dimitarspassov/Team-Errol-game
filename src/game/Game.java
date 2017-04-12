@@ -1,6 +1,7 @@
 package game;
 
 import display.Display;
+import enumerations.State;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
