@@ -1,6 +1,7 @@
 package units;
 
 
+import java.awt.*;
 
 public interface GameUnit {
 
@@ -12,4 +13,5 @@ public interface GameUnit {
 
     int getHeight();
 
+    Image getImage();
 }

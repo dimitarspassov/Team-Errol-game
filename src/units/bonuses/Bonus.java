@@ -16,7 +16,5 @@ public interface Bonus extends GameUnit {
 
     void setY(int y);
 
-    Image getImage();
-
     Rectangle getRect();
 }

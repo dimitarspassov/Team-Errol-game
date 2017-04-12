@@ -2,8 +2,10 @@ package units.balls;
 
 
 import units.bricks.Brick;
-import units.platform.Platform;
 import units.bricks.Stone;
+import units.platform.Platform;
+
+import java.awt.*;
 
 public abstract class AbstractBall implements Ball {
 
@@ -15,12 +17,12 @@ public abstract class AbstractBall implements Ball {
     protected boolean spacePressed;
     private int width;
     private int height;
-
+    private Image image;
     private Platform platform;
     private Brick[] bricks;
     private Stone[] stones;
 
-    protected AbstractBall(int x, int y, int radius, int width, int height, int speedX, int speedY, Platform platform, Brick[] bricks, Stone[] stones) {
+    protected AbstractBall(int x, int y, int radius, int width, int height, int speedX, int speedY, Platform platform, Brick[] bricks, Stone[] stones, Image image) {
         this.setX(x);
         this.setY(y);
         this.setRadius(radius);
@@ -31,6 +33,12 @@ public abstract class AbstractBall implements Ball {
         this.platform = platform;
         this.bricks = bricks;
         this.stones = stones;
+        this.image = image;
+    }
+
+    @Override
+    public Image getImage() {
+        return image;
     }
 
     public int getX() {

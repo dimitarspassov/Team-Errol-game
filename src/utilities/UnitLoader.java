@@ -21,7 +21,7 @@ public class UnitLoader {
     public static void renderBalls(List<Ball> balls, Graphics graphics) {
 
         balls.stream().forEach(ball -> {
-            graphics.drawImage(ImageLoader.loadImage(ball.getImage()),
+            graphics.drawImage(ball.getImage(),
                     ball.getX(),
                     ball.getY(),
                     ball.getWidth(),

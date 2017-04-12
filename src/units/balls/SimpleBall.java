@@ -2,6 +2,7 @@ package units.balls;
 
 import game.Game;
 import game.State;
+import graphics.ImageLoader;
 import units.bricks.BonusHolder;
 import units.bricks.Brick;
 import units.bricks.Stone;
@@ -13,11 +14,11 @@ import java.awt.*;
 public class SimpleBall extends AbstractBall implements Ball {
 
 
-    private static final String image = StaticData.PIC_BALL;
+    private static final Image image = ImageLoader.loadImage(StaticData.PIC_BALL);
 
     public SimpleBall(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
                       Platform platform, Brick[] bricks, Stone[] stones) {
-        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones);
+        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones,image);
 
     }
 
@@ -178,8 +179,4 @@ public class SimpleBall extends AbstractBall implements Ball {
         this.setSpeedY((int) (this.getSpeedY() * 1.7));
     }
 
-    @Override
-    public String getImage() {
-        return image;
-    }
 }

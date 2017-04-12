@@ -16,8 +16,6 @@ public interface Ball extends GameUnit {
 
     void speedUp();
 
-    String getImage();
-
     int getSpeedX();
 
     int getSpeedY();

@@ -1,6 +1,8 @@
 package units.platform;
 
 
+import java.awt.*;
+
 public abstract class AbstractPlatform implements Platform {
 
     private int platformX;
@@ -8,56 +10,33 @@ public abstract class AbstractPlatform implements Platform {
     private int platformWidth;
     private int platformHeight;
     private int velocity;
-
+    private Image image;
     private boolean movingLeft;
     private boolean movingRight;
 
-    public AbstractPlatform(int platformX, int platformY, int platformWidth, int platformHeight, int velocity) {
+    protected AbstractPlatform(int platformX, int platformY, int platformWidth, int platformHeight, int velocity, Image image) {
         this.setPlatformX(platformX);
         this.setPlatformY(platformY);
         this.setPlatformWidth(platformWidth);
         this.setPlatformHeight(platformHeight);
         this.setVelocity(velocity);
-    }
-
-    public int getVelocity() {
-        return velocity;
+        this.setImage(image);
     }
 
     public int getX() {
         return this.platformX;
     }
 
-    protected void setPlatformX(int platformX) {
-        this.platformX = platformX;
-    }
-
     public int getY() {
         return this.platformY;
-    }
-
-    protected void setPlatformY(int platformY) {
-        this.platformY = platformY;
     }
 
     public int getWidth() {
         return this.platformWidth;
     }
 
-    protected void setPlatformWidth(int platformWidth) {
-        this.platformWidth = platformWidth;
-    }
-
     public int getHeight() {
         return this.platformHeight;
-    }
-
-    protected void setPlatformHeight(int platformHeight) {
-        this.platformHeight = platformHeight;
-    }
-
-    protected void setVelocity(int velocity) {
-        this.velocity = velocity;
     }
 
     public void speedUp() {
@@ -86,5 +65,38 @@ public abstract class AbstractPlatform implements Platform {
 
     public void moveRight(boolean movingRight) {
         this.movingRight = movingRight;
+    }
+
+    @Override
+    public Image getImage() {
+        return this.image;
+    }
+
+    private void setImage(Image image) {
+        this.image = image;
+    }
+
+    public int getVelocity() {
+        return velocity;
+    }
+
+    protected void setPlatformX(int platformX) {
+        this.platformX = platformX;
+    }
+
+    private void setPlatformHeight(int platformHeight) {
+        this.platformHeight = platformHeight;
+    }
+
+    private void setPlatformY(int platformY) {
+        this.platformY = platformY;
+    }
+
+    private void setPlatformWidth(int platformWidth) {
+        this.platformWidth = platformWidth;
+    }
+
+    private void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
 }

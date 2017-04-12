@@ -10,7 +10,7 @@ public class SimplePlatform extends AbstractPlatform {
 
 
     public SimplePlatform(int x, int y, int width, int height, int velocity) {
-        super(x, y, width, height, velocity);
+        super(x, y, width, height, velocity, ImageLoader.loadImage(StaticData.PIC_LATEST_PLATFORM));
     }
 
 
@@ -39,7 +39,7 @@ public class SimplePlatform extends AbstractPlatform {
     public void render(Graphics g) {
         if (super.isMovingRight()) {
 
-            g.drawImage(ImageLoader.loadImage(StaticData.PIC_LATEST_PLATFORM),
+            g.drawImage(super.getImage(),
                     this.getX(),
                     this.getY(),
                     this.getWidth(),
@@ -47,7 +47,7 @@ public class SimplePlatform extends AbstractPlatform {
 
         } else if (super.isMovingLeft()) {
 
-            g.drawImage(ImageLoader.loadImage(StaticData.PIC_LATEST_PLATFORM),
+            g.drawImage(super.getImage(),
                     this.getX(),
                     this.getY(),
                     this.getWidth(),

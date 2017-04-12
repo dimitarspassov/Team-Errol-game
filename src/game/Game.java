@@ -148,7 +148,7 @@ public class Game extends JFrame implements Runnable {
 
             //Creating the platform
             this.platform.render(graphics);
-            this.graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_LATEST_PLATFORM),
+            this.graphics.drawImage(platform.getImage(),
                     platform.getX(),
                     platform.getY(),
                     platform.getWidth(),

@@ -13,6 +13,4 @@ public interface Brick extends GameUnit {
 
     Rectangle getRect();
 
-    Image getImage();
-
 }
