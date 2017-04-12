@@ -4,11 +4,11 @@ import display.Display;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
-import units.ball.Ball;
-import units.ball.SimpleBall;
-import units.brick.Bonus;
-import units.brick.Brick;
-import units.brick.Stone;
+import units.balls.Ball;
+import units.balls.SimpleBall;
+import units.bonuses.Bonus;
+import units.bricks.Brick;
+import units.bricks.Stone;
 import units.platform.Platform;
 import units.platform.SimplePlatform;
 import utilities.StaticData;
@@ -163,13 +163,13 @@ public class Game extends JFrame implements Runnable {
             this.bricksRemaining = this.bricks.length;
             for (Brick brick : this.bricks) {
 
-                // If brick is destroyed, continue to next brick.
+                // If bricks is destroyed, continue to next bricks.
                 if (brick.isDestroyed()) {
                     // Increment player scores
                     levelScore += 5;
                     this.bricksRemaining--;
                 } else {
-                    // Else, draw the brick.
+                    // Else, draw the bricks.
                     if (this.bricksRemaining != 0) {
                         this.graphics.drawImage(brick.getImage(), brick.getX(), brick.getY(),
                                 brick.getWidth(), brick.getHeight(), this);

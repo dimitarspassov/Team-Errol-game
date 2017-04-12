@@ -1,9 +1,9 @@
-package units.ball;
+package units.balls;
 
 
-import units.brick.Brick;
+import units.bricks.Brick;
 import units.platform.Platform;
-import units.brick.Stone;
+import units.bricks.Stone;
 
 public abstract class AbstractBall implements Ball {
 

@@ -1,6 +1,6 @@
-package units.ball;
+package units.balls;
 
-
+//todo:IMPROVE ABSTRACTION
 import game.Game;
 import units.GameUnit;
 

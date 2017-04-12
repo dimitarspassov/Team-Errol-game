@@ -1,10 +1,11 @@
-package units.ball;
+package units.balls;
 
 import game.Game;
 import game.State;
-import units.brick.Brick;
+import units.bricks.BonusHolder;
+import units.bricks.Brick;
+import units.bricks.Stone;
 import units.platform.Platform;
-import units.brick.Stone;
 import utilities.StaticData;
 
 import java.awt.*;
@@ -26,7 +27,7 @@ public class SimpleBall extends AbstractBall implements Ball {
         int ballMaxY = 600 - super.getRadius();
 
 
-        // If Space is pressed-ball moves,
+        // If Space is pressed-balls moves,
         // otherwise stands still on platform
         if (super.isSpacePressed()) {
             this.setX(this.getX() + this.getSpeedX());
@@ -61,7 +62,7 @@ public class SimpleBall extends AbstractBall implements Ball {
                 } else if (center > fourth || (center >= third && center < fourth)) {
                     this.setSpeedX(5);
                 }
-                // Reset ball's position out of collision.
+                // Reset balls's position out of collision.
                 this.setY(super.getPlatform().getY() - this.getHeight());
             }
 
@@ -76,7 +77,7 @@ public class SimpleBall extends AbstractBall implements Ball {
             if (super.getStones() != null) {
                 for (Stone stone : super.getStones()) {
                     if (stone != null) {
-                        stone.incHitCount();
+                        stone.hitBrick();
                         hitBrick(stone, game);
                     }
                 }
@@ -152,10 +153,16 @@ public class SimpleBall extends AbstractBall implements Ball {
                 this.setSpeedX(dx < 0 ? -dx : dx);
             }
             brick.hitBrick();
-            if (brick.getBonus() != null && brick.isDestroyed()) {
-                game.addBonus(brick.getBonus());
-
+            if (brick.isDestroyed()) {
+                this.collectBonus((BonusHolder) brick, game);
             }
+
+        }
+    }
+
+    private void collectBonus(BonusHolder brick, Game game) {
+        if (brick.getBonus() != null) {
+            game.addBonus(brick.getBonus());
         }
     }
 

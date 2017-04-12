@@ -1,8 +1,8 @@
 package levels;
 
 
-import units.brick.Brick;
-import units.brick.Stone;
+import units.bricks.Brick;
+import units.bricks.Stone;
 
 public interface ILevel {
 

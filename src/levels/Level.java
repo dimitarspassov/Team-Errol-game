@@ -1,8 +1,11 @@
 package levels;
 
 
-import units.brick.Brick;
-import units.brick.Stone;
+import org.w3c.dom.css.Rect;
+import units.bricks.BonusHolder;
+import units.bricks.Brick;
+import units.bricks.RectangleBrick;
+import units.bricks.Stone;
 
 import java.util.Random;
 
@@ -35,7 +38,7 @@ public abstract class Level implements ILevel {
 
     //Here we set the bonuses using Random selection.
     //First we get the amount of bonuses, corresponding to the amount of bricks for current level.
-    //Then for each iteration of the loop we add a random bonus to a random brick.
+    //Then for each iteration of the loop we add a random bonus to a random bricks.
     @Override
     public void setBonuses(Brick[] bricks) {
 
@@ -51,8 +54,8 @@ public abstract class Level implements ILevel {
 
                 n = rnd.nextInt(bricks.length);
 
-                if (bricks[n].getBonus() == null) {
-                    bricks[n].addBonus(currentBonusType);
+                if (((BonusHolder)bricks[n]).getBonus() == null) {
+                    ((BonusHolder)bricks[n]).addBonus(currentBonusType);
                     bonusAssigned = true;
                 }
             }

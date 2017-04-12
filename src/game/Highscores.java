@@ -2,10 +2,7 @@ package game;
 
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 
 public class Highscores {
@@ -107,7 +104,7 @@ public class Highscores {
 
         sortedResults = new ArrayList<>();
         results.entrySet().stream()
-                .sorted((k1, k2) -> k1.getValue().compareTo(k2.getValue()))
+                .sorted(Comparator.comparing(Map.Entry::getValue))
                 .limit(10)
                 .forEach(pair -> {
                     sortedResults.add(pair.getKey() + ":" + pair.getValue());

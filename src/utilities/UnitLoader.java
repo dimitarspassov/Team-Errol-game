@@ -4,12 +4,12 @@ package utilities;
 import annotations.LevelClass;
 import graphics.ImageLoader;
 import levels.ILevel;
-import units.brick.Bonus;
-import units.brick.Brick;
+import units.bonuses.Bonus;
+import units.bricks.Brick;
 import units.platform.Platform;
-import units.brick.Stone;
-import units.ball.Ball;
-import units.ball.SimpleBall;
+import units.bricks.Stone;
+import units.balls.Ball;
+import units.balls.SimpleBall;
 
 import java.awt.*;
 import java.io.File;

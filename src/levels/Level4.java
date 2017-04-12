@@ -1,8 +1,9 @@
 package levels;
 
 import annotations.LevelClass;
-import units.brick.Brick;
-import units.brick.Stone;
+import units.bricks.Brick;
+import units.bricks.RectangleBrick;
+import units.bricks.Stone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class Level4 extends Level implements ILevel {
                 if (j == 1 && i == 1 || j == 1 && i == 5 || j == 3 && i == 1 || j == 3 && i == 5 || i == 3 && j == 2) {
                     continue;
                 }
-                bricks.add(new Brick(100 + j * 40 * 3, 48 + i * 12 * 3));
+                bricks.add(new RectangleBrick(100 + j * 40 * 3, 48 + i * 12 * 3));
             }
         }
 

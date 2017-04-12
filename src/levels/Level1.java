@@ -1,8 +1,9 @@
 package levels;
 
 import annotations.LevelClass;
-import units.brick.Brick;
-import units.brick.Stone;
+import units.bricks.Brick;
+import units.bricks.RectangleBrick;
+import units.bricks.Stone;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +22,7 @@ public class Level1 extends Level implements ILevel {
         List<Brick> bricks = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 4; j++) {
-                bricks.add(new Brick(157 + j * 40 * 3, 48 + i * 12 * 3, 1));
+                bricks.add(new RectangleBrick(157 + j * 40 * 3, 48 + i * 12 * 3, 1));
             }
         }
 
