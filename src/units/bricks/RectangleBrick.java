@@ -9,8 +9,6 @@ import javax.swing.*;
 public class RectangleBrick extends AbstractBrick implements BonusHolder {
 
     private Bonus bonus;
-    private boolean destroyed;
-
 
     public RectangleBrick(int x, int y) {
         super(x, y);
@@ -43,7 +41,7 @@ public class RectangleBrick extends AbstractBrick implements BonusHolder {
                 setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_GREEN_BRICK)).getImage());
                 break;
             case 0:
-                this.setDestroyed(true);
+                this.destroy();
                 break;
         }
     }
@@ -53,18 +51,9 @@ public class RectangleBrick extends AbstractBrick implements BonusHolder {
         return this.bonus;
     }
 
-
     @Override
     public void addBonus(String BonusType) {
         this.setBonus(new BonusImpl(this.getX(), this.getY(), BonusType));
-    }
-
-    public boolean isDestroyed() {
-        return this.destroyed;
-    }
-
-    private void setDestroyed(boolean destroyed) {
-        this.destroyed = destroyed;
     }
 
     private void setBonus(Bonus bonus) {

@@ -4,8 +4,6 @@ import units.GameUnit;
 
 import java.awt.*;
 
-//todo:IMPROVE ABSTRACTION
-
 public interface Bonus extends GameUnit {
 
     boolean getStatus();

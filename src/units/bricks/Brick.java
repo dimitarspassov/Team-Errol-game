@@ -13,4 +13,6 @@ public interface Brick extends GameUnit {
 
     Rectangle getRect();
 
+    void destroy();
+
 }

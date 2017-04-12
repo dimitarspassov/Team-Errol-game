@@ -133,9 +133,9 @@ public class MouseInput implements MouseListener {
             //Set player username & go to highscores
             if (buttonClicked(mX, mY, 300, 500, 400, 450)) {
 
-                if (Game.playerName.length() > 0) {
+                if (game.getPlayerName().length() > 0) {
 
-                    Game.highScores.insertPlayer(Game.playerName.toString(), Game.lastResult);
+                    Game.highScores.insertPlayer(game.getPlayerName().toString(), Game.lastResult);
                     this.game.setState(State.HIGHSCORES);
                     game.playSound(StaticData.SOUND_BUTTON);
                 }

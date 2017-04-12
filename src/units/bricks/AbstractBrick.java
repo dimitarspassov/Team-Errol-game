@@ -16,13 +16,13 @@ public abstract class AbstractBrick implements Brick {
         this.setX(x);
         this.setY(y);
         this.setHitCount(3);
-        this.setDestroyed(false);
+        this.destroyed = false;
     }
 
     protected AbstractBrick(int x, int y, int hitCountIn) {
         this(x, y);
         this.setHitCount(hitCountIn);
-        this.setDestroyed(false);
+        this.destroyed = false;
     }
 
 
@@ -41,6 +41,11 @@ public abstract class AbstractBrick implements Brick {
     @Override
     public Rectangle getRect() {
         return new Rectangle(this.getX(), this.getY(), this.image.getWidth(null), this.image.getHeight(null));
+    }
+
+    @Override
+    public void destroy() {
+        this.destroyed = true;
     }
 
     @Override
@@ -81,10 +86,6 @@ public abstract class AbstractBrick implements Brick {
 
     private void setHitCount(int hitCount) {
         this.hitCount = hitCount;
-    }
-
-    private void setDestroyed(boolean isDestroyed) {
-        this.destroyed = isDestroyed;
     }
 
 

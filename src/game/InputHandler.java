@@ -26,13 +26,13 @@ public class InputHandler implements KeyListener {
         if (this.game.getGameState() == State.PLAYER_INIT) {
 
             if (code == 8) {
-                if (Game.playerName.length() > 0) {
-                    Game.playerName.deleteCharAt(Game.playerName.length() - 1);
+                if (game.getPlayerName().length() > 0) {
+                    game.getPlayerName().deleteCharAt(game.getPlayerName().length() - 1);
                 }
             } else if ((code >= 48 && code <= 57) || (code >= 65 && code <= 90) || (code >= 97 && code <= 122)) {
 
-                if (Game.playerName.length() < 11) {
-                    Game.playerName.append(e.getKeyChar());
+                if (game.getPlayerName().length() < 11) {
+                    game.getPlayerName().append(e.getKeyChar());
                 }
 
             }

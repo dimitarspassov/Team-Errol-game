@@ -25,6 +25,8 @@ import java.util.stream.Collectors;
 
 public class Game extends JFrame implements Runnable {
 
+    private static final byte MAX_LEVEL = 10;
+
     private String name;
     private int width, height;
 
@@ -40,9 +42,8 @@ public class Game extends JFrame implements Runnable {
     private int bricksRemaining;
     private boolean unitsInitialized;
 
+    private static byte currentLevel = 1;
 
-    private static byte currentLevel;
-    private byte maxLevel;
     public static boolean levelSwitched;
 
     public static Highscores highScores;
@@ -58,7 +59,7 @@ public class Game extends JFrame implements Runnable {
     private Thread thread;
     private boolean isRunning;
     private GameTimer gameTimer;
-    public static StringBuilder playerName;
+    private StringBuilder playerName;
 
     private Menu menu;
     static int lastResult;
@@ -85,7 +86,6 @@ public class Game extends JFrame implements Runnable {
         this.lives = 3;
         this.addMouseListener(new MouseInput(this.display.getCanvas(), this));
         currentLevel = 1;
-        this.maxLevel = 10;
         levelSwitched = true;
         this.bricks = new Brick[0];
         this.stones = null;
@@ -297,7 +297,7 @@ public class Game extends JFrame implements Runnable {
 
                 currentLevel++;
                 levelSwitched = true;
-                if (currentLevel > this.maxLevel) {
+                if (currentLevel > MAX_LEVEL) {
                     this.state = State.WIN;
                     soundLoader.playSound(StaticData.SOUND_LEVEL_COMPLETE);
 
@@ -416,6 +416,10 @@ public class Game extends JFrame implements Runnable {
 
     public Platform getPlatform() {
         return this.platform;
+    }
+
+    public StringBuilder getPlayerName() {
+        return this.playerName;
     }
 }
 

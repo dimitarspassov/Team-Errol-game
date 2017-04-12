@@ -72,7 +72,7 @@ public class Menu {
             g.setColor(Color.WHITE);
             Font f1 = new Font("arial", Font.ITALIC, 30);
             g.setFont(f1);
-            g.drawString(Game.playerName.toString(), 315, 235);
+            g.drawString(game.getPlayerName().toString(), 315, 235);
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_ADD_SCORE), 300, 400, 200, 50, null);
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_BACK_TO_MENU), 300, 500, 200, 50, null);
 

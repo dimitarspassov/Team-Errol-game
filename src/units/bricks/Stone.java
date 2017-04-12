@@ -7,8 +7,6 @@ import java.awt.*;
 
 public class Stone extends AbstractBrick {
 
-    private Image image;
-
     public Stone(int x, int y) {
         super(x, y);
         super.setImage(new ImageIcon(
@@ -19,6 +17,5 @@ public class Stone extends AbstractBrick {
     public void hitBrick() {
             //todo:What happens when a stone is hit?
     }
-
 
 }
