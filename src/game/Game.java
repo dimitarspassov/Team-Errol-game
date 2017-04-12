@@ -216,11 +216,6 @@ public class Game extends JFrame implements Runnable {
             this.graphics.drawString("Score: " + score, 620, 30);
             this.graphics.drawString("Lives: " + this.lives, 300, 30);
 
-            // Draw buttons when user is paused the game
-            if (isGamePaused) {
-                this.graphics.drawImage(ImageLoader.loadImage(StaticData.BUTTON_RESUME_GAME), 300, 250, 200, 50, null);
-                this.graphics.drawImage(ImageLoader.loadImage(StaticData.BUTTON_EXIT), 300, 350, 200, 50, null);
-            }
 
             // Draw image for state of sound
             if (isSoundMuted) {
@@ -229,6 +224,12 @@ public class Game extends JFrame implements Runnable {
                 this.graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_SOUND), 740, 50, 40, 40, null);
             }
 
+        } else if (this.state == State.PAUSE) {
+            // Draw buttons when user is paused the game
+            if (isGamePaused) {
+                this.graphics.drawImage(ImageLoader.loadImage(StaticData.BUTTON_RESUME_GAME), 300, 250, 200, 50, null);
+                this.graphics.drawImage(ImageLoader.loadImage(StaticData.BUTTON_EXIT), 300, 350, 200, 50, null);
+            }
         } else {
 
             this.graphics.drawImage(ImageLoader.loadImage(StaticData.BACKGROUND_PIC), 0, 0, 800, 600, null);
@@ -304,7 +305,7 @@ public class Game extends JFrame implements Runnable {
 
                 } else {
                     soundLoader.playSound(StaticData.SOUND_LEVEL_COMPLETE);
-                    this.state = State.MID_LEVEL_PAUSE;
+                    this.state = State.PAUSE_BETWEEN_LEVELS;
                     this.initLevel();
                 }
             }
@@ -365,8 +366,14 @@ public class Game extends JFrame implements Runnable {
         return isGamePaused;
     }
 
-    static void turnPauseOnOff(boolean state) {
+    void turnPauseOnOff(boolean state) {
         isGamePaused = state;
+
+        if (isGamePaused) {
+            this.state = State.PAUSE;
+        } else {
+            this.state = State.GAME;
+        }
     }
 
     static void turnSoundOnOff() {

@@ -5,7 +5,8 @@ public enum State {
 
     MENU,
     GAME,
-    MID_LEVEL_PAUSE,
+    PAUSE,
+    PAUSE_BETWEEN_LEVELS,
     PLAYER_INIT,
     HIGHSCORES,
     GAME_OVER,

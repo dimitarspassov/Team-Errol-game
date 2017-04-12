@@ -31,7 +31,7 @@ public class MouseInput implements MouseListener {
         if (Game.isPaused()) {
             // Resume game Button when user presses ESC
             if (buttonClicked(mX, mY, 300, 500, 250, 300)) {
-                Game.turnPauseOnOff(false);
+                game.turnPauseOnOff(false);
                 game.playSound(StaticData.SOUND_BUTTON);
             }
 
@@ -81,7 +81,7 @@ public class MouseInput implements MouseListener {
             }
         }
 
-        if (this.game.getGameState() == State.MID_LEVEL_PAUSE) {
+        if (this.game.getGameState() == State.PAUSE_BETWEEN_LEVELS) {
             //Next Level Button
             if (buttonClicked(mX, mY, 300, 500, 300, 350)) {
 

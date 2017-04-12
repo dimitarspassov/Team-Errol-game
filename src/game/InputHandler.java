@@ -47,7 +47,7 @@ public class InputHandler implements KeyListener {
 
         // Press Escape to pause the game
         if (this.game.getGameState() == State.GAME && code == KeyEvent.VK_ESCAPE) {
-            Game.turnPauseOnOff(true);
+            game.turnPauseOnOff(true);
         }
 
         //Implementing platform's moving

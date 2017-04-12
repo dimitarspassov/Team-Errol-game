@@ -30,7 +30,7 @@ public class Menu {
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_HIGHSCORES), 300, 300, 200, 50, null);
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_EXIT), 300, 400, 200, 50, null);
 
-        } else if (this.game.getGameState() == State.MID_LEVEL_PAUSE) {
+        } else if (this.game.getGameState() == State.PAUSE_BETWEEN_LEVELS) {
 
             g.setColor(Color.WHITE);
             Font f1 = new Font("arial", Font.BOLD, 30);
