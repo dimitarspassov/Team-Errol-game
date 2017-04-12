@@ -7,8 +7,9 @@ import units.bricks.Stone;
 
 import java.util.ArrayList;
 import java.util.List;
+
 @LevelClass
-public class Level6 extends Level implements ILevel {
+public class Level6 extends LevelImpl implements Level {
 
     public Level6() {
         super.setBricks(this.generateBricks());
@@ -44,15 +45,9 @@ public class Level6 extends Level implements ILevel {
 
         Stone[] generatedStones = new Stone[stones.size()];
         generatedStones = stones.toArray(generatedStones);
-        setBonuses(generatedStones);
+        super.setBonuses(generatedStones);
         return generatedStones;
     }
 
-    @Override
-    public void setBonuses(Brick[] bricks) {
-
-        super.setBonuses(bricks);
-
-    }
 
 }

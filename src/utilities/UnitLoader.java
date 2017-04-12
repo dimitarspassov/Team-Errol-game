@@ -2,8 +2,7 @@ package utilities;
 
 
 import annotations.LevelClass;
-import graphics.ImageLoader;
-import levels.ILevel;
+import levels.Level;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.platform.Platform;
@@ -108,10 +107,10 @@ public class UnitLoader {
     }
 
 
-    private static ILevel currentLevelClass(byte level) {
+    private static Level currentLevelClass(byte level) {
 
 
-        ILevel currentLevel = null;
+        Level currentLevel = null;
         File levelsFile = new File(StaticData.LEVEL_FOLDER);
 
         for (File file : levelsFile.listFiles()) {
@@ -124,7 +123,7 @@ public class UnitLoader {
             if (fileName.equals("Level" + level + ".java")) {
 
                 try {
-                    Class<ILevel> currentLevelClass = (Class<ILevel>) Class.forName(StaticData.LEVEL_CLASS_LOCATION + "Level" + level);
+                    Class<Level> currentLevelClass = (Class<Level>) Class.forName(StaticData.LEVEL_CLASS_LOCATION + "Level" + level);
                     if (!currentLevelClass.isAnnotationPresent(LevelClass.class)) {
                         continue;
                     }

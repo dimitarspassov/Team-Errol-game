@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @LevelClass
-public class Level10 extends Level implements ILevel {
+public class Level10 extends LevelImpl implements Level {
 
     public Level10() {
         super.setBricks(this.generateBricks());
@@ -36,7 +36,7 @@ public class Level10 extends Level implements ILevel {
         Brick[] generatedBricks = new Brick[bricks.size()];
         generatedBricks = bricks.toArray(generatedBricks);
 
-        setBonuses(generatedBricks);
+        super.setBonuses(generatedBricks);
         return generatedBricks;
     }
 
@@ -61,12 +61,4 @@ public class Level10 extends Level implements ILevel {
         setBonuses(generatedStones);
         return generatedStones;
     }
-
-    @Override
-    public void setBonuses(Brick[] bricks) {
-
-        super.setBonuses(bricks);
-
-    }
-
 }
