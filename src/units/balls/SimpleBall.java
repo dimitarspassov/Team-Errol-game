@@ -122,7 +122,8 @@ public class SimpleBall extends AbstractBall implements Ball {
         this.spacePressed = command;
     }
 
-    private void hitBrick(Brick brick, Game game) {
+    @Override
+    protected void hitBrick(Brick brick, Game game) {
 
 
         if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
@@ -154,17 +155,10 @@ public class SimpleBall extends AbstractBall implements Ball {
             }
             brick.hitBrick();
             if (brick.isDestroyed()) {
-                this.collectBonus(brick, game);
+                super.collectBonus(brick, game);
             }
         }
     }
-
-    private void collectBonus(Brick brick, Game game) {
-        if (brick.getBonus() != null) {
-            game.addBonus(brick.getBonus());
-        }
-    }
-
     public void sizeUp() {
         this.setHeight(40);
         this.setWidth(40);
