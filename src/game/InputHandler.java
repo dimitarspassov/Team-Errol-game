@@ -44,6 +44,10 @@ public class InputHandler implements KeyListener {
         if (code == KeyEvent.VK_SPACE) {
             game.pressSpace(true);
         }
+        // Press "Z" to start fire
+        if (code == KeyEvent.VK_Z) {
+            game.pressFire(true);
+        }
 
         // Press Escape to pause the game
         if (this.game.getGameState() == State.GAME && code == KeyEvent.VK_ESCAPE) {

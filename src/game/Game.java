@@ -6,6 +6,7 @@ import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
 import units.balls.Ball;
+import units.balls.Bullet;
 import units.balls.SimpleBall;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
@@ -34,7 +35,7 @@ public class Game extends JFrame implements Runnable {
     private Display display;
     private Platform platform;
     private List<Ball> balls;
-
+    private List<Bullet> bullets;
     private static boolean isGamePaused;
     private static boolean isSoundMuted;
     private Brick[] bricks;
@@ -107,6 +108,7 @@ public class Game extends JFrame implements Runnable {
         if (this.state == State.GAME && unitsInitialized) {
             this.platform.thick();
             balls.stream().forEach(b -> b.move(this));
+            bullets.stream().forEach(b -> b.move(this));
         }
 
     }
@@ -138,6 +140,7 @@ public class Game extends JFrame implements Runnable {
             this.platform = new SimplePlatform(350, 550, 100, 20, 12);
             this.stones = UnitLoader.getStones(currentLevel);
             this.balls = new ArrayList<>();
+            this.bullets = new ArrayList<>();
             balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
             balls.get(0).pressSpace(false);
             levelScore = 0;
@@ -161,6 +164,7 @@ public class Game extends JFrame implements Runnable {
 
 
             UnitLoader.renderBalls(balls, graphics);
+            UnitLoader.renderBullets(this.bullets, graphics);
 
             // Draw the bricks
             score -= levelScore;
@@ -194,6 +198,7 @@ public class Game extends JFrame implements Runnable {
             if (bonuses != null) {
                 UnitLoader.renderBonuses(this.bonuses, balls, bricks, stones, this.platform, this.graphics,this);
             }
+
 
             lastResult = score;
             // Show player scores
@@ -432,6 +437,13 @@ public class Game extends JFrame implements Runnable {
 
     public StringBuilder getPlayerName() {
         return this.playerName;
+    }
+
+    public void pressFire(boolean b) {
+        Bullet bullet1 = new Bullet(platform.getX()+1, platform.getY(), 10, 20, 20, 5, 5, platform, bricks, stones);
+        Bullet bullet2 = new Bullet(platform.getX()+5, platform.getY(), 10, 20, 20, 5, 5, platform, bricks, stones);
+        bullets.add(bullet1);
+        bullets.add(bullet2);
     }
 }
 

@@ -5,6 +5,7 @@ import annotations.LevelClass;
 import enumerations.BonusType;
 import game.Game;
 import levels.Level;
+import units.balls.Bullet;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.platform.Platform;
@@ -142,5 +143,15 @@ public class UnitLoader {
         }
         return currentLevel;
 
+    }
+
+    public static void renderBullets(List<Bullet> bullets, Graphics graphics) {
+        bullets.stream().forEach(bullet -> {
+            graphics.drawImage(bullet.getImage(),
+                    bullet.getX(),
+                    bullet.getY(),
+                    bullet.getWidth(),
+                    bullet.getHeight(), null);
+        });
     }
 }
