@@ -71,6 +71,10 @@ public class Game extends JFrame implements Runnable {
     private int lives;
     private State state;
 
+    private boolean isTimerRunning;
+    private boolean hasPauseBeenPressed;
+    private long bonusPoints;
+
 
     public Game(String name, int width, int height) {
 
@@ -144,7 +148,7 @@ public class Game extends JFrame implements Runnable {
             balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
             balls.get(0).pressSpace(false);
             levelScore = 0;
-            this.gameTimer.setStartTime(System.currentTimeMillis());
+            //this.gameTimer.setStartTime(System.currentTimeMillis());
             unitsInitialized = true;
         }
 
@@ -205,20 +209,13 @@ public class Game extends JFrame implements Runnable {
             this.graphics.setColor(Color.WHITE);
             this.graphics.setFont(new Font("serif", Font.BOLD, 27));
 
-            long bonusPoints = 60 - this.gameTimer.getElapsedTime();
+            this.bonusPoints = 60 - this.gameTimer.getCounter();
 
             if (currentLevel == 1 || currentLevel == 2) {
-                if (bonusPoints >= 0) {
-
-                    this.graphics.drawString("Bonus Points: " + bonusPoints, 30, 30);
-                }
-
+                displayBonusPointsUsingTimer();
             } else {
-                bonusPoints = 120 - this.gameTimer.getElapsedTime();
-                if (bonusPoints >= 0) {
-
-                    this.graphics.drawString("Bonus Points: " + bonusPoints, 30, 30);
-                }
+                this.bonusPoints = 120 - this.gameTimer.getCounter();
+                displayBonusPointsUsingTimer();
             }
             lastBonusPoints = bonusPoints;
 
@@ -248,6 +245,34 @@ public class Game extends JFrame implements Runnable {
         // Whatever we draw, it finally goes through dispose and the it is shown.
         this.graphics.dispose();
         this.bs.show();
+    }
+
+    private void displayBonusPointsUsingTimer() {
+        if (bonusPoints >= 0) {
+
+            if (!isGamePaused) {
+                if(!hasPauseBeenPressed){
+                    this.graphics.drawString((String.format("Bonus Points: %d", bonusPoints)), 30, 30);
+                }
+                else {
+                    if (!isTimerRunning) {
+                        gameTimer.startTimer();
+                        isTimerRunning = true;
+                    }
+                    this.graphics.drawString((String.format("Bonus Points: %d", bonusPoints)), 30, 30);
+
+                }
+
+            }  else {
+                gameTimer.pauseTimer();
+
+                this.graphics.drawString((String.format("Bonus Points: %d",
+                        bonusPoints)), 30, 30);
+
+                isTimerRunning = false;
+                hasPauseBeenPressed = true;
+            }
+        }
     }
 
     @Override
@@ -287,8 +312,8 @@ public class Game extends JFrame implements Runnable {
                 //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
                 if (currentLevel == 1 || currentLevel == 2) {
-                    if (this.gameTimer.getElapsedTime() / 60 < 1) {
-                        long bonusPointsFromTimer = 60 - (this.gameTimer.getElapsedTime() % 60);
+                    if (this.gameTimer.getCounter() / 60 < 1) {
+                        long bonusPointsFromTimer = 60 - (this.gameTimer.getCounter() % 60);
 
                         this.score += bonusPointsFromTimer;
                         lastBonusPoints = bonusPointsFromTimer;
@@ -297,8 +322,8 @@ public class Game extends JFrame implements Runnable {
 
                     //Other levels should be passed for less than 2 minutes to get bonus points
                 } else {
-                    if (this.gameTimer.getElapsedTime() / 60 < 2) {
-                        long bonusPointsFromTimer = 60 - (this.gameTimer.getElapsedTime() % 60);
+                    if (this.gameTimer.getCounter() / 60 < 2) {
+                        long bonusPointsFromTimer = 60 - (this.gameTimer.getCounter() % 60);
                         //this.graphics.drawString("Bonus Points: " + bonusPointsFromTimer, 30, 30);
                         this.score += bonusPointsFromTimer;
                         lastBonusPoints = bonusPointsFromTimer;
@@ -357,6 +382,11 @@ public class Game extends JFrame implements Runnable {
         balls = new ArrayList<>();
         balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
         this.bonuses = new ArrayList<>();
+        gameTimer.stopTimer();
+        if (isTimerRunning) {
+            isTimerRunning = false;
+        }
+        hasPauseBeenPressed = false;
     }
 
     private synchronized void pause() {
@@ -429,6 +459,10 @@ public class Game extends JFrame implements Runnable {
 
     public void pressSpace(boolean command) {
         this.balls.forEach(b -> b.pressSpace(command));
+        if (!isTimerRunning) {
+            gameTimer.startTimer();
+            isTimerRunning = true;
+        }
     }
 
     public Platform getPlatform() {
