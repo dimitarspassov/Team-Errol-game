@@ -54,4 +54,10 @@ public class SimplePlatform extends AbstractPlatform {
                     this.getHeight(), null);
         }
     }
+
+    @Override
+    public void canFire(boolean b) {
+        this.setCanFire(b);
+    }
+
 }

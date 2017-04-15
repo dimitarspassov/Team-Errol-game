@@ -67,6 +67,10 @@ public class UnitLoader {
                         //Platform Speed Up Bonus
                         platform.speedUp();
                         break;
+                    case PLATFORM_FIRE:
+                        //Platform Fire
+                        platform.canFire(true);
+                        break;
                     case LIVE_UP:
                         //Live up
                         game.liveUp();

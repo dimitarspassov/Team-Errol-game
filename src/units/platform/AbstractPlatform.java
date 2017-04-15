@@ -13,6 +13,7 @@ public abstract class AbstractPlatform implements Platform {
     private Image image;
     private boolean movingLeft;
     private boolean movingRight;
+    private boolean canFire;
 
     protected AbstractPlatform(int platformX, int platformY, int platformWidth, int platformHeight, int velocity, Image image) {
         this.setPlatformX(platformX);
@@ -21,6 +22,16 @@ public abstract class AbstractPlatform implements Platform {
         this.setPlatformHeight(platformHeight);
         this.setVelocity(velocity);
         this.setImage(image);
+    }
+
+
+    public void setCanFire(boolean canFire) {
+        this.canFire = canFire;
+    }
+
+    @Override
+    public boolean isCanFire() {
+        return this.canFire;
     }
 
     public int getX() {

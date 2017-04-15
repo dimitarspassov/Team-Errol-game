@@ -46,6 +46,10 @@ public class BonusImpl implements Bonus {
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.PIC_PLATFORM_SPEED_UP)).getImage());
                 break;
+            case PLATFORM_FIRE:
+                setImage(new ImageIcon(
+                        this.getClass().getResource(StaticData.PIC_PLATFORM_FIRE)).getImage());
+                break;
             case LIVE_UP:
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.LIVE_UP)).getImage());

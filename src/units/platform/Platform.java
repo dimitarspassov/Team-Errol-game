@@ -24,4 +24,8 @@ public interface Platform extends GameUnit {
     void moveLeft(boolean command);
 
     void moveRight(boolean command);
+
+    void canFire(boolean b);
+
+    boolean isCanFire();
 }
