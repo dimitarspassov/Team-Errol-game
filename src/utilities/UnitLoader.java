@@ -3,6 +3,7 @@ package utilities;
 
 import annotations.LevelClass;
 import enumerations.BonusType;
+import game.Game;
 import levels.Level;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
@@ -30,7 +31,7 @@ public class UnitLoader {
 
     }
 
-    public static void renderBonuses(ArrayList<Bonus> bonuses, List<Ball> balls, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics) {
+    public static void renderBonuses(ArrayList<Bonus> bonuses, List<Ball> balls, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics, Game game) {
 
 
         for (Bonus bonus : bonuses) {
@@ -64,6 +65,10 @@ public class UnitLoader {
                     case PLATFORM_SPEED_UP:
                         //Platform Speed Up Bonus
                         platform.speedUp();
+                        break;
+                    case LIVE_UP:
+                        //Live up
+                        game.liveUp();
                         break;
                     case THREE_BALLS:
                         //Three SimpleBall Bonus

@@ -7,6 +7,7 @@ public class StaticData {
     public static final String PIC_GREEN_BRICK = "/brick_green.png";
     public static final String PIC_STONE_BRICK = "/stone.png";
     public static final String PIC_BALL_UP = "/bonus_ball_up.png";
+    public static final String LIVE_UP = "/live_up.png";
     public static final String PIC_PLATFORM_UP = "/bonus_platform_up.png";
     public static final String PIC_THREE_BALLS = "/bonus_three_balls.png";
     public static final String PIC_BALL_SPEED_UP = "/bonus_ball_speed_up.png";

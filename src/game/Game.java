@@ -79,6 +79,10 @@ public class Game extends JFrame implements Runnable {
         this.state = State.MENU;
     }
 
+    public void liveUp() {
+        this.lives++;
+    }
+
     private void initialization() {
 
         this.display = new Display(name, width, height);
@@ -188,7 +192,7 @@ public class Game extends JFrame implements Runnable {
             //Bonuses
 
             if (bonuses != null) {
-                UnitLoader.renderBonuses(this.bonuses, balls, bricks, stones, this.platform, this.graphics);
+                UnitLoader.renderBonuses(this.bonuses, balls, bricks, stones, this.platform, this.graphics,this);
             }
 
             lastResult = score;
