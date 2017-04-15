@@ -14,6 +14,7 @@ public class StaticData {
     public static final String PIC_PLATFORM_DOWN = "/bonus_platform_down.png";
     public static final String PIC_PLATFORM_SPEED_UP = "/bonus_platform_speed_up.png";
     public static final String PIC_BALL = "/Ball.png";
+    public static final String PIC_BULLET = "/bullet.png";
     public static final String PIC_INPUT_BACKGROUND = "/inputBgr.png";
     public static final String PIC_LATEST_PLATFORM = "/latest-platform.png";
     public static final String PIC_MUTE = "/mute.png";

@@ -440,8 +440,8 @@ public class Game extends JFrame implements Runnable {
     }
 
     public void pressFire(boolean b) {
-        Bullet bullet1 = new Bullet(platform.getX()+1, platform.getY(), 10, 20, 20, 5, 5, platform, bricks, stones);
-        Bullet bullet2 = new Bullet(platform.getX()+5, platform.getY(), 10, 20, 20, 5, 5, platform, bricks, stones);
+        Bullet bullet1 = new Bullet(platform.getX()+20, platform.getY()-20, 10, 10, 20, 5, 5, platform, bricks, stones);
+        Bullet bullet2 = new Bullet(platform.getX()+70, platform.getY()-20, 10, 10, 20, 5, 5, platform, bricks, stones);
         bullets.add(bullet1);
         bullets.add(bullet2);
     }

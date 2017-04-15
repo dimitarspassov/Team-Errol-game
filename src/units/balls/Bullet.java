@@ -13,14 +13,14 @@ import java.awt.*;
  * Created by Krasimir on 15.4.2017 г..
  */
 public class Bullet extends AbstractBall implements Ball  {
-    private static final Image image = ImageLoader.loadImage(StaticData.PIC_BALL);
+    private static final Image image = ImageLoader.loadImage(StaticData.PIC_BULLET);
     public Bullet(int x, int y, int radius, int width, int height, int speedX, int speedY, Platform platform, Brick[] bricks, Stone[] stones) {
         super(x, y, radius, width, height, speedX, speedY, platform, bricks, stones, image);
     }
 
     @Override
     public void move(Game game) {
-         this.setY(this.getY()-3);
+         this.setY(this.getY()-5);
 
 
             // Draw the bricks
