@@ -19,4 +19,6 @@ public interface Ball extends GameUnit {
     int getSpeedX();
 
     int getSpeedY();
+
+    void destroyStones();
 }

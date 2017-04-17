@@ -11,13 +11,13 @@ import utilities.StaticData;
 import java.awt.*;
 
 public class SimpleBall extends AbstractBall implements Ball {
-
-
     private static final Image image = ImageLoader.loadImage(StaticData.PIC_BALL);
+    private boolean canDestroyStones;
 
     public SimpleBall(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
                       Platform platform, Brick[] bricks, Stone[] stones) {
         super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, image);
+        this.canDestroyStones = false;
 
     }
 
@@ -164,11 +164,36 @@ public class SimpleBall extends AbstractBall implements Ball {
         this.setWidth(40);
         this.setRadius(20);
 
+        //long start = System.currentTimeMillis();
+        //long end = start + 3000;
+        //while (true) {
+        //    if (start == end) {
+        //        this.resetSize();
+        //    }
+        //    start = System.currentTimeMillis();
+        //}
+    }
+
+    private void resetSize() {
+        this.setRadius(10);
+        this.setHeight(20);
+        this.setWidth(20);
     }
 
     public void speedUp() {
         this.setSpeedX((int) (this.getSpeedX() * 1.7));
         this.setSpeedY((int) (this.getSpeedY() * 1.7));
+    }
+
+    @Override
+    public void destroyStones() {
+        long start = System.currentTimeMillis();
+        long end = start + 15000;
+        for (long i = start; i <= end; i += 1000) {
+            this.canDestroyStones = true;
+        }
+
+        this.canDestroyStones = false;
     }
 
 }

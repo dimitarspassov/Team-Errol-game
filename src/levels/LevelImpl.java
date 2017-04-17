@@ -5,6 +5,7 @@ import enumerations.BonusType;
 import units.bricks.Brick;
 import units.bricks.Stone;
 
+import java.util.Collections;
 import java.util.Random;
 
 //The pattern for all levels

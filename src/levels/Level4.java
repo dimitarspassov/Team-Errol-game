@@ -37,9 +37,17 @@ public class Level4 extends LevelImpl implements Level {
 
     @Override
     public Stone[] generateStones() {
+        List<Stone> stones = new ArrayList<>();
 
-        return null;
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 5; j++) {
+                if (j == 1 && i == 1 || j == 1 && i == 5 || j == 3 && i == 1 || j == 3 && i == 5 || i == 3 && j == 2) {
+                    stones.add(new Stone(100 + j * 40 * 3, 48 + i * 12 * 3));
+                }
+            }
+        }
+        Stone[] generatedStones = new Stone[stones.size()];
+        generatedStones = stones.toArray(generatedStones);
+        return generatedStones;
     }
-
-
 }

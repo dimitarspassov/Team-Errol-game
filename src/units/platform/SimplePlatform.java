@@ -59,5 +59,4 @@ public class SimplePlatform extends AbstractPlatform {
     public void canFire(boolean b) {
         this.setCanFire(b);
     }
-
 }
