@@ -40,7 +40,7 @@ public class InputHandler implements KeyListener {
             }
         }
 
-        // Press Space to start balls's moving
+        // Press Space to start ballsAndBullets's moving
         if (code == KeyEvent.VK_SPACE) {
             game.pressSpace(true);
         }

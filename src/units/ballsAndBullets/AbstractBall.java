@@ -1,14 +1,13 @@
-package units.balls;
+package units.ballsAndBullets;
 
 
-import game.Game;
 import units.bricks.Brick;
 import units.bricks.Stone;
 import units.platform.Platform;
 
 import java.awt.*;
 
-public abstract class AbstractBall {
+public abstract class AbstractBall implements Ball {
 
     private int radius;
     private int x;
@@ -113,19 +112,4 @@ public abstract class AbstractBall {
     protected void setRadius(int radius) {
         this.radius = radius;
     }
-    protected void hitBrick(Brick brick, Game game) {
-        if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
-            brick.hitBrick();
-            if (brick.isDestroyed()) {
-                this.collectBonus(brick, game);
-            }
-        }
-    }
-    protected void collectBonus(Brick brick, Game game) {
-        if (brick.getBonus() != null) {
-            game.addBonus(brick.getBonus());
-        }
-    }
-
-
 }

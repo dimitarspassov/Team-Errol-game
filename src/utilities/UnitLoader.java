@@ -5,13 +5,13 @@ import annotations.LevelClass;
 import enumerations.BonusType;
 import game.Game;
 import levels.Level;
-import units.balls.Bullet;
+import units.bullets.Bullet;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.platform.Platform;
 import units.bricks.Stone;
-import units.balls.Ball;
-import units.balls.SimpleBall;
+import units.ballsAndBullets.Ball;
+import units.ballsAndBullets.SimpleBall;
 
 import java.awt.*;
 import java.io.File;

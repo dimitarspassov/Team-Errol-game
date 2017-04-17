@@ -1,4 +1,4 @@
-package units.balls;
+package units.ballsAndBullets;
 
 
 import game.Game;

@@ -1,4 +1,4 @@
-package units.balls;
+package units.ballsAndBullets;
 
 import enumerations.State;
 import game.Game;
@@ -27,7 +27,7 @@ public class SimpleBall extends AbstractBall implements Ball {
         int ballMaxY = 600 - super.getRadius();
 
 
-        // If Space is pressed-balls moves,
+        // If Space is pressed-ballsAndBullets moves,
         // otherwise stands still on platform
         if (super.isSpacePressed()) {
             this.setX(this.getX() + this.getSpeedX());
@@ -62,7 +62,7 @@ public class SimpleBall extends AbstractBall implements Ball {
                 } else if (center > fourth || (center >= third && center < fourth)) {
                     this.setSpeedX(5);
                 }
-                // Reset balls's position out of collision.
+                // Reset ballsAndBullets's position out of collision.
                 this.setY(super.getPlatform().getY() - this.getHeight());
             }
 
@@ -122,8 +122,7 @@ public class SimpleBall extends AbstractBall implements Ball {
         this.spacePressed = command;
     }
 
-    @Override
-    protected void hitBrick(Brick brick, Game game) {
+    private void hitBrick(Brick brick, Game game) {
 
 
         if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
@@ -155,7 +154,7 @@ public class SimpleBall extends AbstractBall implements Ball {
             }
             brick.hitBrick();
             if (brick.isDestroyed()) {
-                super.collectBonus(brick, game);
+                this.collectBonus(brick, game);
             }
         }
     }
@@ -194,6 +193,11 @@ public class SimpleBall extends AbstractBall implements Ball {
         }
 
         this.canDestroyStones = false;
+    }
+    private void collectBonus(Brick brick, Game game) {
+        if (brick.getBonus() != null) {
+            game.addBonus(brick.getBonus());
+        }
     }
 
 }

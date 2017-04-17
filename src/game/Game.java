@@ -5,9 +5,9 @@ import enumerations.State;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
-import units.balls.Ball;
-import units.balls.Bullet;
-import units.balls.SimpleBall;
+import units.ballsAndBullets.Ball;
+import units.bullets.Bullet;
+import units.ballsAndBullets.SimpleBall;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.bricks.Stone;
@@ -356,7 +356,7 @@ public class Game extends JFrame implements Runnable {
 
                 balls = balls.stream().filter(ball -> ball.getY() < 570).collect(Collectors.toList());
 
-                // Stop the game when all balls exit game field
+                // Stop the game when all ballsAndBullets exit game field
                 if (balls.size() == 0) {
 
                     this.lives--;
@@ -475,11 +475,11 @@ public class Game extends JFrame implements Runnable {
 
     public void pressFire(boolean b) {
         if(platform.isCanFire()){
-            Bullet bullet1 = new Bullet(platform.getX()+2*platform.getWidth()/10, platform.getY()-20, 10, 10, 20, 5, 5, platform, bricks, stones);
-            Bullet bullet2 = new Bullet(platform.getX()+7*platform.getWidth()/10, platform.getY()-20, 10, 10, 20, 5, 5, platform, bricks, stones);
+            Bullet bullet1 = new Bullet(platform.getX()+2*platform.getWidth()/10, platform.getY()-20, 10, 20, platform, bricks, stones);
+            Bullet bullet2 = new Bullet(platform.getX()+7*platform.getWidth()/10, platform.getY()-20, 10, 20, platform, bricks, stones);
             bullets.add(bullet1);
             bullets.add(bullet2);
-       }
+      }
     }
 }
 
