@@ -74,7 +74,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleBall.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimpleBall.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/units/ballsAndBullets/SimpleBall.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3162">
@@ -84,11 +84,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Game.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Game.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game/Game.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="465" column="5" lean-forward="false" selection-start-line="465" selection-start-column="5" selection-end-line="465" selection-end-column="5" />
+            <state relative-caret-position="620">
+              <caret line="481" column="4" lean-forward="false" selection-start-line="481" selection-start-column="4" selection-end-line="481" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -97,8 +97,8 @@
       <file leaf-file-name="AbstractBullet.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/units/bullets/AbstractBullet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="635">
-              <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+            <state relative-caret-position="-96">
+              <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
               <folding />
             </state>
           </provider>
@@ -117,7 +117,7 @@
       <file leaf-file-name="AbstractBall.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/units/ballsAndBullets/AbstractBall.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
+            <state relative-caret-position="329">
               <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding />
             </state>
@@ -222,7 +222,6 @@
         <option value="$PROJECT_DIR$/src/units/platform/AbstractPlatform.java" />
         <option value="$PROJECT_DIR$/src/units/platform/SimplePlatform.java" />
         <option value="$PROJECT_DIR$/src/game/GameTimer.java" />
-        <option value="$PROJECT_DIR$/src/game/Game.java" />
         <option value="$PROJECT_DIR$/src/units/balls/AbstractBall.java" />
         <option value="$PROJECT_DIR$/src/units/balls/AbstractBullet.java" />
         <option value="$PROJECT_DIR$/src/units/balls/Bullet.java" />
@@ -232,6 +231,7 @@
         <option value="$PROJECT_DIR$/src/units/ballsAndBullets/Bullet.java" />
         <option value="$PROJECT_DIR$/src/units/bullets/Bulletable.java" />
         <option value="$PROJECT_DIR$/src/units/bullets/AbstractBullet.java" />
+        <option value="$PROJECT_DIR$/src/game/Game.java" />
       </list>
     </option>
   </component>
@@ -1085,7 +1085,7 @@
       <workItem from="1492249190668" duration="2537000" />
       <workItem from="1492266335066" duration="2816000" />
       <workItem from="1492276238703" duration="727000" />
-      <workItem from="1492457136205" duration="1919000" />
+      <workItem from="1492457136205" duration="2094000" />
     </task>
     <task id="LOCAL-00001" summary="Brick class creation">
       <created>1486077974663</created>
@@ -1133,7 +1133,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="133525000" />
+    <option name="totallyTimeSpent" value="133700000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -1491,21 +1491,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/units/ballsAndBullets/AbstractBall.java">
+    <entry file="file://$PROJECT_DIR$/src/units/ballsAndBullets/SimpleBall.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        <state relative-caret-position="3162">
+          <caret line="196" column="11" lean-forward="false" selection-start-line="196" selection-start-column="11" selection-end-line="196" selection-end-column="11" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/units/bullets/Bullet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1519,26 +1509,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/units/bullets/Bullet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="13" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/units/ballsAndBullets/AbstractBall.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="329">
+          <caret line="82" column="0" lean-forward="true" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/units/bullets/AbstractBullet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="635">
-          <caret line="67" column="0" lean-forward="true" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
+        <state relative-caret-position="-96">
+          <caret line="15" column="23" lean-forward="true" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/Game.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="465" column="5" lean-forward="false" selection-start-line="465" selection-start-column="5" selection-end-line="465" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/units/ballsAndBullets/SimpleBall.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3162">
-          <caret line="196" column="11" lean-forward="false" selection-start-line="196" selection-start-column="11" selection-end-line="196" selection-end-column="11" />
+        <state relative-caret-position="620">
+          <caret line="481" column="4" lean-forward="false" selection-start-line="481" selection-start-column="4" selection-end-line="481" selection-end-column="4" />
           <folding />
         </state>
       </provider>

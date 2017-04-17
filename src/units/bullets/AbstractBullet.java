@@ -7,7 +7,7 @@ import units.platform.Platform;
 
 import java.awt.*;
 
-public abstract class AbstractBullet {
+public abstract class AbstractBullet implements Bulletable {
 
     private int radius;
     private int x;
