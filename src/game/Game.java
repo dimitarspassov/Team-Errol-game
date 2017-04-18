@@ -36,16 +36,13 @@ public class Game extends JFrame implements Runnable {
     private boolean unitsInitialized;
 
     private static byte currentLevel = 1;
-
-    public static boolean levelSwitched;
-
-    public static Highscores highScores;
+    private boolean levelSwitched;
+    private Highscores highScores;
 
     private SoundLoader soundLoader;
+
     private BufferStrategy bs;
     private Graphics graphics;
-
-
     private Thread thread;
     private boolean isRunning;
     private GameTimer gameTimer;
@@ -143,7 +140,6 @@ public class Game extends JFrame implements Runnable {
             UnitLoader.prepareUnitForDrawing(this.graphics, this.player.getPlatform());
             UnitLoader.renderMovableObjects(this.player.getBalls(), graphics);
             UnitLoader.renderMovableObjects(this.player.getBullets(), graphics);
-
 
             // Draw the bricks
             score -= levelScore;
@@ -431,5 +427,13 @@ public class Game extends JFrame implements Runnable {
 
     public void setBonusPoints(int bonusPoints) {
         this.bonusPoints = bonusPoints;
+    }
+
+    public Highscores getHighScores() {
+        return this.highScores;
+    }
+
+    public void switchLevel(boolean state) {
+        this.levelSwitched = state;
     }
 }

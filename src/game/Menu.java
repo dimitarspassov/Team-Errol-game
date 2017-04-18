@@ -46,7 +46,7 @@ public class Menu {
 
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_GAME_OVER), 250, 100, 300, 50, null);
 
-            if (Game.highScores.sortScores().size() < 10 || (Game.highScores.sortScores().size() == 10 && Game.lastResult > Game.highScores.getMinResult())) {
+            if (game.getHighScores().sortScores().size() < 10 || (game.getHighScores().sortScores().size() == 10 && Game.lastResult > game.getHighScores().getMinResult())) {
                 if (Game.lastResult > 0) {
                     g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_ADD_SCORE), 300, 200, 200, 50, null);
                     g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_NEW_HIGHSCORE), 550, 200, 282, 204, null);
@@ -58,7 +58,7 @@ public class Menu {
         } else if (this.game.getGameState() == State.WIN) {
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_WINNER), 250, 100, 300, 50, null);
 
-            if (Game.highScores.sortScores().size() < 10 || (Game.highScores.sortScores().size() == 10 && Game.lastResult > Game.highScores.getMinResult())) {
+            if (game.getHighScores().sortScores().size() < 10 || (game.getHighScores().sortScores().size() == 10 && Game.lastResult > game.getHighScores().getMinResult())) {
                 if (Game.lastResult > 0) {
                     g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_ADD_SCORE), 300, 200, 200, 50, null);
                     g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_NEW_HIGHSCORE), 550, 200, 282, 204, null);
@@ -79,7 +79,7 @@ public class Menu {
 
         } else if (this.game.getGameState() == State.HIGHSCORES) {
 
-            ArrayList<String> table = Game.highScores.sortScores();
+            ArrayList<String> table = game.getHighScores().sortScores();
 
             if (table.isEmpty()) {
 
