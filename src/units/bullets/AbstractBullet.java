@@ -1,15 +1,15 @@
 package units.bullets;
 
 
+import units.Moveable;
 import units.bricks.Brick;
 import units.bricks.Stone;
 import units.platform.Platform;
 
 import java.awt.*;
 
-public abstract class AbstractBullet implements Bulletable {
+public abstract class AbstractBullet implements  Moveable {
 
-    private int radius;
     private int x;
     private int y;
     private int width;

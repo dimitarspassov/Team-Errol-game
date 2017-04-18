@@ -1,4 +1,4 @@
-package units.ballsAndBullets;
+package units.balls;
 
 
 import units.bricks.Brick;

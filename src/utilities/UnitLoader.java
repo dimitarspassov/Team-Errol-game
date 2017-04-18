@@ -5,13 +5,14 @@ import annotations.LevelClass;
 import enumerations.BonusType;
 import game.Game;
 import levels.Level;
+import units.Moveable;
 import units.bullets.Bullet;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.platform.Platform;
 import units.bricks.Stone;
-import units.ballsAndBullets.Ball;
-import units.ballsAndBullets.SimpleBall;
+import units.balls.Ball;
+import units.balls.SimpleBall;
 
 import java.awt.*;
 import java.io.File;
@@ -149,7 +150,7 @@ public class UnitLoader {
 
     }
 
-    public static void renderBullets(List<Bullet> bullets, Graphics graphics) {
+    public static void renderBullets(List<Moveable> bullets, Graphics graphics) {
         bullets.stream().forEach(bullet -> {
             graphics.drawImage(bullet.getImage(),
                     bullet.getX(),
