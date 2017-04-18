@@ -1,8 +1,8 @@
 package game;
 
 import enumerations.State;
-import utilities.StaticData;
 import graphics.ImageLoader;
+import utilities.StaticData;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -107,6 +107,31 @@ public class Menu {
             }
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_BACK_TO_MENU), 300, 500, 200, 50, null);
         }
+    }
 
+    public void renderWidgets(Graphics graphics, GameTimer gameTimer,int score, int currentLevel, boolean isSoundMuted) {
+        // Show player scores
+        graphics.setColor(Color.WHITE);
+        graphics.setFont(new Font("serif", Font.BOLD, 27));
+
+        game.setBonusPoints(60-gameTimer.getCounter());
+        if (currentLevel == 1 || currentLevel == 2) {
+            this.game.displayBonusPointsUsingTimer();
+        } else {
+            game.setBonusPoints(120 - gameTimer.getCounter());
+            this.game.displayBonusPointsUsingTimer();
+        }
+        game.setLastBonusPoints();
+
+        graphics.drawString("Score: " + score, 620, 30);
+        graphics.drawString("Lives: " + this.game.getPlayer().getLives(), 300, 30);
+
+
+        // Draw image for state of sound
+        if (isSoundMuted) {
+            graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_MUTE), 740, 50, 40, 40, null);
+        } else {
+            graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_SOUND), 740, 50, 40, 40, null);
+        }
     }
 }

@@ -1,14 +1,14 @@
 package units.bullets;
 
 
-import units.Moveable;
+import units.Movable;
 import units.bricks.Brick;
 import units.bricks.Stone;
 import units.platform.Platform;
 
 import java.awt.*;
 
-public abstract class AbstractBullet implements  Moveable {
+public abstract class AbstractBullet implements Movable {
 
     private int x;
     private int y;

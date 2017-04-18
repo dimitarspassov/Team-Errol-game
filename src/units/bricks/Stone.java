@@ -3,7 +3,6 @@ package units.bricks;
 import utilities.StaticData;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Stone extends AbstractBrick {
 
@@ -15,7 +14,6 @@ public class Stone extends AbstractBrick {
 
     @Override
     public void hitBrick() {
-            //todo:What happens when a stone is hit?
     }
 
 }

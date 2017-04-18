@@ -5,14 +5,9 @@ import enumerations.State;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
-import units.Moveable;
-import units.balls.Ball;
-import units.bullets.Bullet;
-import units.balls.SimpleBall;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.bricks.Stone;
-import units.platform.Platform;
 import units.platform.SimplePlatform;
 import utilities.StaticData;
 import utilities.UnitLoader;
@@ -21,8 +16,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 //By far the most complex component of our project. This is the game itself.
 
@@ -34,9 +27,6 @@ public class Game extends JFrame implements Runnable {
     private int width, height;
 
     private Display display;
-    private Platform platform;
-    private List<Ball> balls;
-    private List<Moveable> bullets;
     private static boolean isGamePaused;
     private static boolean isSoundMuted;
     private Brick[] bricks;
@@ -55,9 +45,6 @@ public class Game extends JFrame implements Runnable {
     private BufferStrategy bs;
     private Graphics graphics;
 
-    public void addBonus(Bonus bonus) {
-        this.bonuses.add(bonus);
-    }
 
     private Thread thread;
     private boolean isRunning;
@@ -69,16 +56,15 @@ public class Game extends JFrame implements Runnable {
     static long lastBonusPoints;
     private int score;
     private int levelScore;
-    private int lives;
     private State state;
 
     private boolean isTimerRunning;
     private boolean hasPauseBeenPressed;
     private long bonusPoints;
 
+    private Player player;
 
     public Game(String name, int width, int height) {
-
         this.name = name;
         this.width = width;
         this.height = height;
@@ -86,7 +72,7 @@ public class Game extends JFrame implements Runnable {
     }
 
     public void liveUp() {
-        this.lives++;
+        this.player.increaseLives();
     }
 
     private void initialization() {
@@ -94,7 +80,6 @@ public class Game extends JFrame implements Runnable {
         this.display = new Display(name, width, height);
         this.addKeyListener(new InputHandler(this.display.getCanvas(), this));
         this.menu = new Menu(this);
-        this.lives = 3;
         this.addMouseListener(new MouseInput(this.display.getCanvas(), this));
         currentLevel = 1;
         levelSwitched = true;
@@ -111,9 +96,9 @@ public class Game extends JFrame implements Runnable {
     private void thick() {
 
         if (this.state == State.GAME && unitsInitialized) {
-            this.platform.thick();
-            balls.stream().forEach(b -> b.move(this));
-            bullets.stream().forEach(b -> b.move(this));
+            this.player.getPlatform().thick();
+            this.player.getBalls().stream().forEach(b -> b.move(this));
+            this.player.getBullets().stream().forEach(b -> b.move(this));
         }
 
     }
@@ -136,21 +121,15 @@ public class Game extends JFrame implements Runnable {
             if (currentLevel == 1) {
                 score = 0;
                 levelScore = 0;
-                this.lives = 3;
             }
             levelSwitched = false;
-
             this.bricks = UnitLoader.getBricks(currentLevel);
             this.bricksRemaining = this.bricks.length;
-            this.platform = new SimplePlatform(350, 550, 100, 20, 12);
             this.stones = UnitLoader.getStones(currentLevel);
-            this.balls = new ArrayList<>();
-            this.bullets = new ArrayList<>();
-            balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
-            balls.get(0).pressSpace(false);
             levelScore = 0;
-            //this.gameTimer.setStartTime(System.currentTimeMillis());
             unitsInitialized = true;
+            this.player = new Player(new SimplePlatform(350, 550, 100, 20, 12));
+            this.player.init(bricks, stones);
         }
 
         soundLoader.playBackgroundMusic(isSoundMuted);
@@ -160,16 +139,11 @@ public class Game extends JFrame implements Runnable {
             BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
 
             //Creating the platform
-            this.platform.render(graphics);
-            this.graphics.drawImage(platform.getImage(),
-                    platform.getX(),
-                    platform.getY(),
-                    platform.getWidth(),
-                    platform.getHeight(), null);
+            this.player.getPlatform().render(graphics);
+            UnitLoader.prepareUnitForDrawing(this.graphics, this.player.getPlatform());
+            UnitLoader.renderMovableObjects(this.player.getBalls(), graphics);
+            UnitLoader.renderMovableObjects(this.player.getBullets(), graphics);
 
-
-            UnitLoader.renderBalls(balls, graphics);
-            UnitLoader.renderBullets(this.bullets, graphics);
 
             // Draw the bricks
             score -= levelScore;
@@ -185,8 +159,7 @@ public class Game extends JFrame implements Runnable {
                 } else {
                     // Else, draw the bricks.
                     if (this.bricksRemaining != 0) {
-                        this.graphics.drawImage(brick.getImage(), brick.getX(), brick.getY(),
-                                brick.getWidth(), brick.getHeight(), this);
+                        UnitLoader.prepareUnitForDrawing(this.graphics, brick);
                     }
                 }
             }
@@ -194,42 +167,17 @@ public class Game extends JFrame implements Runnable {
 
             if (stones != null) {
                 for (Stone stone : this.stones) {
-                    this.graphics.drawImage(stone.getImage(), stone.getX(), stone.getY(),
-                            stone.getWidth(), stone.getHeight(), this);
+                    UnitLoader.prepareUnitForDrawing(this.graphics, stone);
                 }
             }
+
             //Bonuses
-
             if (bonuses != null) {
-                UnitLoader.renderBonuses(this.bonuses, balls, bricks, stones, this.platform, this.graphics,this);
+                UnitLoader.renderBonuses(this.bonuses, this.player.getBalls(), bricks, stones, this.player.getPlatform(), this.graphics, this);
             }
-
 
             lastResult = score;
-            // Show player scores
-            this.graphics.setColor(Color.WHITE);
-            this.graphics.setFont(new Font("serif", Font.BOLD, 27));
-
-            this.bonusPoints = 60 - this.gameTimer.getCounter();
-
-            if (currentLevel == 1 || currentLevel == 2) {
-                displayBonusPointsUsingTimer();
-            } else {
-                this.bonusPoints = 120 - this.gameTimer.getCounter();
-                displayBonusPointsUsingTimer();
-            }
-            lastBonusPoints = bonusPoints;
-
-            this.graphics.drawString("Score: " + score, 620, 30);
-            this.graphics.drawString("Lives: " + this.lives, 300, 30);
-
-
-            // Draw image for state of sound
-            if (isSoundMuted) {
-                this.graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_MUTE), 740, 50, 40, 40, null);
-            } else {
-                this.graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_SOUND), 740, 50, 40, 40, null);
-            }
+            this.menu.renderWidgets(graphics, gameTimer, score, currentLevel, isSoundMuted);
 
         } else if (this.state == State.PAUSE) {
             // Draw buttons when user is paused the game
@@ -248,14 +196,13 @@ public class Game extends JFrame implements Runnable {
         this.bs.show();
     }
 
-    private void displayBonusPointsUsingTimer() {
+    public void displayBonusPointsUsingTimer() {
         if (bonusPoints >= 0) {
 
             if (!isGamePaused) {
-                if(!hasPauseBeenPressed){
+                if (!hasPauseBeenPressed) {
                     this.graphics.drawString((String.format("Bonus Points: %d", bonusPoints)), 30, 30);
-                }
-                else {
+                } else {
                     if (!isTimerRunning) {
                         gameTimer.startTimer();
                         isTimerRunning = true;
@@ -264,7 +211,7 @@ public class Game extends JFrame implements Runnable {
 
                 }
 
-            }  else {
+            } else {
                 gameTimer.pauseTimer();
 
                 this.graphics.drawString((String.format("Bonus Points: %d",
@@ -331,7 +278,6 @@ public class Game extends JFrame implements Runnable {
                     }
                 }
 
-
                 currentLevel++;
                 levelSwitched = true;
                 if (currentLevel > MAX_LEVEL) {
@@ -355,21 +301,19 @@ public class Game extends JFrame implements Runnable {
 
             if (this.state == State.GAME && unitsInitialized) {
 
-                balls = balls.stream().filter(ball -> ball.getY() < 570).collect(Collectors.toList());
+                this.player.removeFallenBalls();
 
                 // Stop the game when all ballsAndBullets exit game field
-                if (balls.size() == 0) {
+                if (this.player.getBalls().size() == 0) {
 
-                    this.lives--;
-
-                    if (lives == 0) {
+                    this.player.decreaseLives();
+                    if (this.player.getLives() == 0) {
                         this.state = State.GAME_OVER;
                         levelSwitched = true;
                         this.initLevel();
                         currentLevel = 1;
                     } else {
-                        this.platform = new SimplePlatform(350, 550, 100, 20, 12);
-                        balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+                        this.player.init(this.bricks, this.stones);
                         this.pressSpace(false);
                     }
                 }
@@ -380,8 +324,7 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void initLevel() {
-        balls = new ArrayList<>();
-        balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+        this.player.init(this.bricks, this.stones);
         this.bonuses = new ArrayList<>();
         gameTimer.stopTimer();
         if (isTimerRunning) {
@@ -459,28 +402,34 @@ public class Game extends JFrame implements Runnable {
     }
 
     public void pressSpace(boolean command) {
-        this.balls.forEach(b -> b.pressSpace(command));
+        this.player.getBalls().forEach(b -> b.pressSpace(command));
         if (!isTimerRunning) {
             gameTimer.startTimer();
             isTimerRunning = true;
         }
     }
 
-    public Platform getPlatform() {
-        return this.platform;
-    }
-
     public StringBuilder getPlayerName() {
         return this.playerName;
     }
 
-    public void pressFire(boolean b) {
-        if(platform.isCanFire()){
-            Bullet bullet1 = new Bullet(platform.getX()+2*platform.getWidth()/10, platform.getY()-20, 10, 20, platform, bricks, stones);
-            Bullet bullet2 = new Bullet(platform.getX()+7*platform.getWidth()/10, platform.getY()-20, 10, 20, platform, bricks, stones);
-            bullets.add(bullet1);
-            bullets.add(bullet2);
-      }
+    public void pressFire() {
+        this.player.fireFromPlatform(this.bricks, this.stones);
+    }
+
+    public Player getPlayer() {
+        return this.player;
+    }
+
+    public void setLastBonusPoints() {
+        lastBonusPoints = this.bonusPoints;
+    }
+
+    public void addBonus(Bonus bonus) {
+        this.bonuses.add(bonus);
+    }
+
+    public void setBonusPoints(int bonusPoints) {
+        this.bonusPoints = bonusPoints;
     }
 }
-

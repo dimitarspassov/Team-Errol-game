@@ -46,7 +46,7 @@ public class InputHandler implements KeyListener {
         }
         // Press "Z" to start fire
         if (code == KeyEvent.VK_Z) {
-            game.pressFire(true);
+            game.pressFire();
         }
 
         // Press Escape to pause the game
@@ -56,11 +56,11 @@ public class InputHandler implements KeyListener {
 
         //Implementing platform's moving
         if (code == KeyEvent.VK_RIGHT) {
-            game.getPlatform().moveRight(true);
-            game.getPlatform().moveLeft(false);
+            game.getPlayer().getPlatform().moveRight(true);
+            game.getPlayer().getPlatform().moveLeft(false);
         } else if (code == KeyEvent.VK_LEFT) {
-            game.getPlatform().moveRight(false);
-            game.getPlatform().moveLeft(true);
+            game.getPlayer().getPlatform().moveRight(false);
+            game.getPlayer().getPlatform().moveLeft(true);
         }
     }
 
@@ -69,13 +69,11 @@ public class InputHandler implements KeyListener {
         int code = e.getKeyCode();
 
         if (code == KeyEvent.VK_RIGHT) {
-            game.getPlatform().moveRight(false);
-            game.getPlatform().moveLeft(false);
+            game.getPlayer().getPlatform().moveRight(false);
+            game.getPlayer().getPlatform().moveLeft(false);
         } else if (code == KeyEvent.VK_LEFT) {
-            game.getPlatform().moveRight(false);
-            game.getPlatform().moveLeft(false);
+            game.getPlayer().getPlatform().moveRight(false);
+            game.getPlayer().getPlatform().moveLeft(false);
         }
     }
-
-
 }

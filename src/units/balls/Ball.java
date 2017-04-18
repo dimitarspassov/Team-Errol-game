@@ -2,9 +2,9 @@ package units.balls;
 
 
 
-import units.Moveable;
+import units.Movable;
 
-public interface Ball extends  Moveable {
+public interface Ball extends Movable {
 
     int getRadius();
 

@@ -5,14 +5,14 @@ import annotations.LevelClass;
 import enumerations.BonusType;
 import game.Game;
 import levels.Level;
-import units.Moveable;
-import units.bullets.Bullet;
-import units.bonuses.Bonus;
-import units.bricks.Brick;
-import units.platform.Platform;
-import units.bricks.Stone;
+import units.GameUnit;
+import units.Movable;
 import units.balls.Ball;
 import units.balls.SimpleBall;
+import units.bonuses.Bonus;
+import units.bricks.Brick;
+import units.bricks.Stone;
+import units.platform.Platform;
 
 import java.awt.*;
 import java.io.File;
@@ -21,20 +21,11 @@ import java.util.List;
 
 public class UnitLoader {
 
-    public static void renderBalls(List<Ball> balls, Graphics graphics) {
-
-        balls.stream().forEach(ball -> {
-            graphics.drawImage(ball.getImage(),
-                    ball.getX(),
-                    ball.getY(),
-                    ball.getWidth(),
-                    ball.getHeight(), null);
-        });
-
+    public static <T extends Movable> void renderMovableObjects(List<T> balls, Graphics graphics) {
+        balls.stream().forEach(movable ->prepareUnitForDrawing(graphics,movable));
     }
 
     public static void renderBonuses(ArrayList<Bonus> bonuses, List<Ball> balls, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics, Game game) {
-
 
         for (Bonus bonus : bonuses) {
             if (bonus.getStatus()) {
@@ -149,14 +140,11 @@ public class UnitLoader {
         return currentLevel;
 
     }
-
-    public static void renderBullets(List<Moveable> bullets, Graphics graphics) {
-        bullets.stream().forEach(bullet -> {
-            graphics.drawImage(bullet.getImage(),
-                    bullet.getX(),
-                    bullet.getY(),
-                    bullet.getWidth(),
-                    bullet.getHeight(), null);
-        });
+    public static void prepareUnitForDrawing(Graphics graphics, GameUnit unit) {
+        graphics.drawImage(unit.getImage(),
+                unit.getX(),
+                unit.getY(),
+                unit.getWidth(),
+                unit.getHeight(), null);
     }
 }
