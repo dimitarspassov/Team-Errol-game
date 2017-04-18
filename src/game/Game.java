@@ -9,6 +9,7 @@ import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.bricks.Stone;
 import units.platform.SimplePlatform;
+import utilities.ScoreCounter;
 import utilities.StaticData;
 import utilities.UnitLoader;
 
@@ -18,14 +19,12 @@ import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 
 //By far the most complex component of our project. This is the game itself.
-
 public class Game extends JFrame implements Runnable {
 
     private static final byte MAX_LEVEL = 10;
 
     private String name;
     private int width, height;
-
     private Display display;
     private static boolean isGamePaused;
     private static boolean isSoundMuted;
@@ -34,42 +33,30 @@ public class Game extends JFrame implements Runnable {
     private ArrayList<Bonus> bonuses;
     private int bricksRemaining;
     private boolean unitsInitialized;
-
     private static byte currentLevel = 1;
     private boolean levelSwitched;
     private Highscores highScores;
-
     private SoundLoader soundLoader;
-
     private BufferStrategy bs;
     private Graphics graphics;
     private Thread thread;
     private boolean isRunning;
     private GameTimer gameTimer;
     private StringBuilder playerName;
-
     private Menu menu;
-    static int lastResult;
-    static long lastBonusPoints;
-    private int score;
-    private int levelScore;
     private State state;
-
     private boolean isTimerRunning;
     private boolean hasPauseBeenPressed;
-    private long bonusPoints;
-
+    private int bonusPoints;
     private Player player;
+    private ScoreCounter scoreCounter;
 
     public Game(String name, int width, int height) {
         this.name = name;
         this.width = width;
         this.height = height;
         this.state = State.MENU;
-    }
-
-    public void liveUp() {
-        this.player.increaseLives();
+        this.scoreCounter = new ScoreCounter();
     }
 
     private void initialization() {
@@ -88,20 +75,19 @@ public class Game extends JFrame implements Runnable {
         this.gameTimer = new GameTimer();
         this.soundLoader = new SoundLoader(this);
         soundLoader.playBackgroundMusic(false);
+        this.player = new Player(new SimplePlatform(350, 550, 100, 20, 12),new ScoreCounter());
     }
 
     private void thick() {
 
         if (this.state == State.GAME && unitsInitialized) {
             this.player.getPlatform().thick();
-            this.player.getBalls().stream().forEach(b -> b.move(this));
-            this.player.getBullets().stream().forEach(b -> b.move(this));
+            this.player.getBalls().forEach(b -> b.move(this));
+            this.player.getBullets().forEach(b -> b.move(this));
         }
-
     }
 
     private void render() {
-
 
         //This is the buffered strategy. We get it from the canvas. If it is null, we set it with 2 buffers.
         //We can change it later.
@@ -115,18 +101,14 @@ public class Game extends JFrame implements Runnable {
         this.graphics = this.bs.getDrawGraphics();
 
         if (levelSwitched) {
-            if (currentLevel == 1) {
-                score = 0;
-                levelScore = 0;
-            }
             levelSwitched = false;
             this.bricks = UnitLoader.getBricks(currentLevel);
             this.bricksRemaining = this.bricks.length;
             this.stones = UnitLoader.getStones(currentLevel);
-            levelScore = 0;
-            unitsInitialized = true;
-            this.player = new Player(new SimplePlatform(350, 550, 100, 20, 12));
+            //this.player = new Player(new SimplePlatform(350, 550, 100, 20, 12), scoreCounter);
             this.player.init(bricks, stones);
+            this.player.getScoreCounter().resetLevelScore();
+            unitsInitialized = true;
         }
 
         soundLoader.playBackgroundMusic(isSoundMuted);
@@ -141,26 +123,7 @@ public class Game extends JFrame implements Runnable {
             UnitLoader.renderMovableObjects(this.player.getBalls(), graphics);
             UnitLoader.renderMovableObjects(this.player.getBullets(), graphics);
 
-            // Draw the bricks
-            score -= levelScore;
-            levelScore = 0;
-            this.bricksRemaining = this.bricks.length;
-            for (Brick brick : this.bricks) {
-
-                // If bricks is destroyed, continue to next bricks.
-                if (brick.isDestroyed()) {
-                    // Increment player scores
-                    levelScore += 5;
-                    this.bricksRemaining--;
-                } else {
-                    // Else, draw the bricks.
-                    if (this.bricksRemaining != 0) {
-                        UnitLoader.prepareUnitForDrawing(this.graphics, brick);
-                    }
-                }
-            }
-            score += levelScore;
-
+            this.bricksRemaining = this.player.getScoreCounter().getRemainingBricks(bricks, graphics);
             if (stones != null) {
                 for (Stone stone : this.stones) {
                     UnitLoader.prepareUnitForDrawing(this.graphics, stone);
@@ -172,8 +135,8 @@ public class Game extends JFrame implements Runnable {
                 UnitLoader.renderBonuses(this.bonuses, this.player.getBalls(), bricks, stones, this.player.getPlatform(), this.graphics, this);
             }
 
-            lastResult = score;
-            this.menu.renderWidgets(graphics, gameTimer, score, currentLevel, isSoundMuted);
+            this.player.getScoreCounter().setLastResult(this.player.getScoreCounter().getScore());
+            this.menu.renderWidgets(graphics, gameTimer, this.player.getScoreCounter().getScore(), currentLevel, isSoundMuted);
 
         } else if (this.state == State.PAUSE) {
             // Draw buttons when user is paused the game
@@ -192,9 +155,8 @@ public class Game extends JFrame implements Runnable {
         this.bs.show();
     }
 
-    public void displayBonusPointsUsingTimer() {
+    void displayBonusPointsUsingTimer() {
         if (bonusPoints >= 0) {
-
             if (!isGamePaused) {
                 if (!hasPauseBeenPressed) {
                     this.graphics.drawString((String.format("Bonus Points: %d", bonusPoints)), 30, 30);
@@ -204,7 +166,6 @@ public class Game extends JFrame implements Runnable {
                         isTimerRunning = true;
                     }
                     this.graphics.drawString((String.format("Bonus Points: %d", bonusPoints)), 30, 30);
-
                 }
 
             } else {
@@ -250,27 +211,21 @@ public class Game extends JFrame implements Runnable {
             }
             render();
 
-
             if (this.bricksRemaining == 0 && this.state == State.GAME && unitsInitialized) {
-
+                //todo: AVOID DUPLICATED CODE!
                 //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
                 if (currentLevel == 1 || currentLevel == 2) {
                     if (this.gameTimer.getCounter() / 60 < 1) {
-                        long bonusPointsFromTimer = 60 - (this.gameTimer.getCounter() % 60);
-
-                        this.score += bonusPointsFromTimer;
-                        lastBonusPoints = bonusPointsFromTimer;
-
+                        int bonusPointsFromTimer = 60 - (this.gameTimer.getCounter() % 60);
+                        this.player.getScoreCounter().setScore(this.player.getScoreCounter().getScore() + bonusPointsFromTimer);
                     }
 
                     //Other levels should be passed for less than 2 minutes to get bonus points
                 } else {
                     if (this.gameTimer.getCounter() / 60 < 2) {
-                        long bonusPointsFromTimer = 60 - (this.gameTimer.getCounter() % 60);
-                        //this.graphics.drawString("Bonus Points: " + bonusPointsFromTimer, 30, 30);
-                        this.score += bonusPointsFromTimer;
-                        lastBonusPoints = bonusPointsFromTimer;
+                        int bonusPointsFromTimer = 60 - (this.gameTimer.getCounter() % 60);
+                        this.player.getScoreCounter().setScore(this.player.getScoreCounter().getScore() + bonusPointsFromTimer);
                     }
                 }
 
@@ -381,7 +336,6 @@ public class Game extends JFrame implements Runnable {
     }
 
     static void setCurrentLevel(byte level) {
-
         currentLevel = level;
     }
 
@@ -389,7 +343,7 @@ public class Game extends JFrame implements Runnable {
         return this.state;
     }
 
-    public void setState(State state) {
+    void setState(State state) {
         this.state = state;
     }
 
@@ -397,7 +351,7 @@ public class Game extends JFrame implements Runnable {
         this.soundLoader.playSound(fileName);
     }
 
-    public void pressSpace(boolean command) {
+    void pressSpace(boolean command) {
         this.player.getBalls().forEach(b -> b.pressSpace(command));
         if (!isTimerRunning) {
             gameTimer.startTimer();
@@ -405,35 +359,39 @@ public class Game extends JFrame implements Runnable {
         }
     }
 
-    public StringBuilder getPlayerName() {
+    StringBuilder getPlayerName() {
         return this.playerName;
     }
 
-    public void pressFire() {
+    void pressFire() {
         this.player.fireFromPlatform(this.bricks, this.stones);
     }
 
-    public Player getPlayer() {
+    Player getPlayer() {
         return this.player;
     }
 
-    public void setLastBonusPoints() {
-        lastBonusPoints = this.bonusPoints;
+    void setLastBonusPoints() {
+        this.player.getScoreCounter().setLastBonusPoints(this.bonusPoints);
     }
 
     public void addBonus(Bonus bonus) {
         this.bonuses.add(bonus);
     }
 
-    public void setBonusPoints(int bonusPoints) {
+    void setBonusPoints(int bonusPoints) {
         this.bonusPoints = bonusPoints;
     }
 
-    public Highscores getHighScores() {
+    Highscores getHighScores() {
         return this.highScores;
     }
 
-    public void switchLevel(boolean state) {
+    void switchLevel(boolean state) {
         this.levelSwitched = state;
     }
+    public void liveUp() {
+        this.player.increaseLives();
+    }
+
 }

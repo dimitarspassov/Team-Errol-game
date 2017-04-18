@@ -1,8 +1,8 @@
 package sound;
 
 
-import game.Game;
 import enumerations.State;
+import game.Game;
 import utilities.StaticData;
 
 import javax.sound.sampled.*;
@@ -40,7 +40,7 @@ public class SoundLoader {
 
                 this.clip = AudioSystem.getClip();
                 clip.open(ais);
-                clip.loop(50);
+                clip.loop(60);
 
             } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
                 e.printStackTrace();

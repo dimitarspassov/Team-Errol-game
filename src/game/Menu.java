@@ -36,7 +36,7 @@ public class Menu {
             Font f1 = new Font("arial", Font.BOLD, 30);
             g.setFont(f1);
             g.drawString(String.format("Level %d completed!", --level), 250, 100);
-            g.drawString(String.format("Bonus collected: %d", Math.max(Game.lastBonusPoints, 0)), 250, 200);
+            g.drawString(String.format("Bonus collected: %d", Math.max(game.getPlayer().getScoreCounter().getLastBonusPoints(), 0)), 250, 200);
 
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_NEXT_LEVEL), 300, 300, 200, 50, null);
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_BACK_TO_MENU), 300, 400, 200, 50, null);
@@ -46,8 +46,8 @@ public class Menu {
 
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_GAME_OVER), 250, 100, 300, 50, null);
 
-            if (game.getHighScores().sortScores().size() < 10 || (game.getHighScores().sortScores().size() == 10 && Game.lastResult > game.getHighScores().getMinResult())) {
-                if (Game.lastResult > 0) {
+            if (game.getHighScores().sortScores().size() < 10 || (game.getHighScores().sortScores().size() == 10 && game.getPlayer().getScoreCounter().getLastResult() > game.getHighScores().getMinResult())) {
+                if (game.getPlayer().getScoreCounter().getLastResult() > 0) {
                     g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_ADD_SCORE), 300, 200, 200, 50, null);
                     g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_NEW_HIGHSCORE), 550, 200, 282, 204, null);
                 }
@@ -58,8 +58,8 @@ public class Menu {
         } else if (this.game.getGameState() == State.WIN) {
             g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_WINNER), 250, 100, 300, 50, null);
 
-            if (game.getHighScores().sortScores().size() < 10 || (game.getHighScores().sortScores().size() == 10 && Game.lastResult > game.getHighScores().getMinResult())) {
-                if (Game.lastResult > 0) {
+            if (game.getHighScores().sortScores().size() < 10 || (game.getHighScores().sortScores().size() == 10 && game.getPlayer().getScoreCounter().getLastResult() > game.getHighScores().getMinResult())) {
+                if (game.getPlayer().getScoreCounter().getLastResult() > 0) {
                     g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_ADD_SCORE), 300, 200, 200, 50, null);
                     g.drawImage(ImageLoader.loadImage(StaticData.BUTTON_NEW_HIGHSCORE), 550, 200, 282, 204, null);
                 }
@@ -122,11 +122,8 @@ public class Menu {
             this.game.displayBonusPointsUsingTimer();
         }
         game.setLastBonusPoints();
-
         graphics.drawString("Score: " + score, 620, 30);
         graphics.drawString("Lives: " + this.game.getPlayer().getLives(), 300, 30);
-
-
         // Draw image for state of sound
         if (isSoundMuted) {
             graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_MUTE), 740, 50, 40, 40, null);

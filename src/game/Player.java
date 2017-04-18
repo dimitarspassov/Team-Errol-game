@@ -8,6 +8,7 @@ import units.bricks.Brick;
 import units.bricks.Stone;
 import units.bullets.Bullet;
 import units.platform.Platform;
+import utilities.ScoreCounter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,20 +21,16 @@ public class Player {
     private Platform platform;
     private List<Ball> balls;
     private List<Movable> bullets;
-    //todo:Try to add the scores here
-    //    private static int lastResult;
-//    private static long lastBonusPoints;
-//    private int score;
-//    private int levelScore;
     private int lives;
+    private ScoreCounter scoreCounter;
 
-    public Player(Platform platform) {
+    public Player(Platform platform, ScoreCounter scoreCounter) {
         this.platform = platform;
         this.balls = new ArrayList<>();
         this.bullets = new ArrayList<>();
         this.lives = DEFAULT_LIVES;
+        this.scoreCounter = scoreCounter;
     }
-
 
     public Platform getPlatform() {
         return platform;
@@ -62,6 +59,8 @@ public class Player {
     }
 
     public void init(Brick[] bricks, Stone[] stones) {
+        this.balls = new ArrayList<>();
+        this.bullets = new ArrayList<>();
         this.balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
         this.balls.get(0).pressSpace(false);
     }
@@ -77,5 +76,9 @@ public class Player {
 
     public void removeFallenBalls() {
         this.balls = balls.stream().filter(ball -> ball.getY() < 570).collect(Collectors.toList());
+    }
+
+    public ScoreCounter getScoreCounter() {
+        return scoreCounter;
     }
 }

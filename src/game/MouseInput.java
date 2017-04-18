@@ -101,7 +101,7 @@ public class MouseInput implements MouseListener {
         if (this.game.getGameState() == State.GAME_OVER || this.game.getGameState() == State.WIN) {
 
 
-            if ((game.getHighScores().sortScores().size() < 10 || Game.lastResult > game.getHighScores().getMinResult()) && Game.lastResult > 0) {
+            if ((game.getHighScores().sortScores().size() < 10 || game.getPlayer().getScoreCounter().getLastResult() > game.getHighScores().getMinResult()) && game.getPlayer().getScoreCounter().getLastResult() > 0) {
                 //Add player name
                 if (buttonClicked(mX, mY, 300, 500, 200, 250)) {
                     this.game.setState(State.PLAYER_INIT);
@@ -136,7 +136,7 @@ public class MouseInput implements MouseListener {
 
                 if (game.getPlayerName().length() > 0) {
 
-                    game.getHighScores().insertPlayer(game.getPlayerName().toString(), Game.lastResult);
+                    game.getHighScores().insertPlayer(game.getPlayerName().toString(),game.getPlayer().getScoreCounter().getLastResult());
                     this.game.setState(State.HIGHSCORES);
                     game.playSound(StaticData.SOUND_BUTTON);
                 }
