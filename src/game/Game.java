@@ -60,7 +60,6 @@ public class Game extends JFrame implements Runnable {
     }
 
     private void initialization() {
-
         this.display = new Display(name, width, height);
         this.addKeyListener(new InputHandler(this.display.getCanvas(), this));
         this.menu = new Menu(this);
