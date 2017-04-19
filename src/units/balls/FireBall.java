@@ -123,35 +123,7 @@ public class FireBall extends AbstractBall implements Ball {
     }
 
     private void hitBrick(Brick brick, Game game) {
-
-
         if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
-
-            if (game.getGameState() == State.GAME) {
-                game.playSound(StaticData.SOUND_BRICK);
-            }
-            int top = this.getY();
-            int bottom = (this.getY() + this.getHeight());
-            int left = this.getX();
-            int right = (this.getX() + this.getWidth());
-
-
-            int oldDy = this.getSpeedY();
-            if (brick.getRect().contains(left, top - 1)) {
-                int dy = this.getSpeedY();
-                this.setSpeedY(dy < 0 ? -dy : dy);
-            } else if (brick.getRect().contains(left, bottom + 1)) {
-                int dy = this.getSpeedY();
-                this.setSpeedY(dy < 0 ? dy : -dy);
-            }
-
-            if (brick.getRect().contains(right + 1, top) && oldDy == this.getSpeedY()) {
-                int dx = this.getSpeedX();
-                this.setSpeedX(dx < 0 ? dx : -dx);
-            } else if (brick.getRect().contains(left - 1, top) && oldDy == this.getSpeedY()) {
-                int dx = this.getSpeedX();
-                this.setSpeedX(dx < 0 ? -dx : dx);
-            }
             brick.hitBrick();
             if (brick.isDestroyed()) {
                 this.collectBonus(brick, game);

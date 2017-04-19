@@ -63,8 +63,7 @@ public class Player {
     public void init(Brick[] bricks, Stone[] stones) {
         this.balls = new ArrayList<>();
         this.bullets = new ArrayList<>();
-        this.balls.add(new FrostBall
-                (350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+        this.balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
         this.balls.get(0).pressSpace(false);
     }
 

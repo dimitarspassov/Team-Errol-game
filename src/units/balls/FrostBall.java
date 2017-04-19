@@ -123,8 +123,6 @@ public class FrostBall extends AbstractBall implements Ball {
     }
 
     private void hitBrick(Brick brick, Game game) {
-
-
         if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
 
             if (game.getGameState() == State.GAME) {
@@ -158,6 +156,7 @@ public class FrostBall extends AbstractBall implements Ball {
             }
         }
     }
+
     public void sizeUp() {
         this.setHeight(40);
         this.setWidth(40);

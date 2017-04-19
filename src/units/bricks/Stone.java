@@ -14,7 +14,7 @@ public class Stone extends AbstractBrick {
 
     @Override
     public void hitBrick() {
-
+        this.destroy();
     }
 
 }
