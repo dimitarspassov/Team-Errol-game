@@ -71,7 +71,7 @@ public class UnitLoader {
                         //Three SimpleBall Bonus
                         List<SimpleBall> ballsNew = new ArrayList<>();
                         balls.forEach(ball -> {
-                            ballsNew.add(new SimpleBall(
+                            ballsNew.add(new SimpleBall("SimpleBall",
                                     ball.getX() + 15,
                                     ball.getY() - 15,
                                     ball.getRadius(),
@@ -81,7 +81,7 @@ public class UnitLoader {
                                     ball.getSpeedY() * -1,
                                     platform, bricks, stones));
 
-                            ballsNew.add(new SimpleBall(
+                            ballsNew.add(new SimpleBall("SimpleBall",
                                     ball.getX() - 15,
                                     ball.getY() + 15,
                                     ball.getRadius(),
@@ -102,10 +102,6 @@ public class UnitLoader {
                         game.getPlayer().setFrostBalls(bricks, stones);
                     }
                     break;
-                    case KILL:
-                        game.getPlayer().decreaseLives();
-                        game.getPlayer().init(bricks,stones);
-                        break;
                 }
             }
         }

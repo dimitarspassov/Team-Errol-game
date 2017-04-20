@@ -24,8 +24,10 @@ public abstract class AbstractBall implements Ball {
     private Platform platform;
     private Brick[] bricks;
     private Stone[] stones;
+    private String type;
 
-    protected AbstractBall(int x, int y, int radius, int width, int height, int speedX, int speedY, Platform platform, Brick[] bricks, Stone[] stones, Image image) {
+    protected AbstractBall(String type, int x, int y, int radius, int width, int height, int speedX, int speedY, Platform platform, Brick[] bricks, Stone[] stones, Image image) {
+        this.type = type;
         this.setX(x);
         this.setY(y);
         this.setRadius(radius);
@@ -44,6 +46,9 @@ public abstract class AbstractBall implements Ball {
         this.spacePressed = command;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Image getImage() {
         return image;

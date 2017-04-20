@@ -1,6 +1,5 @@
 package game;
 
-
 import units.balls.Ball;
 import units.balls.FireBall;
 import units.balls.FrostBall;
@@ -11,10 +10,13 @@ import units.bullets.Ammo;
 import units.bullets.Bullet;
 import units.platform.Platform;
 import utilities.ScoreCounter;
+import factories.UnitFactory;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static factories.UnitFactory.makeBall;
 
 public class Player {
 
@@ -70,7 +72,8 @@ public class Player {
     public void init(Brick[] bricks, Stone[] stones) {
         this.balls = new ArrayList<>();
         this.bullets = new ArrayList<>();
-        this.balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+//        this.balls.add(new SimpleBall("SimpleBall", 350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+        this.balls.add(makeBall("SimpleBall", platform, bricks, stones));
         this.balls.get(0).pressSpace(false);
         this.platform.reset();
         this.platform.canFire(false);
@@ -93,10 +96,11 @@ public class Player {
         return scoreCounter;
     }
 
+//<<<<<<< Updated upstream
     public void setFireBalls(Brick[] bricks, Stone[] stones) {
 
         List<Ball> newBalls = new ArrayList<>();
-        this.balls.forEach(ball -> newBalls.add(new FireBall(ball.getX(), ball.getY(),
+        this.balls.forEach(ball -> newBalls.add(new FireBall("FireBall", ball.getX(), ball.getY(),
                 ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
         this.balls = newBalls;
         this.balls.forEach(ball -> ball.pressSpace(true));
@@ -105,11 +109,26 @@ public class Player {
     public void setFrostBalls(Brick[] bricks, Stone[] stones) {
 
         List<Ball> newBalls = new ArrayList<>();
-        this.balls.forEach(ball -> newBalls.add(new FrostBall(ball.getX(), ball.getY(),
+        this.balls.forEach(ball -> newBalls.add(new FrostBall("FrostBall", ball.getX(), ball.getY(),
                 ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
         this.balls = newBalls;
         this.balls.forEach(ball -> ball.pressSpace(true));
     }
+//=======
+//    public void setFireBalls(Game game, Brick[] bricks, Stone[] stones) {
+//        this.balls.add(makeBall("FireBall", platform, bricks, stones));
+//
+////        this.balls.add(new FireBall("Fireball", 350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+//        //todo:Make all balls fireballs
+//    }
+//
+//    public void setFrostBalls(Game game, Brick[] bricks, Stone[] stones) {
+//        this.balls.add(makeBall("FrostBall", platform, bricks, stones));
+//
+////        this.balls.add(new FrostBall("Frostball", 350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+//        //todo:Make all balls frostballs
+//>>>>>>> Stashed changes
+//    }
 
     public void resetLives() {
         this.lives = DEFAULT_LIVES;
