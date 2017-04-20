@@ -54,6 +54,12 @@ public class BonusImpl implements Bonus {
                 setImage(new ImageIcon(
                         this.getClass().getResource(StaticData.LIVE_UP)).getImage());
                 break;
+            case FIRE_BALL:
+                setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_FIREBALL_BONUS)).getImage());
+                break;
+            case FROST_BALL:
+                setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_FROSTBALL_BONUS)).getImage());
+                break;
 
         }
 

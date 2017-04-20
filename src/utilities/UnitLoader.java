@@ -8,6 +8,8 @@ import levels.Level;
 import units.GameUnit;
 import units.Movable;
 import units.balls.Ball;
+import units.balls.FireBall;
+import units.balls.FrostBall;
 import units.balls.SimpleBall;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
@@ -22,7 +24,7 @@ import java.util.List;
 public class UnitLoader {
 
     public static <T extends Movable> void renderMovableObjects(List<T> balls, Graphics graphics) {
-        balls.stream().forEach(movable ->prepareUnitForDrawing(graphics,movable));
+        balls.stream().forEach(movable -> prepareUnitForDrawing(graphics, movable));
     }
 
     public static void renderBonuses(ArrayList<Bonus> bonuses, List<Ball> balls, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics, Game game) {
@@ -94,6 +96,26 @@ public class UnitLoader {
                         balls.addAll(ballsNew);
                         balls.forEach(b -> b.pressSpace(true));
                         break;
+                    case FIRE_BALL: {
+                        List<Ball> newBalls = new ArrayList<>();
+                        balls.stream().forEach(b -> newBalls.add(new FireBall(
+                                b.getX(), b.getY(), b.getRadius(), b.getWidth(),
+                                game.getHeight(), b.getSpeedX(), b.getSpeedY(), platform, bricks, stones)));
+                        balls = null;
+                        System.out.println("null");
+                        balls = newBalls;
+                    }
+                    break;
+                    case FROST_BALL: {
+                        List<Ball> newBalls = new ArrayList<>();
+                        balls.stream().forEach(b -> newBalls.add(new FrostBall(
+                                b.getX(), b.getY(), b.getRadius(), b.getWidth(),
+                                game.getHeight(), b.getSpeedX(), b.getSpeedY(), platform, bricks, stones)));
+                        balls = null;
+                        System.out.println("null");
+                        balls = newBalls;
+                    }
+                    break;
                 }
             }
         }
@@ -140,6 +162,7 @@ public class UnitLoader {
         return currentLevel;
 
     }
+
     public static void prepareUnitForDrawing(Graphics graphics, GameUnit unit) {
         graphics.drawImage(unit.getImage(),
                 unit.getX(),

@@ -22,6 +22,7 @@ public abstract class AbstractPlatform implements Platform {
         this.setPlatformHeight(platformHeight);
         this.setVelocity(velocity);
         this.setImage(image);
+        //todo:Remove unnecessary setters!
     }
 
 
@@ -109,5 +110,14 @@ public abstract class AbstractPlatform implements Platform {
 
     private void setVelocity(int velocity) {
         this.velocity = velocity;
+    }
+
+    @Override
+    public void reset() {
+        this.setPlatformX(350);
+        this.setPlatformY(550);
+        this.setPlatformWidth(100);
+        this.setPlatformHeight(20);
+        this.setVelocity(12);
     }
 }

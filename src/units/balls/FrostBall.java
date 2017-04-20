@@ -22,6 +22,7 @@ public class FrostBall extends AbstractBall implements Ball {
     }
 
     public void move(Game game) {
+        System.out.println("this is frostball");
         int ballMinX = super.getRadius();
         int ballMaxX = 800 - super.getRadius();
         int ballMaxY = 600 - super.getRadius();

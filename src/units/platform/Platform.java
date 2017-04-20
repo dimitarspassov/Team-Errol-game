@@ -28,4 +28,6 @@ public interface Platform extends GameUnit {
     void canFire(boolean b);
 
     boolean isCanFire();
+
+    void reset();
 }
