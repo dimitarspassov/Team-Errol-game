@@ -9,7 +9,6 @@ import sound.SoundLoader;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.bricks.Stone;
-import units.platform.SimplePlatform;
 import utilities.ScoreCounter;
 import utilities.StaticData;
 import utilities.UnitLoader;
@@ -18,8 +17,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
-
-import static factories.UnitFactory.makeDefaultPlatform;
 
 //By far the most complex component of our project. This is the game itself.
 public class Game extends JFrame implements Runnable {
@@ -79,7 +76,7 @@ public class Game extends JFrame implements Runnable {
         this.gameTimer = new GameTimer();
         this.soundLoader = new SoundLoader(this);
         soundLoader.playBackgroundMusic(false);
-        this.player = new Player(makeDefaultPlatform(), new ScoreCounter());
+        this.player = new Player(UnitFactory.makeDefaultPlatform(), new ScoreCounter());
     }
 
     private void thick() {
