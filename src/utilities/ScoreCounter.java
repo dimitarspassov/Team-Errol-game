@@ -2,6 +2,8 @@ package utilities;
 
 
 import units.bricks.Brick;
+import units.bricks.Stone;
+
 import java.awt.*;
 
 public class ScoreCounter {
@@ -22,7 +24,7 @@ public class ScoreCounter {
         this.levelScore = 0;
     }
 
-    public int getRemainingBricks(Brick[] bricks, Graphics graphics) {
+    public int getRemainingBricks(Brick[] bricks, Stone[] stones, Graphics graphics) {
         score -= levelScore;
         levelScore = 0;
         int bricksRemaining = bricks.length;
@@ -40,6 +42,14 @@ public class ScoreCounter {
                 }
             }
         }
+        if (stones != null) {
+            for (Stone stone : stones) {
+                if (stone.isDestroyed()) {
+                    levelScore += 10;
+                }
+            }
+        }
+
         score += levelScore;
         return bricksRemaining;
     }

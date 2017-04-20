@@ -95,6 +95,8 @@ public class Player {
     public void setFrostBalls(Game game, Brick[] bricks, Stone[] stones) {
 
         this.balls.add(new FrostBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
-        //todo:Make all balls fireballs
+        //todo:Make all balls frostballs
     }
+
+    public void resetLives(){this.lives=DEFAULT_LIVES;}
 }

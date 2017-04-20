@@ -123,10 +123,12 @@ public class Game extends JFrame implements Runnable {
             unitLoader.renderMovableObjects(this.player.getBalls(), graphics);
             unitLoader.renderMovableObjects(this.player.getBullets(), graphics);
 
-            this.bricksRemaining = this.player.getScoreCounter().getRemainingBricks(bricks, graphics);
+            this.bricksRemaining = this.player.getScoreCounter().getRemainingBricks(bricks, stones, graphics);
             if (stones != null) {
                 for (Stone stone : this.stones) {
-                    UnitLoader.prepareUnitForDrawing(this.graphics, stone);
+                    if (!stone.isDestroyed()) {
+                        UnitLoader.prepareUnitForDrawing(this.graphics, stone);
+                    }
                 }
             }
 
@@ -256,7 +258,7 @@ public class Game extends JFrame implements Runnable {
 
                 // Stop the game when all ballsAndBullets exit game field
                 if (this.player.getBalls().size() == 0) {
-
+                    System.out.println("opa");
                     this.player.decreaseLives();
                     if (this.player.getLives() == 0) {
                         this.state = State.GAME_OVER;
@@ -345,6 +347,9 @@ public class Game extends JFrame implements Runnable {
 
     void setState(State state) {
         this.state = state;
+        if (this.state == State.GAME && currentLevel == 1) {
+            this.player.resetLives();
+        }
     }
 
     public void playSound(String fileName) {
