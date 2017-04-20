@@ -76,7 +76,6 @@ public class Game extends JFrame implements Runnable {
         this.gameTimer = new GameTimer();
         this.soundLoader = new SoundLoader(this);
         soundLoader.playBackgroundMusic(false);
-        this.player = new Player(UnitFactory.makeDefaultPlatform(), new ScoreCounter());
     }
 
     private void thick() {
@@ -102,6 +101,9 @@ public class Game extends JFrame implements Runnable {
         this.graphics = this.bs.getDrawGraphics();
 
         if (levelSwitched) {
+            if (currentLevel == 1) {
+                this.player = new Player(UnitFactory.makeDefaultPlatform(), new ScoreCounter());
+            }
             levelSwitched = false;
             this.bricks = unitLoader.getBricks(currentLevel);
             this.bricksRemaining = this.bricks.length;
