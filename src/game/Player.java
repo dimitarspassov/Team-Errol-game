@@ -66,6 +66,7 @@ public class Player {
         this.balls.add(new SimpleBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
         this.balls.get(0).pressSpace(false);
         this.platform.reset();
+        this.platform.canFire(false);
     }
 
     public void fireFromPlatform(Brick[] bricks, Stone[] stones) {
