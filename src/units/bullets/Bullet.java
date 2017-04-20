@@ -19,9 +19,14 @@ public class Bullet extends AbstractBullet {
 
     public void move(Game game) {
         this.setY(this.getY() - 5);
-        // Draw the bricks
         if (super.getBricks() != null) {
             for (Brick brick : super.getBricks()) {
+                if (brick.isDestroyed()) continue;
+                this.hitBrick(brick, game);
+            }
+        }
+        if (super.getStones() != null) {
+            for (Brick brick : super.getStones()) {
                 if (brick.isDestroyed()) continue;
                 this.hitBrick(brick, game);
             }
@@ -34,6 +39,7 @@ public class Bullet extends AbstractBullet {
             if (brick.isDestroyed()) {
                 this.collectBonus(brick, game);
             }
+            super.hitTarget();
         }
     }
 
@@ -42,4 +48,10 @@ public class Bullet extends AbstractBullet {
             game.addBonus(brick.getBonus());
         }
     }
+
+    @Override
+    public boolean isOutOfMap() {
+        return this.getY()<=0;
+    }
+
 }

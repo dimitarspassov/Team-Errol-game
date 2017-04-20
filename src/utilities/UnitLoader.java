@@ -23,8 +23,8 @@ import java.util.List;
 public class UnitLoader {
 
     //todo:fix static or none!
-    public <T extends Movable> void renderMovableObjects(List<T> balls, Graphics graphics) {
-        balls.stream().forEach(movable -> prepareUnitForDrawing(graphics, movable));
+    public <T extends Movable> void renderMovableObjects(List<T> moveableCollection, Graphics graphics) {
+        moveableCollection.stream().forEach(movable -> prepareUnitForDrawing(graphics, movable));
     }
 
     public void renderBonuses(ArrayList<Bonus> bonuses, List<Ball> balls, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics, Game game) {

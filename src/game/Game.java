@@ -258,7 +258,6 @@ public class Game extends JFrame implements Runnable {
 
                 // Stop the game when all ballsAndBullets exit game field
                 if (this.player.getBalls().size() == 0) {
-                    System.out.println("opa");
                     this.player.decreaseLives();
                     if (this.player.getLives() == 0) {
                         this.state = State.GAME_OVER;

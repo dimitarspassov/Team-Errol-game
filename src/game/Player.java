@@ -1,13 +1,13 @@
 package game;
 
 
-import units.Movable;
 import units.balls.Ball;
 import units.balls.FireBall;
 import units.balls.FrostBall;
 import units.balls.SimpleBall;
 import units.bricks.Brick;
 import units.bricks.Stone;
+import units.bullets.Ammo;
 import units.bullets.Bullet;
 import units.platform.Platform;
 import utilities.ScoreCounter;
@@ -22,7 +22,7 @@ public class Player {
 
     private Platform platform;
     private List<Ball> balls;
-    private List<Movable> bullets;
+    private List<Ammo> bullets;
     private int lives;
     private ScoreCounter scoreCounter;
 
@@ -43,9 +43,16 @@ public class Player {
         return this.balls;
     }
 
-    public List<Movable> getBullets() {
+    public List<Ammo> getBullets() {
 
+        this.filterAmmo();
         return this.bullets;
+    }
+
+    private void filterAmmo() {
+
+        this.bullets = this.bullets.stream().filter(b -> !b.hasHitTarget() && !b.isOutOfMap()).collect(Collectors.toList());
+
     }
 
     public int getLives() {
@@ -98,5 +105,7 @@ public class Player {
         //todo:Make all balls frostballs
     }
 
-    public void resetLives(){this.lives=DEFAULT_LIVES;}
+    public void resetLives() {
+        this.lives = DEFAULT_LIVES;
+    }
 }

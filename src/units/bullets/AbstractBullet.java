@@ -1,14 +1,13 @@
 package units.bullets;
 
 
-import units.Movable;
 import units.bricks.Brick;
 import units.bricks.Stone;
 import units.platform.Platform;
 
 import java.awt.*;
 
-public abstract class AbstractBullet implements Movable {
+public abstract class AbstractBullet implements Ammo {
 
     private int x;
     private int y;
@@ -18,6 +17,7 @@ public abstract class AbstractBullet implements Movable {
     private Platform platform;
     private Brick[] bricks;
     private Stone[] stones;
+    private boolean targetHit;
 
     protected AbstractBullet(int x, int y, int width, int height, Platform platform, Brick[] bricks, Stone[] stones, Image image) {
         this.setX(x);
@@ -51,11 +51,16 @@ public abstract class AbstractBullet implements Movable {
     }
 
     public Brick[] getBricks() {
-        return bricks;
+        return this.bricks;
     }
 
     public Stone[] getStones() {
-        return stones;
+        return this.stones;
+    }
+
+    @Override
+    public boolean hasHitTarget() {
+        return this.targetHit;
     }
 
     protected Platform getPlatform() {
@@ -78,4 +83,7 @@ public abstract class AbstractBullet implements Movable {
         this.height = height;
     }
 
+    protected void hitTarget() {
+        this.targetHit = true;
+    }
 }
