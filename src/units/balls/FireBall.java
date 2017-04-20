@@ -10,24 +10,19 @@ import utilities.StaticData;
 
 import java.awt.*;
 
-/**
- * Created by Димитър on 19/04/2017.
- */
 public class FireBall extends AbstractBall implements Ball {
-    private static final Image image = ImageLoader.loadImage(StaticData.PIC_FIREBALL);
+    private static final Image FIREBALL_IMAGE = ImageLoader.loadImage(StaticData.PIC_FIREBALL);
 
     public FireBall(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
                       Platform platform, Brick[] bricks, Stone[] stones) {
-        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, image);
+        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, FIREBALL_IMAGE);
     }
 
     public void move(Game game) {
 
-        System.out.println("this is fireball");
         int ballMinX = super.getRadius();
         int ballMaxX = 800 - super.getRadius();
         int ballMaxY = 600 - super.getRadius();
-
 
         // If Space is pressed-ballsAndBullets moves,
         // otherwise stands still on platform

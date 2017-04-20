@@ -50,6 +50,7 @@ public class Game extends JFrame implements Runnable {
     private int bonusPoints;
     private Player player;
     private ScoreCounter scoreCounter;
+    private UnitLoader unitLoader;
 
     public Game(String name, int width, int height) {
         this.name = name;
@@ -57,6 +58,7 @@ public class Game extends JFrame implements Runnable {
         this.height = height;
         this.state = State.MENU;
         this.scoreCounter = new ScoreCounter();
+        this.unitLoader = new UnitLoader();
     }
 
     private void initialization() {
@@ -74,7 +76,7 @@ public class Game extends JFrame implements Runnable {
         this.gameTimer = new GameTimer();
         this.soundLoader = new SoundLoader(this);
         soundLoader.playBackgroundMusic(false);
-        this.player = new Player(new SimplePlatform(350, 550, 100, 20, 12),new ScoreCounter());
+        this.player = new Player(new SimplePlatform(350, 550, 100, 20, 12), new ScoreCounter());
     }
 
     private void thick() {
@@ -101,10 +103,9 @@ public class Game extends JFrame implements Runnable {
 
         if (levelSwitched) {
             levelSwitched = false;
-            this.bricks = UnitLoader.getBricks(currentLevel);
+            this.bricks = unitLoader.getBricks(currentLevel);
             this.bricksRemaining = this.bricks.length;
-            this.stones = UnitLoader.getStones(currentLevel);
-            //this.player = new Player(new SimplePlatform(350, 550, 100, 20, 12), scoreCounter);
+            this.stones = unitLoader.getStones(currentLevel);
             this.player.init(bricks, stones);
             this.player.getScoreCounter().resetLevelScore();
             unitsInitialized = true;
@@ -119,8 +120,8 @@ public class Game extends JFrame implements Runnable {
             //Creating the platform
             this.player.getPlatform().render(graphics);
             UnitLoader.prepareUnitForDrawing(this.graphics, this.player.getPlatform());
-            UnitLoader.renderMovableObjects(this.player.getBalls(), graphics);
-            UnitLoader.renderMovableObjects(this.player.getBullets(), graphics);
+            unitLoader.renderMovableObjects(this.player.getBalls(), graphics);
+            unitLoader.renderMovableObjects(this.player.getBullets(), graphics);
 
             this.bricksRemaining = this.player.getScoreCounter().getRemainingBricks(bricks, graphics);
             if (stones != null) {
@@ -131,7 +132,7 @@ public class Game extends JFrame implements Runnable {
 
             //Bonuses
             if (bonuses != null) {
-                UnitLoader.renderBonuses(this.bonuses, this.player.getBalls(), bricks, stones, this.player.getPlatform(), this.graphics, this);
+                unitLoader.renderBonuses(this.bonuses, this.player.getBalls(), bricks, stones, this.player.getPlatform(), this.graphics, this);
             }
 
             this.player.getScoreCounter().setLastResult(this.player.getScoreCounter().getScore());
@@ -366,7 +367,7 @@ public class Game extends JFrame implements Runnable {
         this.player.fireFromPlatform(this.bricks, this.stones);
     }
 
-    Player getPlayer() {
+    public Player getPlayer() {
         return this.player;
     }
 
@@ -389,6 +390,7 @@ public class Game extends JFrame implements Runnable {
     void switchLevel(boolean state) {
         this.levelSwitched = state;
     }
+
     public void liveUp() {
         this.player.increaseLives();
     }

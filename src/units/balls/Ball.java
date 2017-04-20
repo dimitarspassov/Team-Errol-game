@@ -1,7 +1,6 @@
 package units.balls;
 
 
-
 import units.Movable;
 
 public interface Ball extends Movable {

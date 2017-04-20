@@ -3,6 +3,8 @@ package game;
 
 import units.Movable;
 import units.balls.Ball;
+import units.balls.FireBall;
+import units.balls.FrostBall;
 import units.balls.SimpleBall;
 import units.bricks.Brick;
 import units.bricks.Stone;
@@ -81,5 +83,17 @@ public class Player {
 
     public ScoreCounter getScoreCounter() {
         return scoreCounter;
+    }
+
+    public void setFireBalls(Game game, Brick[] bricks, Stone[] stones) {
+
+        this.balls.add(new FireBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+        //todo:Make all balls fireballs
+    }
+
+    public void setFrostBalls(Game game, Brick[] bricks, Stone[] stones) {
+
+        this.balls.add(new FrostBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
+        //todo:Make all balls fireballs
     }
 }

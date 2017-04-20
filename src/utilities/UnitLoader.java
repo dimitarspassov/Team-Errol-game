@@ -9,7 +9,6 @@ import units.GameUnit;
 import units.Movable;
 import units.balls.Ball;
 import units.balls.FireBall;
-import units.balls.FrostBall;
 import units.balls.SimpleBall;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
@@ -23,12 +22,12 @@ import java.util.List;
 
 public class UnitLoader {
 
-    public static <T extends Movable> void renderMovableObjects(List<T> balls, Graphics graphics) {
+    //todo:fix static or none!
+    public <T extends Movable> void renderMovableObjects(List<T> balls, Graphics graphics) {
         balls.stream().forEach(movable -> prepareUnitForDrawing(graphics, movable));
     }
 
-    public static void renderBonuses(ArrayList<Bonus> bonuses, List<Ball> balls, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics, Game game) {
-
+    public void renderBonuses(ArrayList<Bonus> bonuses, List<Ball> balls, Brick[] bricks, Stone[] stones, Platform platform, Graphics graphics, Game game) {
         for (Bonus bonus : bonuses) {
             if (bonus.getStatus()) {
                 bonus.setY(bonus.getY() + 3);
@@ -97,23 +96,12 @@ public class UnitLoader {
                         balls.forEach(b -> b.pressSpace(true));
                         break;
                     case FIRE_BALL: {
-                        List<Ball> newBalls = new ArrayList<>();
-                        balls.stream().forEach(b -> newBalls.add(new FireBall(
-                                b.getX(), b.getY(), b.getRadius(), b.getWidth(),
-                                game.getHeight(), b.getSpeedX(), b.getSpeedY(), platform, bricks, stones)));
-                        balls = null;
-                        System.out.println("null");
-                        balls = newBalls;
+                        game.getPlayer().setFireBalls(game, bricks, stones);
                     }
                     break;
+
                     case FROST_BALL: {
-                        List<Ball> newBalls = new ArrayList<>();
-                        balls.stream().forEach(b -> newBalls.add(new FrostBall(
-                                b.getX(), b.getY(), b.getRadius(), b.getWidth(),
-                                game.getHeight(), b.getSpeedX(), b.getSpeedY(), platform, bricks, stones)));
-                        balls = null;
-                        System.out.println("null");
-                        balls = newBalls;
+                        game.getPlayer().setFrostBalls(game, bricks, stones);
                     }
                     break;
                 }
@@ -121,18 +109,19 @@ public class UnitLoader {
         }
     }
 
-    public static Brick[] getBricks(byte level) {
+    //todo:implement death bonus!
+    public Brick[] getBricks(byte level) {
 
         return currentLevelClass(level).generateBricks();
     }
 
-    public static Stone[] getStones(byte level) {
+    public Stone[] getStones(byte level) {
 
         return currentLevelClass(level).generateStones();
     }
 
 
-    private static Level currentLevelClass(byte level) {
+    private Level currentLevelClass(byte level) {
 
 
         Level currentLevel = null;

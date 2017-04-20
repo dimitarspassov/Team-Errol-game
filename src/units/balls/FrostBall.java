@@ -10,9 +10,7 @@ import utilities.StaticData;
 
 import java.awt.*;
 
-/**
- * Created by Димитър on 19/04/2017.
- */
+
 public class FrostBall extends AbstractBall implements Ball {
     private static final Image image = ImageLoader.loadImage(StaticData.PIC_FROSTBALL);
 
@@ -22,7 +20,7 @@ public class FrostBall extends AbstractBall implements Ball {
     }
 
     public void move(Game game) {
-        System.out.println("this is frostball");
+      //todo:some of the logic should be in the abstract class!
         int ballMinX = super.getRadius();
         int ballMaxX = 800 - super.getRadius();
         int ballMaxY = 600 - super.getRadius();
