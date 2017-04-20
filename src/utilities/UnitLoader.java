@@ -8,7 +8,6 @@ import levels.Level;
 import units.GameUnit;
 import units.Movable;
 import units.balls.Ball;
-import units.balls.FireBall;
 import units.balls.SimpleBall;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
@@ -22,7 +21,7 @@ import java.util.List;
 
 public class UnitLoader {
 
-    //todo:fix static or none!
+
     public <T extends Movable> void renderMovableObjects(List<T> moveableCollection, Graphics graphics) {
         moveableCollection.stream().forEach(movable -> prepareUnitForDrawing(graphics, movable));
     }
@@ -40,7 +39,7 @@ public class UnitLoader {
                 switch (bonusType) {
                     case BALL_SIZE_UP:
                         //SimpleBall Size Up Bonus
-                        balls.stream().forEach(ball -> ball.sizeUp());
+                        balls.forEach(Ball::sizeUp);
                         break;
                     case PLATFORM_SIZE_UP:
                         //Platform Size Up Bonus
@@ -53,7 +52,7 @@ public class UnitLoader {
 
                     case BALL_SPEED_UP:
                         //SimpleBall Speed Up Bonus
-                        balls.stream().forEach(ball -> ball.speedUp());
+                        balls.forEach(Ball::speedUp);
                         break;
 
                     case PLATFORM_SPEED_UP:
@@ -71,7 +70,7 @@ public class UnitLoader {
                     case THREE_BALLS:
                         //Three SimpleBall Bonus
                         List<SimpleBall> ballsNew = new ArrayList<>();
-                        balls.stream().forEach(ball -> {
+                        balls.forEach(ball -> {
                             ballsNew.add(new SimpleBall(
                                     ball.getX() + 15,
                                     ball.getY() - 15,
@@ -96,12 +95,11 @@ public class UnitLoader {
                         balls.forEach(b -> b.pressSpace(true));
                         break;
                     case FIRE_BALL: {
-                        game.getPlayer().setFireBalls(game, bricks, stones);
+                        game.getPlayer().setFireBalls(bricks, stones);
                     }
                     break;
-
                     case FROST_BALL: {
-                        game.getPlayer().setFrostBalls(game, bricks, stones);
+                        game.getPlayer().setFrostBalls(bricks, stones);
                     }
                     break;
                 }

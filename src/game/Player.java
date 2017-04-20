@@ -93,16 +93,22 @@ public class Player {
         return scoreCounter;
     }
 
-    public void setFireBalls(Game game, Brick[] bricks, Stone[] stones) {
+    public void setFireBalls(Brick[] bricks, Stone[] stones) {
 
-        this.balls.add(new FireBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
-        //todo:Make all balls fireballs
+        List<Ball> newBalls = new ArrayList<>();
+        this.balls.forEach(ball -> newBalls.add(new FireBall(ball.getX(), ball.getY(),
+                ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
+        this.balls = newBalls;
+        this.balls.forEach(ball -> ball.pressSpace(true));
     }
 
-    public void setFrostBalls(Game game, Brick[] bricks, Stone[] stones) {
+    public void setFrostBalls(Brick[] bricks, Stone[] stones) {
 
-        this.balls.add(new FrostBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones));
-        //todo:Make all balls frostballs
+        List<Ball> newBalls = new ArrayList<>();
+        this.balls.forEach(ball -> newBalls.add(new FrostBall(ball.getX(), ball.getY(),
+                ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
+        this.balls = newBalls;
+        this.balls.forEach(ball -> ball.pressSpace(true));
     }
 
     public void resetLives() {
