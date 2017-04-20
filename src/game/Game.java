@@ -141,7 +141,7 @@ public class Game extends JFrame implements Runnable {
             }
 
             this.player.getScoreCounter().setLastResult(this.player.getScoreCounter().getScore());
-            this.menu.renderWidgets(graphics, gameTimer, this.player.getScoreCounter().getScore(), currentLevel, isSoundMuted);
+            this.menu.renderWidgets(graphics, gameTimer, this.player.getScoreCounter().getScore(), currentLevel);
             checkLives();
         } else if (this.state == State.PAUSE) {
             // Draw buttons when user is paused the game
@@ -150,10 +150,10 @@ public class Game extends JFrame implements Runnable {
                 this.graphics.drawImage(ImageLoader.loadImage(StaticData.BUTTON_EXIT), 300, 350, 200, 50, null);
             }
         } else {
-
             this.graphics.drawImage(ImageLoader.loadImage(StaticData.BACKGROUND_PIC), 0, 0, 800, 600, null);
-            this.menu.render(graphics, currentLevel);
         }
+        this.menu.renderSoundIcon(graphics, isSoundMuted);
+        this.menu.render(graphics, currentLevel);
 
         // Whatever we draw, it finally goes through dispose and the it is shown.
         this.graphics.dispose();

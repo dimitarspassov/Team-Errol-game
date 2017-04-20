@@ -109,12 +109,12 @@ public class Menu {
         }
     }
 
-    public void renderWidgets(Graphics graphics, GameTimer gameTimer,int score, int currentLevel, boolean isSoundMuted) {
+    public void renderWidgets(Graphics graphics, GameTimer gameTimer, int score, int currentLevel) {
         // Show player scores
         graphics.setColor(Color.WHITE);
         graphics.setFont(new Font("serif", Font.BOLD, 27));
 
-        game.setBonusPoints(60-gameTimer.getCounter());
+        game.setBonusPoints(60 - gameTimer.getCounter());
         if (currentLevel == 1 || currentLevel == 2) {
             this.game.displayBonusPointsUsingTimer();
         } else {
@@ -124,11 +124,13 @@ public class Menu {
         game.setLastBonusPoints();
         graphics.drawString("Score: " + score, 620, 30);
         graphics.drawString("Lives: " + this.game.getPlayer().getLives(), 300, 30);
-        // Draw image for state of sound
+    }
+
+    public void renderSoundIcon(Graphics g, boolean isSoundMuted) {
         if (isSoundMuted) {
-            graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_MUTE), 740, 50, 40, 40, null);
+            g.drawImage(ImageLoader.loadImage(StaticData.PIC_MUTE), 740, 50, 40, 40, null);
         } else {
-            graphics.drawImage(ImageLoader.loadImage(StaticData.PIC_SOUND), 740, 50, 40, 40, null);
+            g.drawImage(ImageLoader.loadImage(StaticData.PIC_SOUND), 740, 50, 40, 40, null);
         }
     }
 }
