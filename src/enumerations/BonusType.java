@@ -12,6 +12,7 @@ public enum BonusType {
     LIVE_UP,
     PLATFORM_FIRE,
     FROST_BALL,
-    FIRE_BALL
+    FIRE_BALL,
+    KILL
 
 }

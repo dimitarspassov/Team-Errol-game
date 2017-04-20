@@ -139,7 +139,7 @@ public class Game extends JFrame implements Runnable {
 
             this.player.getScoreCounter().setLastResult(this.player.getScoreCounter().getScore());
             this.menu.renderWidgets(graphics, gameTimer, this.player.getScoreCounter().getScore(), currentLevel, isSoundMuted);
-
+            checkLives();
         } else if (this.state == State.PAUSE) {
             // Draw buttons when user is paused the game
             if (isGamePaused) {
@@ -268,6 +268,7 @@ public class Game extends JFrame implements Runnable {
                         this.player.init(this.bricks, this.stones);
                         this.pressSpace(false);
                     }
+
                 }
             }
         }
@@ -399,4 +400,12 @@ public class Game extends JFrame implements Runnable {
         this.player.increaseLives();
     }
 
+    private void checkLives() {
+        if (this.player.getLives() == 0) {
+            this.state = State.GAME_OVER;
+            levelSwitched = true;
+            this.initLevel();
+            currentLevel = 1;
+        }
+    }
 }

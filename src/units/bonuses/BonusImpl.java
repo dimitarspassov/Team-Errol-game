@@ -60,6 +60,9 @@ public class BonusImpl implements Bonus {
             case FROST_BALL:
                 setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_FROSTBALL_BONUS)).getImage());
                 break;
+            case KILL:
+                setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_KILL)).getImage());
+                break;
 
         }
 
