@@ -30,7 +30,7 @@ public class Bullet extends AbstractBullet {
 
     private void hitBrick(Brick brick, Game game) {
         if (brick.getRect().intersects(new Rectangle(this.getX(), this.getY(), this.getWidth(), this.getHeight()))) {
-            brick.hitBrick();
+            brick.hit();
             if (brick.isDestroyed()) {
                 this.collectBonus(brick, game);
             }

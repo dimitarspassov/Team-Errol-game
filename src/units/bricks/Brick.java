@@ -9,7 +9,7 @@ import java.awt.*;
 
 public interface Brick extends GameUnit {
 
-    void hitBrick();
+    boolean hit();
 
     boolean isDestroyed();
 

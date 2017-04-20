@@ -1,8 +1,5 @@
 package units.bricks;
 
-import enumerations.BonusType;
-import units.bonuses.Bonus;
-import units.bonuses.BonusImpl;
 import utilities.StaticData;
 
 import javax.swing.*;
@@ -31,18 +28,19 @@ public class RectangleBrick extends AbstractBrick {
         }
     }
 
-    public void hitBrick() {
+    public boolean hit() {
         super.decreaseHitCount();
         switch (this.getHitCount()) {
             case 2:
                 setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_YELLOW_BRICK)).getImage());
-                break;
+                return true;
             case 1:
                 setImage(new ImageIcon(this.getClass().getResource(StaticData.PIC_GREEN_BRICK)).getImage());
-                break;
+                return true;
             case 0:
                 this.destroy();
-                break;
+                return true;
         }
+        return false;
     }
 }

@@ -13,6 +13,8 @@ public class Stone extends AbstractBrick {
     }
 
     @Override
-    public void hitBrick() {}
+    public boolean hit() {
+        return false;
+    }
 
 }
