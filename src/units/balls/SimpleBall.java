@@ -13,17 +13,13 @@ import java.awt.*;
 public class SimpleBall extends AbstractBall implements Ball {
     private static final Image SIMPLE_BALL_IMAGE = ImageLoader.loadImage(StaticData.PIC_BALL);
 
-    public SimpleBall(String type, int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
+    public SimpleBall(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
                       Platform platform, Brick[] bricks, Stone[] stones) {
-        super(type, centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, SIMPLE_BALL_IMAGE);
-        setType("SimpleBall");
+        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, SIMPLE_BALL_IMAGE);
+
     }
 
-    @Override
-    public void setType(String type) {
-        type = "SimpleBall";
-        super.setType(type);
-    }
+
 
     public void move(Game game) {
         super.move(game);

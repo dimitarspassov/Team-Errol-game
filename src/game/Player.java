@@ -96,7 +96,7 @@ public class Player {
     public void setFireBalls(Brick[] bricks, Stone[] stones) {
 
         List<Ball> newBalls = new ArrayList<>();
-        this.balls.forEach(ball -> newBalls.add(new FireBall("FireBall", ball.getX(), ball.getY(),
+        this.balls.forEach(ball -> newBalls.add(new FireBall(ball.getX(), ball.getY(),
                 ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
         this.balls = newBalls;
         this.balls.forEach(ball -> ball.pressSpace(true));
@@ -105,7 +105,7 @@ public class Player {
     public void setFrostBalls(Brick[] bricks, Stone[] stones) {
 
         List<Ball> newBalls = new ArrayList<>();
-        this.balls.forEach(ball -> newBalls.add(new FrostBall("FrostBall", ball.getX(), ball.getY(),
+        this.balls.forEach(ball -> newBalls.add(new FrostBall(ball.getX(), ball.getY(),
                 ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
         this.balls = newBalls;
         this.balls.forEach(ball -> ball.pressSpace(true));

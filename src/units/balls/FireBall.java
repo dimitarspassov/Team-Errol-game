@@ -14,17 +14,12 @@ import java.awt.*;
 public class FireBall extends AbstractBall implements Ball {
     private static final Image FIREBALL_IMAGE = ImageLoader.loadImage(StaticData.PIC_FIREBALL);
 
-    public FireBall(String type, int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
+    public FireBall(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
                     Platform platform, Brick[] bricks, Stone[] stones) {
-        super(type, centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, FIREBALL_IMAGE);
-        setType("FireBall");
+        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, FIREBALL_IMAGE);
+
     }
 
-    @Override
-    public void setType(String type) {
-        type = "FireBall";
-        super.setType(type);
-    }
 
     public void move(Game game) {
         super.move(game);

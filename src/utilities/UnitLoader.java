@@ -71,7 +71,7 @@ public class UnitLoader {
                         //Three SimpleBall Bonus
                         List<SimpleBall> ballsNew = new ArrayList<>();
                         balls.forEach(ball -> {
-                            ballsNew.add(new SimpleBall("SimpleBall",
+                            ballsNew.add(new SimpleBall(
                                     ball.getX() + 15,
                                     ball.getY() - 15,
                                     ball.getRadius(),
@@ -81,7 +81,7 @@ public class UnitLoader {
                                     ball.getSpeedY() * -1,
                                     platform, bricks, stones));
 
-                            ballsNew.add(new SimpleBall("SimpleBall",
+                            ballsNew.add(new SimpleBall(
                                     ball.getX() - 15,
                                     ball.getY() + 15,
                                     ball.getRadius(),

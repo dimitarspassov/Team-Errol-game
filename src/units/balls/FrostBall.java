@@ -14,18 +14,14 @@ import java.awt.*;
 public class FrostBall extends AbstractBall implements Ball {
     private static final Image image = ImageLoader.loadImage(StaticData.PIC_FROSTBALL);
 
-    public FrostBall(String type, int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
+    public FrostBall(int centerX, int centerY, int radius, int w, int h, int speedX, int speedY,
                      Platform platform, Brick[] bricks, Stone[] stones) {
-        super(type, centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, image);
-        setType("FrostBall");
+        super(centerX, centerY, radius, w, h, speedX, speedY, platform, bricks, stones, image);
+
 
     }
 
-    @Override
-    public void setType(String type) {
-        type = "FrostBall";
-        super.setType(type);
-    }
+
 
     public void move(Game game) {
         super.move(game);

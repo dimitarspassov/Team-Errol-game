@@ -28,16 +28,16 @@ public class UnitFactory {
 
     //used in player class
     public static Ball makeBall(String type, Platform platform, Brick[] bricks, Stone[] stones) {
-        Ball ball = null;
+        Ball ball;
         switch (type) {
             case "FireBall":
-                ball = new FireBall(type, 350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
+                ball = new FireBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
                 break;
             case "FrostBall":
-                ball = new FrostBall(type, 350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
+                ball = new FrostBall(350, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
                 break;
             default:
-                ball = new SimpleBall(type, 250, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
+                ball = new SimpleBall(250, 550, 10, 20, 20, 5, 5, platform, bricks, stones);
                 break;
         }
         return ball;
