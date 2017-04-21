@@ -104,6 +104,7 @@ public class UnitLoader {
                     break;
                     case KILL: {
                         game.getPlayer().decreaseLives();
+                        game.getPlayer().init(bricks, stones);
                     }
                     break;
                 }

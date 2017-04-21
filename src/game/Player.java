@@ -1,5 +1,6 @@
 package game;
 
+import factories.UnitFactory;
 import units.balls.Ball;
 import units.balls.FireBall;
 import units.balls.FrostBall;
@@ -9,7 +10,6 @@ import units.bullets.Ammo;
 import units.bullets.Bullet;
 import units.platform.Platform;
 import utilities.ScoreCounter;
-import factories.UnitFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +51,8 @@ public class Player {
 
     private void filterAmmo() {
 
-        this.bullets = this.bullets.stream().filter(b -> !b.hasHitTarget() && !b.isOutOfMap()).collect(Collectors.toList());
-
+        List<Ammo> filteredAmmo = this.bullets.stream().filter(b -> !b.hasHitTarget() && !b.isOutOfMap()).collect(Collectors.toList());
+        this.bullets = filteredAmmo;
     }
 
     public int getLives() {
