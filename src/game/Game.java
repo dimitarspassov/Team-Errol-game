@@ -216,7 +216,6 @@ public class Game extends JFrame implements Runnable {
             render();
 
             if (this.bricksRemaining == 0 && this.state == State.GAME && unitsInitialized) {
-                //todo: AVOID DUPLICATED CODE!
                 //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
                 if (currentLevel == 1 || currentLevel == 2) {
@@ -228,7 +227,7 @@ public class Game extends JFrame implements Runnable {
                     //Other levels should be passed for less than 2 minutes to get bonus points
                 } else {
                     if (this.gameTimer.getCounter() / 60 < 2) {
-                        int bonusPointsFromTimer = 60 - (this.gameTimer.getCounter() % 60);
+                        int bonusPointsFromTimer = 120 - (this.gameTimer.getCounter() % 60);
                         this.player.getScoreCounter().setScore(this.player.getScoreCounter().getScore() + bonusPointsFromTimer);
                     }
                 }

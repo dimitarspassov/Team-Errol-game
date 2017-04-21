@@ -5,6 +5,8 @@ import java.awt.*;
 
 public abstract class AbstractPlatform implements Platform {
 
+    private static final int DEFAULT_BULLETS = 5;
+
     private int platformX;
     private int platformY;
     private int platformWidth;
@@ -14,6 +16,7 @@ public abstract class AbstractPlatform implements Platform {
     private boolean movingLeft;
     private boolean movingRight;
     private boolean canFire;
+    private int bullets;
 
     protected AbstractPlatform(int platformX, int platformY, int platformWidth, int platformHeight, int velocity, Image image) {
         this.setPlatformX(platformX);
@@ -22,12 +25,27 @@ public abstract class AbstractPlatform implements Platform {
         this.setPlatformHeight(platformHeight);
         this.setVelocity(velocity);
         this.setImage(image);
-        //todo:Remove unnecessary setters!
+
     }
 
-
     public void setCanFire(boolean canFire) {
+
         this.canFire = canFire;
+        if (this.canFire) {
+            this.bullets = DEFAULT_BULLETS;
+        } else {
+            this.bullets = 0;
+        }
+    }
+
+    @Override
+    public void fire() {
+        this.bullets--;
+    }
+
+    @Override
+    public int getRemainingBullets() {
+        return this.bullets;
     }
 
     @Override

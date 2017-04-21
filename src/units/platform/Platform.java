@@ -5,7 +5,7 @@ import units.GameUnit;
 
 import java.awt.*;
 
-public interface Platform extends GameUnit {
+public interface Platform extends GameUnit, Shooter {
 
     void thick();
 
@@ -25,9 +25,4 @@ public interface Platform extends GameUnit {
 
     void moveRight(boolean command);
 
-    void canFire(boolean b);
-
-    boolean isCanFire();
-
-    void reset();
 }

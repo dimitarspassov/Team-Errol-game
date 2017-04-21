@@ -38,7 +38,7 @@ public class Player {
         return platform;
     }
 
-    //todo:Unmodifiable?
+
     public List<Ball> getBalls() {
         return this.balls;
     }
@@ -77,11 +77,12 @@ public class Player {
     }
 
     public void fireFromPlatform(Brick[] bricks, Stone[] stones) {
-        if (platform.isCanFire()) {
+        if (platform.isCanFire() && platform.getRemainingBullets() > 0) {
             Bullet bullet1 = new Bullet(platform.getX() + 2 * platform.getWidth() / 10, platform.getY() - 20, 10, 20, platform, bricks, stones);
             Bullet bullet2 = new Bullet(platform.getX() + 7 * platform.getWidth() / 10, platform.getY() - 20, 10, 20, platform, bricks, stones);
             this.bullets.add(bullet1);
             this.bullets.add(bullet2);
+            this.platform.fire();
         }
     }
 
