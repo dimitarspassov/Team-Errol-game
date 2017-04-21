@@ -102,12 +102,17 @@ public class UnitLoader {
                         game.getPlayer().setFrostBalls(bricks, stones);
                     }
                     break;
+                    case KILL: {
+                        game.getPlayer().decreaseLives();
+                        game.getPlayer().init(bricks, stones);
+                    }
+                    break;
                 }
             }
         }
     }
 
-    //todo:implement death bonus!
+
     public Brick[] getBricks(byte level) {
 
         return currentLevelClass(level).generateBricks();

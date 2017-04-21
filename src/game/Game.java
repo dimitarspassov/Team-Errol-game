@@ -2,6 +2,7 @@ package game;
 
 import display.Display;
 import enumerations.State;
+import factories.UnitFactory;
 import graphics.BackgroundLoader;
 import graphics.ImageLoader;
 import sound.SoundLoader;
@@ -16,8 +17,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
-
-import static factories.UnitFactory.makeDefaultPlatform;
 
 //By far the most complex component of our project. This is the game itself.
 public class Game extends JFrame implements Runnable {
@@ -77,7 +76,6 @@ public class Game extends JFrame implements Runnable {
         this.gameTimer = new GameTimer();
         this.soundLoader = new SoundLoader(this);
         soundLoader.playBackgroundMusic(false);
-        this.player = new Player(makeDefaultPlatform(), new ScoreCounter());
     }
 
     private void thick() {
@@ -103,6 +101,10 @@ public class Game extends JFrame implements Runnable {
         this.graphics = this.bs.getDrawGraphics();
 
         if (levelSwitched) {
+            if (currentLevel == 1) {
+                this.player = new Player(UnitFactory.makeDefaultPlatform(), scoreCounter);
+                scoreCounter.reset();
+            }
             levelSwitched = false;
             this.bricks = unitLoader.getBricks(currentLevel);
             this.bricksRemaining = this.bricks.length;
@@ -114,7 +116,6 @@ public class Game extends JFrame implements Runnable {
 
         soundLoader.playBackgroundMusic(isSoundMuted);
         if (this.state == State.GAME) {
-
 
             BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
 
@@ -269,7 +270,6 @@ public class Game extends JFrame implements Runnable {
                         this.player.init(this.bricks, this.stones);
                         this.pressSpace(false);
                     }
-
                 }
             }
         }
