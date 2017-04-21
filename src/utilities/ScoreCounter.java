@@ -14,10 +14,7 @@ public class ScoreCounter {
     private int levelScore;
 
     public ScoreCounter() {
-        this.score = 0;
-        this.levelScore = 0;
-        this.lastBonusPoints = 0;
-        this.lastResult = 0;
+        this.reset();
     }
 
     public void resetLevelScore() {
@@ -76,5 +73,12 @@ public class ScoreCounter {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void reset() {
+
+        this.score = 0;
+        this.levelScore = 0;
+        this.lastBonusPoints = 0;
     }
 }

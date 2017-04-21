@@ -102,7 +102,8 @@ public class Game extends JFrame implements Runnable {
 
         if (levelSwitched) {
             if (currentLevel == 1) {
-                this.player = new Player(UnitFactory.makeDefaultPlatform(), new ScoreCounter());
+                this.player = new Player(UnitFactory.makeDefaultPlatform(), scoreCounter);
+                scoreCounter.reset();
             }
             levelSwitched = false;
             this.bricks = unitLoader.getBricks(currentLevel);
@@ -115,7 +116,6 @@ public class Game extends JFrame implements Runnable {
 
         soundLoader.playBackgroundMusic(isSoundMuted);
         if (this.state == State.GAME) {
-
 
             BackgroundLoader.setBackgroundForLevel(currentLevel, graphics);
 
@@ -270,7 +270,6 @@ public class Game extends JFrame implements Runnable {
                         this.player.init(this.bricks, this.stones);
                         this.pressSpace(false);
                     }
-
                 }
             }
         }
