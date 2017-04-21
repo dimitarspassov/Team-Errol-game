@@ -9,6 +9,7 @@ import sound.SoundLoader;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.bricks.Stone;
+import units.platform.Platform;
 import utilities.ScoreCounter;
 import utilities.StaticData;
 import utilities.UnitLoader;
