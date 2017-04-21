@@ -3,6 +3,7 @@ package utilities;
 
 import annotations.LevelClass;
 import enumerations.BonusType;
+import factories.UnitFactory;
 import game.Game;
 import levels.Level;
 import units.GameUnit;
@@ -69,28 +70,17 @@ public class UnitLoader {
                         break;
                     case THREE_BALLS:
                         //Three SimpleBall Bonus
-                        List<SimpleBall> ballsNew = new ArrayList<>();
-                        balls.forEach(ball -> {
-                            ballsNew.add(new SimpleBall(
-                                    ball.getX() + 15,
-                                    ball.getY() - 15,
-                                    ball.getRadius(),
-                                    ball.getWidth(),
-                                    ball.getHeight(),
-                                    ball.getSpeedX(),
-                                    ball.getSpeedY() * -1,
-                                    platform, bricks, stones));
+//                        List<SimpleBall> ballsNew = new ArrayList<>();
+                        List<Ball> ballsNew = new ArrayList<>();
 
-                            ballsNew.add(new SimpleBall(
-                                    ball.getX() - 15,
-                                    ball.getY() + 15,
-                                    ball.getRadius(),
-                                    ball.getWidth(),
-                                    ball.getHeight(),
-                                    ball.getSpeedX() * -2,
-                                    ball.getSpeedY(),
-                                    platform, bricks, stones));
-                        });
+                        for (Ball ball : balls) {
+                            ballsNew.add(UnitFactory.makeTwoMoreBalls(ball, "BallOne", platform, bricks, stones));
+                        }
+
+                        for (Ball ball : balls) {
+                            ballsNew.add(UnitFactory.makeTwoMoreBalls(ball, "BallTwo", platform, bricks, stones));
+
+                        }
                         balls.addAll(ballsNew);
                         balls.forEach(b -> b.pressSpace(true));
                         break;

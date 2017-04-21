@@ -70,7 +70,7 @@ public class Player {
     public void init(Brick[] bricks, Stone[] stones) {
         this.balls = new ArrayList<>();
         this.bullets = new ArrayList<>();
-        this.balls.add(UnitFactory.makeBall("SimpleBall", platform, bricks, stones));
+        this.balls.add(UnitFactory.makeDefaultBall("SimpleBall", platform, bricks, stones));
         this.balls.get(0).pressSpace(false);
         this.platform.reset();
         this.platform.canFire(false);
@@ -78,10 +78,8 @@ public class Player {
 
     public void fireFromPlatform(Brick[] bricks, Stone[] stones) {
         if (platform.isCanFire()) {
-            Bullet bullet1 = new Bullet(platform.getX() + 2 * platform.getWidth() / 10, platform.getY() - 20, 10, 20, platform, bricks, stones);
-            Bullet bullet2 = new Bullet(platform.getX() + 7 * platform.getWidth() / 10, platform.getY() - 20, 10, 20, platform, bricks, stones);
-            this.bullets.add(bullet1);
-            this.bullets.add(bullet2);
+            this.bullets.add(UnitFactory.makeBullet("1", platform, bricks, stones));
+            this.bullets.add(UnitFactory.makeBullet("2", platform, bricks, stones));
         }
     }
 
@@ -96,8 +94,13 @@ public class Player {
     public void setFireBalls(Brick[] bricks, Stone[] stones) {
 
         List<Ball> newBalls = new ArrayList<>();
-        this.balls.forEach(ball -> newBalls.add(new FireBall(ball.getX(), ball.getY(),
-                ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
+        for (Ball ball : this.balls) {
+            newBalls.add(UnitFactory.makeBall(ball, "FireBall", platform, bricks, stones));
+
+        }
+//        this.balls.forEach(ball -> newBalls.add(new FireBall(ball.getX(), ball.getY(),
+//                ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
+//        this.balls.forEach(ball -> newBalls.add(UnitFactory.makeBall(ball, "FireBall", platform, bricks, stones)));
         this.balls = newBalls;
         this.balls.forEach(ball -> ball.pressSpace(true));
     }
@@ -105,8 +108,13 @@ public class Player {
     public void setFrostBalls(Brick[] bricks, Stone[] stones) {
 
         List<Ball> newBalls = new ArrayList<>();
-        this.balls.forEach(ball -> newBalls.add(new FrostBall(ball.getX(), ball.getY(),
-                ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
+        for (Ball ball : this.balls) {
+            newBalls.add(UnitFactory.makeBall(ball, "FrostBall", platform, bricks, stones));
+        }
+
+//        this.balls.forEach(ball -> newBalls.add(new FrostBall(ball.getX(), ball.getY(),
+//                ball.getRadius(), ball.getWidth(), ball.getHeight(), ball.getSpeedX(), ball.getSpeedY(), platform, bricks, stones)));
+//        this.balls.forEach(ball -> newBalls.add(UnitFactory.makeBall(ball, "FrostBall", platform, bricks, stones)));
         this.balls = newBalls;
         this.balls.forEach(ball -> ball.pressSpace(true));
     }
