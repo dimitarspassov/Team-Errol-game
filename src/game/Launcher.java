@@ -1,6 +1,6 @@
 package game;
 
-// Here is the start-point of our project. The launcher does nothing else but start the game.
+
 public class Launcher {
 
     public static void main(String[] args) {

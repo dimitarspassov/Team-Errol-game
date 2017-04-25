@@ -9,7 +9,6 @@ import sound.SoundLoader;
 import units.bonuses.Bonus;
 import units.bricks.Brick;
 import units.bricks.Stone;
-import units.platform.Platform;
 import utilities.ScoreCounter;
 import utilities.StaticData;
 import utilities.UnitLoader;
@@ -107,11 +106,13 @@ public class Game extends JFrame implements Runnable {
                 scoreCounter.reset();
             }
             levelSwitched = false;
-            this.bricks = unitLoader.getBricks(currentLevel);
-            this.bricksRemaining = this.bricks.length;
-            this.stones = unitLoader.getStones(currentLevel);
-            this.player.init(bricks, stones);
-            this.player.getScoreCounter().resetLevelScore();
+            if (this.state != State.WIN) {
+                this.bricks = unitLoader.getBricks(currentLevel);
+                this.bricksRemaining = this.bricks.length;
+                this.stones = unitLoader.getStones(currentLevel);
+                this.player.init(bricks, stones);
+                this.player.getScoreCounter().resetLevelScore();
+            }
             unitsInitialized = true;
         }
 
@@ -216,7 +217,7 @@ public class Game extends JFrame implements Runnable {
             }
             render();
 
-            if (this.bricksRemaining == 0 && this.state == State.GAME && unitsInitialized) {
+            if (this.bricksRemaining ==0 && this.state == State.GAME && unitsInitialized) {
                 //If a player passes level 1 or level 2 under 1 minute - gets bonus points 60 minus one's points
                 //Example - player passes level one for 50 seconds - one gets 60 - 50 = 10 points bonus
                 if (currentLevel == 1 || currentLevel == 2) {
